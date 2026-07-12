@@ -1,0 +1,282 @@
+[
+  {
+    "id": "doc-passaporte",
+    "categoria": "documentacao",
+    "texto": "Verificar validade do passaporte (mínimo 6 meses após a viagem)",
+    "prioridade": "alta",
+    "timelineMes": -9
+  },
+  {
+    "id": "doc-ds160",
+    "categoria": "documentacao",
+    "texto": "Preencher formulário DS-160 para visto americano",
+    "prioridade": "alta",
+    "timelineMes": -9
+  },
+  {
+    "id": "doc-entrevista",
+    "categoria": "documentacao",
+    "texto": "Agendar e comparecer à entrevista no consulado americano",
+    "prioridade": "alta",
+    "timelineMes": -8
+  },
+  {
+    "id": "doc-seguro",
+    "categoria": "documentacao",
+    "texto": "Contratar seguro viagem internacional com cobertura médica",
+    "prioridade": "alta",
+    "timelineMes": -5
+  },
+  {
+    "id": "doc-carta-convite",
+    "categoria": "documentacao",
+    "texto": "Solicitar carta convite da empresa ou AWS (se aplicável)",
+    "prioridade": "media",
+    "timelineMes": -8
+  },
+  {
+    "id": "doc-avisar-banco",
+    "categoria": "documentacao",
+    "texto": "Avisar banco e operadora de cartão sobre viagem internacional",
+    "prioridade": "media",
+    "timelineMes": -1
+  },
+  {
+    "id": "doc-copias",
+    "categoria": "documentacao",
+    "texto": "Fazer cópias digitais de passaporte, visto e documentos importantes",
+    "prioridade": "media",
+    "timelineMes": -1
+  },
+  {
+    "id": "doc-esta",
+    "categoria": "documentacao",
+    "texto": "ESTA não se aplica a brasileiros — necessário visto B1/B2",
+    "prioridade": "baixa",
+    "timelineMes": -9
+  },
+  {
+    "id": "hotel-pesquisar",
+    "categoria": "hotel",
+    "texto": "Pesquisar hotéis parceiros AWS e comparar preços/localização",
+    "prioridade": "alta",
+    "timelineMes": -8
+  },
+  {
+    "id": "hotel-reservar",
+    "categoria": "hotel",
+    "texto": "Reservar hotel (preferência: venue ou próximo ao Venetian)",
+    "prioridade": "alta",
+    "timelineMes": -7
+  },
+  {
+    "id": "hotel-cancelamento",
+    "categoria": "hotel",
+    "texto": "Confirmar política de cancelamento gratuito da reserva",
+    "prioridade": "media",
+    "timelineMes": -7
+  },
+  {
+    "id": "hotel-resort-fee",
+    "categoria": "hotel",
+    "texto": "Verificar valor do resort fee diário (cobrado no check-out)",
+    "prioridade": "media",
+    "timelineMes": -7
+  },
+  {
+    "id": "hotel-shuttle",
+    "categoria": "hotel",
+    "texto": "Verificar se hotel tem shuttle gratuito AWS para venues",
+    "prioridade": "media",
+    "timelineMes": -2
+  },
+  {
+    "id": "hotel-checkin",
+    "categoria": "hotel",
+    "texto": "Confirmar horário de check-in e solicitar early check-in se possível",
+    "prioridade": "media",
+    "timelineMes": -1
+  },
+  {
+    "id": "voo-monitorar",
+    "categoria": "voo",
+    "texto": "Monitorar preços de passagens (Google Flights, Skyscanner)",
+    "prioridade": "alta",
+    "timelineMes": -8
+  },
+  {
+    "id": "voo-comprar",
+    "categoria": "voo",
+    "texto": "Comprar passagem aérea Brasil → Las Vegas",
+    "prioridade": "alta",
+    "timelineMes": -7
+  },
+  {
+    "id": "voo-assento",
+    "categoria": "voo",
+    "texto": "Escolher assento no voo (corredor para voos longos)",
+    "prioridade": "media",
+    "timelineMes": -2
+  },
+  {
+    "id": "voo-checkin",
+    "categoria": "voo",
+    "texto": "Fazer check-in online 24-48h antes do voo",
+    "prioridade": "media",
+    "timelineMes": -1
+  },
+  {
+    "id": "voo-chip",
+    "categoria": "voo",
+    "texto": "Comprar chip internacional ou eSIM com dados nos EUA",
+    "prioridade": "alta",
+    "timelineMes": -1
+  },
+  {
+    "id": "voo-dolares",
+    "categoria": "voo",
+    "texto": "Comprar dólares em espécie (US$ 200-500 para emergências)",
+    "prioridade": "alta",
+    "timelineMes": -1
+  },
+  {
+    "id": "voo-adaptador",
+    "categoria": "voo",
+    "texto": "Comprar adaptador de tomada (EUA usa tipo A/B, 110V)",
+    "prioridade": "media",
+    "timelineMes": -2
+  },
+  {
+    "id": "voo-powerbank",
+    "categoria": "voo",
+    "texto": "Garantir power bank carregado (celular é guia, agenda e câmera)",
+    "prioridade": "media",
+    "timelineMes": -1
+  },
+  {
+    "id": "evento-registrar",
+    "categoria": "evento",
+    "texto": "Fazer registro no AWS re:Invent (portal abre jun/jul)",
+    "prioridade": "alta",
+    "timelineMes": -4
+  },
+  {
+    "id": "evento-app",
+    "categoria": "evento",
+    "texto": "Baixar e configurar app AWS Events no celular",
+    "prioridade": "alta",
+    "timelineMes": -2
+  },
+  {
+    "id": "evento-sessoes",
+    "categoria": "evento",
+    "texto": "Reservar sessões no catálogo (abre em outubro — aja rápido!)",
+    "prioridade": "alta",
+    "timelineMes": -2
+  },
+  {
+    "id": "evento-temas",
+    "categoria": "evento",
+    "texto": "Definir 3-5 temas de interesse prioritários para o evento",
+    "prioridade": "media",
+    "timelineMes": -3
+  },
+  {
+    "id": "evento-planob",
+    "categoria": "evento",
+    "texto": "Montar plano B com sessões alternativas (walk-up e overflow)",
+    "prioridade": "media",
+    "timelineMes": -2
+  },
+  {
+    "id": "evento-linkedin",
+    "categoria": "evento",
+    "texto": "Preparar QR code do LinkedIn para networking rápido",
+    "prioridade": "media",
+    "timelineMes": -1
+  },
+  {
+    "id": "evento-cartoes",
+    "categoria": "evento",
+    "texto": "Imprimir cartões de visita (inglês, com QR para LinkedIn)",
+    "prioridade": "media",
+    "timelineMes": -1
+  },
+  {
+    "id": "evento-agenda",
+    "categoria": "evento",
+    "texto": "Imprimir agenda de backup (caso app fique offline)",
+    "prioridade": "baixa",
+    "timelineMes": -1
+  },
+  {
+    "id": "mala-tenis",
+    "categoria": "mala",
+    "texto": "Levar tênis confortável já amaciado (15.000+ passos/dia)",
+    "prioridade": "alta",
+    "timelineMes": -1
+  },
+  {
+    "id": "mala-camadas",
+    "categoria": "mala",
+    "texto": "Montar roupas em camadas (calor dentro, frio fora)",
+    "prioridade": "alta",
+    "timelineMes": -1
+  },
+  {
+    "id": "mala-jaqueta",
+    "categoria": "mala",
+    "texto": "Levar jaqueta média para noites frias (2-6°C em dezembro)",
+    "prioridade": "alta",
+    "timelineMes": -1
+  },
+  {
+    "id": "mala-hidratante",
+    "categoria": "mala",
+    "texto": "Levar hidratante labial e protetor (clima extremamente seco)",
+    "prioridade": "media",
+    "timelineMes": -1
+  },
+  {
+    "id": "mala-garrafa",
+    "categoria": "mala",
+    "texto": "Levar garrafa de água reutilizável (hidratação é essencial no deserto)",
+    "prioridade": "media",
+    "timelineMes": -1
+  },
+  {
+    "id": "mala-remedios",
+    "categoria": "mala",
+    "texto": "Levar kit de remédios básicos (dor de cabeça, estômago, band-aid)",
+    "prioridade": "media",
+    "timelineMes": -1
+  },
+  {
+    "id": "turismo-shows",
+    "categoria": "turismo",
+    "texto": "Pesquisar e reservar shows/espetáculos (Cirque du Soleil, etc.)",
+    "prioridade": "media",
+    "timelineMes": -2
+  },
+  {
+    "id": "turismo-restaurante",
+    "categoria": "turismo",
+    "texto": "Reservar restaurantes desejados (populares lotam rápido)",
+    "prioridade": "media",
+    "timelineMes": -2
+  },
+  {
+    "id": "turismo-outlets",
+    "categoria": "turismo",
+    "texto": "Definir outlets para compras (Las Vegas Premium Outlets North/South)",
+    "prioridade": "media",
+    "timelineMes": -1
+  },
+  {
+    "id": "turismo-passeios",
+    "categoria": "turismo",
+    "texto": "Planejar passeios extras (Grand Canyon, Hoover Dam, Valley of Fire)",
+    "prioridade": "baixa",
+    "timelineMes": -2
+  }
+]

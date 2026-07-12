@@ -1,0 +1,18 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --color-aws-orange: #FF9900;
+  --color-aws-orange-hover: #EC7211;
+  --color-aws-dark: #232F3E;
+  --color-aws-dark-lighter: #37475A;
+  --color-aws-blue: #1A73E8;
+  --color-aws-light: #F8F9FA;
+  --color-aws-success: #28A745;
+  --color-aws-danger: #DC3545;
+  --color-aws-warning: #FFC107;
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}

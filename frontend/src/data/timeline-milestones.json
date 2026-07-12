@@ -1,0 +1,98 @@
+[
+  {
+    "id": "milestone-visto",
+    "titulo": "Solicitar visto americano",
+    "descricao": "Preencher DS-160, pagar taxa e agendar entrevista no consulado. Processo leva 2-4 semanas após entrevista.",
+    "mesesAntes": 9,
+    "categoria": "documentacao",
+    "prioridade": "alta"
+  },
+  {
+    "id": "milestone-monitorar-voo",
+    "titulo": "Monitorar preços de passagem",
+    "descricao": "Configurar alertas no Google Flights e Skyscanner. Melhores preços aparecem 6-8 meses antes.",
+    "mesesAntes": 8,
+    "categoria": "voo",
+    "prioridade": "alta"
+  },
+  {
+    "id": "milestone-comprar-voo",
+    "titulo": "Comprar passagem aérea",
+    "descricao": "Comprar passagem Brasil → Las Vegas. Conexões comuns: Miami, Dallas, Houston, Atlanta.",
+    "mesesAntes": 7,
+    "categoria": "voo",
+    "prioridade": "alta"
+  },
+  {
+    "id": "milestone-reservar-hotel",
+    "titulo": "Reservar hotel",
+    "descricao": "Reservar hotel parceiro AWS ou próximo ao Venetian. Hotéis esgotam rápido — não espere.",
+    "mesesAntes": 7,
+    "categoria": "hotel",
+    "prioridade": "alta"
+  },
+  {
+    "id": "milestone-seguro",
+    "titulo": "Contratar seguro viagem",
+    "descricao": "Seguro com cobertura médica mínima de US$ 100.000. Saúde nos EUA é extremamente cara.",
+    "mesesAntes": 5,
+    "categoria": "documentacao",
+    "prioridade": "media"
+  },
+  {
+    "id": "milestone-registro",
+    "titulo": "Registro no re:Invent",
+    "descricao": "Portal de registro abre em junho/julho. Full conference pass inclui todas as sessões e eventos.",
+    "mesesAntes": 4,
+    "categoria": "evento",
+    "prioridade": "alta"
+  },
+  {
+    "id": "milestone-sessoes",
+    "titulo": "Catálogo de sessões — reservar!",
+    "descricao": "Catálogo abre em outubro. Sessões populares esgotam em horas — reserve imediatamente!",
+    "mesesAntes": 2,
+    "categoria": "evento",
+    "prioridade": "alta"
+  },
+  {
+    "id": "milestone-agenda",
+    "titulo": "Montar agenda no app",
+    "descricao": "Organizar sessões reservadas no app AWS Events. Montar plano B com alternativas walk-up.",
+    "mesesAntes": 2,
+    "categoria": "evento",
+    "prioridade": "media"
+  },
+  {
+    "id": "milestone-checkin-voo",
+    "titulo": "Check-in online voo",
+    "descricao": "Fazer check-in 24-48h antes. Escolher assento de corredor para voos longos.",
+    "mesesAntes": 1,
+    "categoria": "voo",
+    "prioridade": "media"
+  },
+  {
+    "id": "milestone-chip",
+    "titulo": "Comprar chip/eSIM",
+    "descricao": "Comprar eSIM ou chip internacional com dados nos EUA. Essencial para app do evento e mapas.",
+    "mesesAntes": 1,
+    "categoria": "preparacao",
+    "prioridade": "media"
+  },
+  {
+    "id": "milestone-cambio",
+    "titulo": "Câmbio e dinheiro",
+    "descricao": "Comprar US$ 200-500 em espécie para emergências. Avisar banco sobre viagem internacional.",
+    "mesesAntes": 1,
+    "categoria": "preparacao",
+    "prioridade": "alta"
+  },
+  {
+    "id": "milestone-chegada",
+    "titulo": "Chegada em Las Vegas!",
+    "descricao": "Chegar 1 dia antes do evento para se ambientar. Badge pickup no domingo, explorar a Strip.",
+    "mesesAntes": 0,
+    "categoria": "evento",
+    "prioridade": "alta"
+  }
+]

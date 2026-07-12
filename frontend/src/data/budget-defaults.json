@@ -1,0 +1,51 @@
+{
+  "cenarios": {
+    "economico": {
+      "passagem": 4500,
+      "hotelDiaria": 80,
+      "noites": 7,
+      "resortFee": 35,
+      "ingresso": 1800,
+      "alimentacaoDia": 40,
+      "dias": 7,
+      "transporte": 100,
+      "turismo": 150,
+      "seguro": 200,
+      "chip": 25,
+      "extras": 100
+    },
+    "confortavel": {
+      "passagem": 7000,
+      "hotelDiaria": 200,
+      "noites": 8,
+      "resortFee": 45,
+      "ingresso": 2100,
+      "alimentacaoDia": 70,
+      "dias": 8,
+      "transporte": 200,
+      "turismo": 400,
+      "seguro": 350,
+      "chip": 30,
+      "extras": 200
+    },
+    "luxo": {
+      "passagem": 12000,
+      "hotelDiaria": 400,
+      "noites": 9,
+      "resortFee": 50,
+      "ingresso": 2100,
+      "alimentacaoDia": 120,
+      "dias": 9,
+      "transporte": 400,
+      "turismo": 800,
+      "seguro": 500,
+      "chip": 50,
+      "extras": 500
+    }
+  },
+  "taxas": {
+    "salesTaxNevada": 0.08375,
+    "iofCartao": 0.0438,
+    "iofCompraInternacional": 0.011
+  }
+}

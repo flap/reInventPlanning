@@ -1,0 +1,154 @@
+[
+  {
+    "id": "venetian",
+    "nome": "The Venetian Resort",
+    "endereco": "3355 S Las Vegas Blvd, Las Vegas, NV 89109",
+    "venue": true,
+    "distanciaMinutos": 0,
+    "distanciaCategoria": "verde",
+    "precoMin": 250,
+    "precoMax": 450,
+    "nivel": 5,
+    "resortFee": 45,
+    "destaques": [
+      "Venue principal do re:Invent",
+      "Suítes enormes (padrão é suite)",
+      "Keynotes e Expo Hall no próprio hotel",
+      "Sem deslocamento para sessões principais"
+    ],
+    "dica": "Melhor custo-benefício de tempo: zero deslocamento para keynotes e maioria das sessões."
+  },
+  {
+    "id": "palazzo",
+    "nome": "The Palazzo at The Venetian",
+    "endereco": "3325 S Las Vegas Blvd, Las Vegas, NV 89109",
+    "venue": true,
+    "distanciaMinutos": 0,
+    "distanciaCategoria": "verde",
+    "precoMin": 220,
+    "precoMax": 400,
+    "nivel": 5,
+    "resortFee": 45,
+    "destaques": [
+      "Integrado ao Venetian (mesmo complexo)",
+      "Suítes ainda maiores que o Venetian",
+      "Acesso direto ao convention center",
+      "Spa e piscina premium"
+    ],
+    "dica": "Integrado ao Venetian — mesma conveniência, às vezes com preços ligeiramente menores."
+  },
+  {
+    "id": "wynn",
+    "nome": "Wynn Las Vegas",
+    "endereco": "3131 S Las Vegas Blvd, Las Vegas, NV 89109",
+    "venue": true,
+    "distanciaMinutos": 10,
+    "distanciaCategoria": "verde",
+    "precoMin": 280,
+    "precoMax": 500,
+    "nivel": 5,
+    "resortFee": 45,
+    "destaques": [
+      "Hotel 5 estrelas de altíssimo padrão",
+      "Venue de sessões do re:Invent",
+      "Shuttle dedicado para outros venues",
+      "Restaurantes premiados"
+    ],
+    "dica": "Luxo máximo e ainda é venue — ideal para quem quer conforto premium com conveniência."
+  },
+  {
+    "id": "caesars-palace",
+    "nome": "Caesars Palace",
+    "endereco": "3570 S Las Vegas Blvd, Las Vegas, NV 89109",
+    "venue": true,
+    "distanciaMinutos": 15,
+    "distanciaCategoria": "amarelo",
+    "precoMin": 150,
+    "precoMax": 350,
+    "nivel": 5,
+    "resortFee": 40,
+    "destaques": [
+      "Venue de sessões do re:Invent",
+      "Icônico na Strip",
+      "Forum Shops para compras",
+      "Shuttle gratuito AWS"
+    ],
+    "dica": "Bom equilíbrio entre preço e localização — shuttle AWS resolve o deslocamento."
+  },
+  {
+    "id": "mgm-grand",
+    "nome": "MGM Grand",
+    "endereco": "3799 S Las Vegas Blvd, Las Vegas, NV 89109",
+    "venue": true,
+    "distanciaMinutos": 20,
+    "distanciaCategoria": "amarelo",
+    "precoMin": 120,
+    "precoMax": 280,
+    "nivel": 4,
+    "resortFee": 39,
+    "destaques": [
+      "Venue de sessões do re:Invent",
+      "Maior hotel de Las Vegas",
+      "Preço mais acessível entre venues",
+      "Shuttle gratuito AWS disponível"
+    ],
+    "dica": "Opção econômica entre os venues — depende do shuttle mas economiza bastante."
+  },
+  {
+    "id": "mandalay-bay",
+    "nome": "Mandalay Bay",
+    "endereco": "3950 S Las Vegas Blvd, Las Vegas, NV 89109",
+    "venue": true,
+    "distanciaMinutos": 25,
+    "distanciaCategoria": "vermelho",
+    "precoMin": 100,
+    "precoMax": 250,
+    "nivel": 4,
+    "resortFee": 45,
+    "destaques": [
+      "Venue de sessões do re:Invent",
+      "Piscina com praia artificial",
+      "Mais afastado da ação principal",
+      "Shuttle gratuito AWS disponível"
+    ],
+    "dica": "Mais barato entre venues, mas prepare-se para depender 100% do shuttle — deslocamento é real."
+  },
+  {
+    "id": "treasure-island",
+    "nome": "Treasure Island (TI)",
+    "endereco": "3300 S Las Vegas Blvd, Las Vegas, NV 89109",
+    "venue": false,
+    "distanciaMinutos": 5,
+    "distanciaCategoria": "verde",
+    "precoMin": 80,
+    "precoMax": 180,
+    "nivel": 3,
+    "resortFee": 40,
+    "destaques": [
+      "5 minutos a pé do Venetian",
+      "Preço acessível na Strip",
+      "Quartos reformados recentemente",
+      "Não é venue mas está pertíssimo"
+    ],
+    "dica": "Melhor custo-benefício geral: barato, perto do Venetian a pé, sem depender de shuttle."
+  },
+  {
+    "id": "best-western-casino-royale",
+    "nome": "Best Western Plus Casino Royale",
+    "endereco": "3411 S Las Vegas Blvd, Las Vegas, NV 89109",
+    "venue": false,
+    "distanciaMinutos": 5,
+    "distanciaCategoria": "verde",
+    "precoMin": 60,
+    "precoMax": 140,
+    "nivel": 2,
+    "resortFee": 0,
+    "destaques": [
+      "Sem resort fee!",
+      "5 minutos a pé do Venetian",
+      "Opção mais econômica na Strip",
+      "Básico mas funcional"
+    ],
+    "dica": "Para quem quer gastar o mínimo com hotel — sem resort fee é raro em Vegas. Quartos simples."
+  }
+]
