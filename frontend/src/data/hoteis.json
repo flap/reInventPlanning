@@ -16,7 +16,10 @@
       "Keynotes e Expo Hall no próprio hotel",
       "Sem deslocamento para sessões principais"
     ],
-    "dica": "Melhor custo-benefício de tempo: zero deslocamento para keynotes e maioria das sessões."
+    "dica": "Melhor custo-benefício de tempo: zero deslocamento para keynotes e maioria das sessões.",
+    "googleMapsUrl": "https://www.google.com/maps/place/The+Venetian+Resort+Las+Vegas",
+    "directionsUrl": null,
+    "bookingUrl": "https://www.booking.com/hotel/us/the-venetian-resort.html?checkin=2026-11-29&checkout=2026-12-05"
   },
   {
     "id": "palazzo",
@@ -35,7 +38,10 @@
       "Acesso direto ao convention center",
       "Spa e piscina premium"
     ],
-    "dica": "Integrado ao Venetian — mesma conveniência, às vezes com preços ligeiramente menores."
+    "dica": "Integrado ao Venetian — mesma conveniência, às vezes com preços ligeiramente menores.",
+    "googleMapsUrl": "https://www.google.com/maps/place/The+Palazzo+at+The+Venetian",
+    "directionsUrl": null,
+    "bookingUrl": "https://www.booking.com/hotel/us/the-palazzo-at-the-venetian.html?checkin=2026-11-29&checkout=2026-12-05"
   },
   {
     "id": "wynn",
@@ -54,7 +60,10 @@
       "Shuttle dedicado para outros venues",
       "Restaurantes premiados"
     ],
-    "dica": "Luxo máximo e ainda é venue — ideal para quem quer conforto premium com conveniência."
+    "dica": "Luxo máximo e ainda é venue — ideal para quem quer conforto premium com conveniência.",
+    "googleMapsUrl": "https://www.google.com/maps/place/Wynn+Las+Vegas",
+    "directionsUrl": "https://www.google.com/maps/dir/The+Venetian+Resort+Las+Vegas/Wynn+Las+Vegas/@36.1262,-115.1700,16z/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0x80c8c43dae6b9965:0x7dba2569a8daad20!2m2!1d-115.1693!2d36.1212!1m5!1m1!1s0x80c8c440b06b5555:0x74a5405be4e3a560!2m2!1d-115.1662!2d36.1266!3e2",
+    "bookingUrl": "https://www.booking.com/hotel/us/wynn-las-vegas.html?checkin=2026-11-29&checkout=2026-12-05"
   },
   {
     "id": "caesars-palace",
@@ -73,7 +82,10 @@
       "Forum Shops para compras",
       "Shuttle gratuito AWS"
     ],
-    "dica": "Bom equilíbrio entre preço e localização — shuttle AWS resolve o deslocamento."
+    "dica": "Bom equilíbrio entre preço e localização — shuttle AWS resolve o deslocamento.",
+    "googleMapsUrl": "https://www.google.com/maps/place/Caesars+Palace+Las+Vegas",
+    "directionsUrl": "https://www.google.com/maps/dir/The+Venetian+Resort+Las+Vegas/Caesars+Palace/@36.1185,-115.1750,15z/data=!4m14!4m13!1m5!1m1!1s0x80c8c43dae6b9965:0x7dba2569a8daad20!2m2!1d-115.1693!2d36.1212!1m5!1m1!1s0x80c8c44f5de5b6f3:0x1aa5f12f6a9a7e6c!2m2!1d-115.1767!2d36.1162!3e2",
+    "bookingUrl": "https://www.booking.com/hotel/us/caesars-palace-las-vegas.html?checkin=2026-11-29&checkout=2026-12-05"
   },
   {
     "id": "mgm-grand",
@@ -92,7 +104,10 @@
       "Preço mais acessível entre venues",
       "Shuttle gratuito AWS disponível"
     ],
-    "dica": "Opção econômica entre os venues — depende do shuttle mas economiza bastante."
+    "dica": "Opção econômica entre os venues — depende do shuttle mas economiza bastante.",
+    "googleMapsUrl": "https://www.google.com/maps/place/MGM+Grand+Las+Vegas",
+    "directionsUrl": "https://www.google.com/maps/dir/The+Venetian+Resort+Las+Vegas/MGM+Grand+Las+Vegas/@36.1050,-115.1750,14z/data=!4m14!4m13!1m5!1m1!1s0x80c8c43dae6b9965:0x7dba2569a8daad20!2m2!1d-115.1693!2d36.1212!1m5!1m1!1s0x80c8c5e5f5e5e5e5:0x5e5e5e5e5e5e5e5e!2m2!1d-115.1703!2d36.1023!3e0",
+    "bookingUrl": "https://www.booking.com/hotel/us/mgm-grand-hotel-and-casino.html?checkin=2026-11-29&checkout=2026-12-05"
   },
   {
     "id": "mandalay-bay",
@@ -111,7 +126,10 @@
       "Mais afastado da ação principal",
       "Shuttle gratuito AWS disponível"
     ],
-    "dica": "Mais barato entre venues, mas prepare-se para depender 100% do shuttle — deslocamento é real."
+    "dica": "Mais barato entre venues, mas prepare-se para depender 100% do shuttle — deslocamento é real.",
+    "googleMapsUrl": "https://www.google.com/maps/place/Mandalay+Bay+Resort+and+Casino",
+    "directionsUrl": "https://www.google.com/maps/dir/The+Venetian+Resort+Las+Vegas/Mandalay+Bay+Resort+and+Casino/@36.0900,-115.1750,14z/data=!4m14!4m13!1m5!1m1!1s0x80c8c43dae6b9965:0x7dba2569a8daad20!2m2!1d-115.1693!2d36.1212!1m5!1m1!1s0x80c8c5fc5fc5fc5f:0x5fc5fc5fc5fc5fc5!2m2!1d-115.1763!2d36.0909!3e0",
+    "bookingUrl": "https://www.booking.com/hotel/us/mandalay-bay-resort-and-casino.html?checkin=2026-11-29&checkout=2026-12-05"
   },
   {
     "id": "treasure-island",
@@ -130,7 +148,10 @@
       "Quartos reformados recentemente",
       "Não é venue mas está pertíssimo"
     ],
-    "dica": "Melhor custo-benefício geral: barato, perto do Venetian a pé, sem depender de shuttle."
+    "dica": "Melhor custo-benefício geral: barato, perto do Venetian a pé, sem depender de shuttle.",
+    "googleMapsUrl": "https://www.google.com/maps/place/Treasure+Island+Las+Vegas",
+    "directionsUrl": "https://www.google.com/maps/dir/The+Venetian+Resort+Las+Vegas/Treasure+Island+Las+Vegas/@36.1240,-115.1720,16z/data=!4m14!4m13!1m5!1m1!1s0x80c8c43dae6b9965:0x7dba2569a8daad20!2m2!1d-115.1693!2d36.1212!1m5!1m1!1s0x80c8c43c61d2b2b7:0x3b0f3e0e0e0e0e0e!2m2!1d-115.1722!2d36.1247!3e2",
+    "bookingUrl": "https://www.booking.com/hotel/us/treasure-island-hotel-casino.html?checkin=2026-11-29&checkout=2026-12-05"
   },
   {
     "id": "best-western-casino-royale",
@@ -149,6 +170,9 @@
       "Opção mais econômica na Strip",
       "Básico mas funcional"
     ],
-    "dica": "Para quem quer gastar o mínimo com hotel — sem resort fee é raro em Vegas. Quartos simples."
+    "dica": "Para quem quer gastar o mínimo com hotel — sem resort fee é raro em Vegas. Quartos simples.",
+    "googleMapsUrl": "https://www.google.com/maps/place/Best+Western+Plus+Casino+Royale",
+    "directionsUrl": "https://www.google.com/maps/dir/The+Venetian+Resort+Las+Vegas/Best+Western+Plus+Casino+Royale/@36.1220,-115.1710,17z/data=!4m14!4m13!1m5!1m1!1s0x80c8c43dae6b9965:0x7dba2569a8daad20!2m2!1d-115.1693!2d36.1212!1m5!1m1!1s0x80c8c43ccc43c43c:0x43c43c43c43c43c4!2m2!1d-115.1715!2d36.1225!3e2",
+    "bookingUrl": "https://www.booking.com/hotel/us/best-western-plus-casino-royale.html?checkin=2026-11-29&checkout=2026-12-05"
   }
 ]

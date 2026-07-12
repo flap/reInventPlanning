@@ -1,20 +1,22 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
+import { useI18n } from '@/composables/useI18n'
 import { useChecklistStore } from '@/stores/checklist'
 import checklistItems from '@/data/checklist-items.json'
 import type { ChecklistItem } from '@/types'
 
+const { t, locale } = useI18n()
 const store = useChecklistStore()
 
-const tabs = [
-  { key: 'todos', label: 'Todos' },
-  { key: 'documentacao', label: 'Documentação' },
-  { key: 'hotel', label: 'Hotel' },
-  { key: 'voo', label: 'Voo' },
-  { key: 'evento', label: 'Evento' },
-  { key: 'mala', label: 'Mala' },
-  { key: 'turismo', label: 'Turismo' },
-] as const
+const tabs = computed(() => [
+  { key: 'todos', label: t('checklist.tabAll') },
+  { key: 'documentacao', label: t('checklist.tabDocs') },
+  { key: 'hotel', label: t('checklist.tabHotel') },
+  { key: 'voo', label: t('checklist.tabFlight') },
+  { key: 'evento', label: t('checklist.tabEvent') },
+  { key: 'mala', label: t('checklist.tabBag') },
+  { key: 'turismo', label: t('checklist.tabTourism') },
+] as const)
 
 const activeTab = ref<string>('todos')
 const showPendingOnly = ref(false)
@@ -35,6 +37,18 @@ const items = computed(() => {
 
 const progress = computed(() => store.progress)
 
+const progressText = computed(() => {
+  const template = t('checklist.progress')
+  return template
+    .replace('{completed}', String(progress.value.completed))
+    .replace('{total}', String(progress.value.total))
+})
+
+const subtitle = computed(() => locale.value === 'pt'
+  ? 'Acompanhe seu progresso na preparação para o re:Invent 2026'
+  : 'Track your progress preparing for re:Invent 2026'
+)
+
 function isCompleted(id: string): boolean {
   return store.items[id]?.completed ?? false
 }
@@ -44,7 +58,7 @@ function handleToggle(id: string) {
 }
 
 function handleReset() {
-  if (window.confirm('Tem certeza que deseja resetar todo o checklist? Todos os itens serão desmarcados.')) {
+  if (window.confirm(t('checklist.resetConfirm'))) {
     store.resetAll()
   }
 }
@@ -63,6 +77,18 @@ function prioridadeClass(prioridade: string): string {
 }
 
 function prioridadeLabel(prioridade: string): string {
+  if (locale.value === 'en') {
+    switch (prioridade) {
+      case 'alta':
+        return '⚠️ High'
+      case 'media':
+        return '📌 Medium'
+      case 'baixa':
+        return '💡 Low'
+      default:
+        return prioridade
+    }
+  }
   switch (prioridade) {
     case 'alta':
       return '⚠️ Alta'
@@ -80,15 +106,15 @@ function prioridadeLabel(prioridade: string): string {
   <div class="max-w-4xl mx-auto px-4 py-8">
     <!-- Header -->
     <div class="mb-8">
-      <h1 class="text-3xl font-bold text-aws-dark mb-2">📋 Checklist de Planejamento</h1>
-      <p class="text-gray-600">Acompanhe seu progresso na preparação para o re:Invent 2026</p>
+      <h1 class="text-3xl font-bold text-aws-dark mb-2">📋 {{ t('checklist.title') }}</h1>
+      <p class="text-gray-600">{{ subtitle }}</p>
     </div>
 
     <!-- Barra de Progresso -->
     <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
       <div class="flex items-center justify-between mb-3">
         <span class="text-sm font-medium text-gray-700">
-          {{ progress.completed }} de {{ progress.total }} concluídos
+          {{ progressText }}
         </span>
         <span class="text-2xl font-bold text-aws-orange">{{ progress.percentage }}%</span>
       </div>
@@ -127,7 +153,7 @@ function prioridadeLabel(prioridade: string): string {
           v-model="showPendingOnly"
           class="w-4 h-4 rounded border-gray-300 text-aws-orange focus:ring-aws-orange"
         />
-        <span class="text-sm text-gray-600">Mostrar apenas pendentes</span>
+        <span class="text-sm text-gray-600">{{ t('checklist.showPending') }}</span>
       </label>
     </div>
 
@@ -192,8 +218,7 @@ function prioridadeLabel(prioridade: string): string {
         v-if="items.length === 0"
         class="text-center py-12 text-gray-400"
       >
-        <p class="text-lg">🎉 Nenhum item pendente nesta categoria!</p>
-        <p class="text-sm mt-1">Todos os itens foram concluídos.</p>
+        <p class="text-lg">{{ t('checklist.allDone') }}</p>
       </div>
     </div>
 
@@ -203,7 +228,7 @@ function prioridadeLabel(prioridade: string): string {
         @click="handleReset"
         class="px-6 py-2.5 bg-gray-100 text-gray-600 rounded-lg hover:bg-red-50 hover:text-red-600 border border-gray-200 hover:border-red-200 transition-all duration-200 text-sm font-medium"
       >
-        🔄 Resetar tudo
+        🔄 {{ t('checklist.resetAll') }}
       </button>
     </div>
   </div>

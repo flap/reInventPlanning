@@ -1,5 +1,10 @@
 <script setup lang="ts">
-const sessionTypes = [
+import { computed } from 'vue'
+import { useI18n } from '@/composables/useI18n'
+
+const { t, locale } = useI18n()
+
+const sessionTypes = computed(() => locale.value === 'pt' ? [
   { code: 'KEY', nome: 'Keynote', descricao: 'Apresentações principais com anúncios de novos serviços e recursos AWS.' },
   { code: 'BLD', nome: 'Builders\' Session', descricao: 'Sessões práticas em grupo pequeno com engenheiros AWS. Traga seu laptop!' },
   { code: 'BOF', nome: 'Birds of a Feather', descricao: 'Discussões abertas entre participantes com interesses em comum.' },
@@ -9,85 +14,100 @@ const sessionTypes = [
   { code: 'GAM', nome: 'GameDay', descricao: 'Competição em equipe resolvendo problemas reais sob pressão. Muito divertido!' },
   { code: 'LAB', nome: 'Workshop/Lab', descricao: 'Labs hands-on com ambiente provisionado. Prática guiada passo a passo.' },
   { code: 'WRK', nome: 'Workshop', descricao: 'Sessões práticas de 2h+ com cenários complexos e projetos completos.' },
-]
+] : [
+  { code: 'KEY', nome: 'Keynote', descricao: 'Main presentations with announcements of new AWS services and features.' },
+  { code: 'BLD', nome: 'Builders\' Session', descricao: 'Hands-on small group sessions with AWS engineers. Bring your laptop!' },
+  { code: 'BOF', nome: 'Birds of a Feather', descricao: 'Open discussions between attendees with shared interests.' },
+  { code: 'CHL', nome: 'Chalk Talk', descricao: 'Interactive whiteboard sessions, two-way discussion with experts.' },
+  { code: 'CON', nome: 'Conference Talk', descricao: 'Traditional 60min talks with customers and partners sharing case studies.' },
+  { code: 'DEM', nome: 'Demo', descricao: 'Live demonstrations of products and services in action.' },
+  { code: 'GAM', nome: 'GameDay', descricao: 'Team competition solving real problems under pressure. Very fun!' },
+  { code: 'LAB', nome: 'Workshop/Lab', descricao: 'Hands-on labs with provisioned environment. Step-by-step guided practice.' },
+  { code: 'WRK', nome: 'Workshop', descricao: '2h+ hands-on sessions with complex scenarios and full projects.' },
+])
 
-const niveis = [
+const niveis = computed(() => locale.value === 'pt' ? [
   { nivel: 100, label: 'Introdutório', cor: 'bg-green-100 text-green-800' },
   { nivel: 200, label: 'Intermediário', cor: 'bg-blue-100 text-blue-800' },
   { nivel: 300, label: 'Avançado', cor: 'bg-purple-100 text-purple-800' },
   { nivel: 400, label: 'Expert', cor: 'bg-red-100 text-red-800' },
   { nivel: 500, label: 'Deep Dive', cor: 'bg-orange-100 text-orange-800' },
-]
+] : [
+  { nivel: 100, label: 'Introductory', cor: 'bg-green-100 text-green-800' },
+  { nivel: 200, label: 'Intermediate', cor: 'bg-blue-100 text-blue-800' },
+  { nivel: 300, label: 'Advanced', cor: 'bg-purple-100 text-purple-800' },
+  { nivel: 400, label: 'Expert', cor: 'bg-red-100 text-red-800' },
+  { nivel: 500, label: 'Deep Dive', cor: 'bg-orange-100 text-orange-800' },
+])
 
-const cronograma = [
+const cronograma = computed(() => locale.value === 'pt' ? [
   { dia: 'Sábado', data: '29 Nov', atividades: 'Chegada, explorar a Strip, ajustar fuso horário' },
   { dia: 'Domingo', data: '30 Nov', atividades: 'Badge pickup, workshops pré-evento, registro, orientação' },
   { dia: 'Segunda', data: '1 Dez', atividades: 'Keynote Peter DeSantis, sessões, Expo Hall abre' },
   { dia: 'Terça', data: '2 Dez', atividades: 'Keynote CEO, sessões técnicas, builders sessions, networking' },
   { dia: 'Quarta', data: '3 Dez', atividades: 'Keynote Dr. Swami, re:Inforce (segurança), sessões, re:Play party' },
   { dia: 'Quinta', data: '4 Dez', atividades: 'Keynote Werner Vogels (CTO), últimas sessões, Expo Hall último dia, encerramento' },
-]
+] : [
+  { dia: 'Saturday', data: 'Nov 29', atividades: 'Arrival, explore the Strip, adjust to time zone' },
+  { dia: 'Sunday', data: 'Nov 30', atividades: 'Badge pickup, pre-event workshops, registration, orientation' },
+  { dia: 'Monday', data: 'Dec 1', atividades: 'Peter DeSantis Keynote, sessions, Expo Hall opens' },
+  { dia: 'Tuesday', data: 'Dec 2', atividades: 'CEO Keynote, technical sessions, builders sessions, networking' },
+  { dia: 'Wednesday', data: 'Dec 3', atividades: 'Dr. Swami Keynote, re:Inforce (security), sessions, re:Play party' },
+  { dia: 'Thursday', data: 'Dec 4', atividades: 'Werner Vogels (CTO) Keynote, final sessions, Expo Hall last day, closing' },
+])
 
-const dicasAntes = [
+const dicasAntes = computed(() => locale.value === 'pt' ? [
   'Reserve sessões assim que o catálogo abrir (disponível desde 30 Jun 2026) — as melhores esgotam rápido',
   'Aproveite o early bird até 25 Ago ($1,299) — depois sobe para $2,499',
   'Baixe o app AWS Events (disponível set 2026) e configure sua agenda antes de viajar',
   'Estude o mapa dos venues — são 6 hotéis: Caesars Forum, Caesars Palace, Encore, MGM Grand, Venetian e Wynn',
   'Planeje no máximo 4-5 sessões por dia — deslocamento consome tempo (use o monorail gratuito!)',
-]
+] : [
+  'Reserve sessions as soon as the catalog opens (available since Jun 30, 2026) — the best ones fill fast',
+  'Take advantage of early bird by Aug 25 ($1,299) — after that it goes up to $2,499',
+  'Download the AWS Events app (available Sep 2026) and set up your agenda before traveling',
+  'Study the venue map — there are 6 hotels: Caesars Forum, Caesars Palace, Encore, MGM Grand, Venetian and Wynn',
+  'Plan no more than 4-5 sessions per day — commuting takes time (use the free monorail!)',
+])
 
-const dicasDurante = [
+const dicasDurante = computed(() => locale.value === 'pt' ? [
   'Chegue 15-20 min antes nas sessões populares — overflow é real',
   'Use o monorail gratuito (badge holders) entre venues — muito mais rápido que caminhar',
   'Refeições incluídas: breakfast, lunch e snacks nos dias de conferência — aproveite!',
   'Não perca o re:Inforce na quinta (3 Dez) — conteúdo de segurança integrado ao evento',
   'Agende seu exame de certificação com 50% de desconto durante o evento',
-]
+] : [
+  'Arrive 15-20 min early to popular sessions — overflow is real',
+  'Use the free monorail (badge holders) between venues — much faster than walking',
+  'Meals included: breakfast, lunch and snacks on conference days — enjoy!',
+  'Don\'t miss re:Inforce on Thursday (Dec 3) — security content integrated into the event',
+  'Schedule your certification exam with 50% discount during the event',
+])
 </script>
 
 <template>
   <div>
     <!-- Header -->
     <div class="mb-8">
-      <h1 class="text-3xl md:text-4xl font-bold text-aws-dark">AWS re:Invent 2026</h1>
+      <h1 class="text-3xl md:text-4xl font-bold text-aws-dark">{{ t('evento.title') }}</h1>
       <span class="inline-block mt-2 bg-aws-orange/10 text-aws-orange-hover font-medium text-sm px-3 py-1 rounded-full">
-        30 Nov – 4 Dez 2026 • Las Vegas, NV
+        {{ t('evento.dateBadge') }}
       </span>
     </div>
 
     <!-- O que é -->
     <section class="mb-10">
-      <h2 class="text-2xl font-bold text-aws-dark mb-4">O que é o re:Invent?</h2>
+      <h2 class="text-2xl font-bold text-aws-dark mb-4">{{ t('evento.aboutTitle') }}</h2>
       <div class="prose prose-gray max-w-none space-y-3 text-gray-700">
-        <p>
-          O <strong>AWS re:Invent</strong> é a maior conferência de computação em nuvem do mundo, 
-          organizada pela Amazon Web Services. Reúne mais de <strong>60.000 participantes</strong> de 
-          todo o planeta para uma semana inteira de sessões técnicas, labs práticos, keynotes com 
-          anúncios de novos serviços e muito networking.
-        </p>
-        <p>
-          O evento acontece em <strong>Las Vegas, Nevada</strong>, distribuído por 6 venues: 
-          Caesars Forum, Caesars Palace, Encore, MGM Grand, The Venetian e Wynn. 
-          São mais de <strong>2.200 sessões</strong> (70% interativas) em todos os níveis — incluindo o novo nível 500 (Deep Dive) —
-          cobrindo arquitetura, segurança, machine learning, serverless e muito mais.
-        </p>
-        <p>
-          <strong>Novidades 2026:</strong> re:Inforce (segurança) agora faz parte do re:Invent (quinta, 3 Dez). 
-          Monorail gratuito para badge holders entre venues. Refeições incluídas (breakfast, lunch e snacks em dias de conferência). 
-          50% de desconto em exames de certificação AWS. Apenas Full Conference pass disponível (sem Expo-only).
-          Early bird $1,299 (até 25 Ago), full price $2,499.
-        </p>
-        <p>
-          Para brasileiros, é uma oportunidade única de aprender diretamente com engenheiros AWS, 
-          conhecer cases globais, fazer networking internacional e voltar com insights que podem 
-          transformar projetos e carreiras.
-        </p>
+        <p>{{ t('evento.aboutP1') }}</p>
+        <p>{{ t('evento.aboutP2') }}</p>
+        <p>{{ t('evento.aboutP3') }}</p>
       </div>
     </section>
 
     <!-- Tipos de Sessão -->
     <section class="mb-10">
-      <h2 class="text-2xl font-bold text-aws-dark mb-4">Tipos de Sessão</h2>
+      <h2 class="text-2xl font-bold text-aws-dark mb-4">{{ t('evento.sessionTypesTitle') }}</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         <div
           v-for="session in sessionTypes"
@@ -105,7 +125,7 @@ const dicasDurante = [
 
     <!-- Níveis -->
     <section class="mb-10">
-      <h2 class="text-2xl font-bold text-aws-dark mb-4">Níveis das Sessões</h2>
+      <h2 class="text-2xl font-bold text-aws-dark mb-4">{{ t('evento.levelsTitle') }}</h2>
       <div class="flex flex-wrap gap-3">
         <span
           v-for="n in niveis"
@@ -119,14 +139,14 @@ const dicasDurante = [
 
     <!-- Cronograma -->
     <section class="mb-10">
-      <h2 class="text-2xl font-bold text-aws-dark mb-4">Cronograma da Semana</h2>
+      <h2 class="text-2xl font-bold text-aws-dark mb-4">{{ t('evento.scheduleTitle') }}</h2>
       <div class="overflow-x-auto">
         <table class="w-full text-sm border border-gray-200 rounded-xl overflow-hidden">
           <thead class="bg-aws-dark text-white">
             <tr>
-              <th class="px-4 py-3 text-left">Dia</th>
-              <th class="px-4 py-3 text-left">Data</th>
-              <th class="px-4 py-3 text-left">Atividades Principais</th>
+              <th class="px-4 py-3 text-left">{{ locale === 'pt' ? 'Dia' : 'Day' }}</th>
+              <th class="px-4 py-3 text-left">{{ locale === 'pt' ? 'Data' : 'Date' }}</th>
+              <th class="px-4 py-3 text-left">{{ locale === 'pt' ? 'Atividades Principais' : 'Main Activities' }}</th>
             </tr>
           </thead>
           <tbody>
@@ -146,11 +166,11 @@ const dicasDurante = [
 
     <!-- Dicas de Primeira Vez -->
     <section class="mb-8">
-      <h2 class="text-2xl font-bold text-aws-dark mb-4">Dicas de Primeira Vez</h2>
+      <h2 class="text-2xl font-bold text-aws-dark mb-4">{{ t('evento.tipsTitle') }}</h2>
 
       <div class="space-y-6">
         <div>
-          <h3 class="font-semibold text-aws-dark mb-2">📋 Antes do Evento</h3>
+          <h3 class="font-semibold text-aws-dark mb-2">📋 {{ t('evento.tipsBefore') }}</h3>
           <ul class="space-y-2">
             <li
               v-for="(dica, i) in dicasAntes"
@@ -164,7 +184,7 @@ const dicasDurante = [
         </div>
 
         <div>
-          <h3 class="font-semibold text-aws-dark mb-2">🎯 Durante o Evento</h3>
+          <h3 class="font-semibold text-aws-dark mb-2">🎯 {{ t('evento.tipsDuring') }}</h3>
           <ul class="space-y-2">
             <li
               v-for="(dica, i) in dicasDurante"

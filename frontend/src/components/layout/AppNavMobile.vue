@@ -1,23 +1,25 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { RouterLink, useRouter } from 'vue-router'
+import { useI18n } from '@/composables/useI18n'
 
 const router = useRouter()
+const { t } = useI18n()
 const showMore = ref(false)
 
 const mainItems = [
-  { name: 'home', label: 'Home', icon: '🏠' },
-  { name: 'evento', label: 'Evento', icon: '🎯' },
-  { name: 'checklist', label: 'Checklist', icon: '✅' },
-  { name: 'orcamento', label: 'Orçamento', icon: '💰' },
+  { name: 'home', key: 'nav.home', icon: '🏠' },
+  { name: 'evento', key: 'nav.evento', icon: '🎯' },
+  { name: 'checklist', key: 'nav.checklist', icon: '✅' },
+  { name: 'orcamento', key: 'nav.orcamento', icon: '💰' },
 ]
 
 const moreItems = [
-  { name: 'hoteis', label: 'Hotéis', icon: '🏨' },
-  { name: 'voos', label: 'Voos', icon: '✈️' },
-  { name: 'clima', label: 'Clima', icon: '🌡️' },
-  { name: 'turismo', label: 'Turismo', icon: '🎰' },
-  { name: 'timeline', label: 'Timeline', icon: '📅' },
+  { name: 'hoteis', key: 'nav.hoteis', icon: '🏨' },
+  { name: 'voos', key: 'nav.voos', icon: '✈️' },
+  { name: 'clima', key: 'nav.clima', icon: '🌡️' },
+  { name: 'turismo', key: 'nav.turismo', icon: '🎰' },
+  { name: 'timeline', key: 'nav.timeline', icon: '📅' },
 ]
 
 function navigateTo(name: string) {
@@ -51,7 +53,7 @@ function navigateTo(name: string) {
             @click="navigateTo(item.name)"
           >
             <span class="text-xl">{{ item.icon }}</span>
-            <span class="text-xs text-gray-600">{{ item.label }}</span>
+            <span class="text-xs text-gray-600">{{ t(item.key) }}</span>
           </button>
         </div>
       </div>
@@ -68,7 +70,7 @@ function navigateTo(name: string) {
           active-class="!text-aws-orange"
         >
           <span class="text-xl">{{ item.icon }}</span>
-          <span class="text-[10px] font-medium">{{ item.label }}</span>
+          <span class="text-[10px] font-medium">{{ t(item.key) }}</span>
         </RouterLink>
 
         <!-- More Button -->
@@ -78,7 +80,7 @@ function navigateTo(name: string) {
           @click="showMore = !showMore"
         >
           <span class="text-xl">⋯</span>
-          <span class="text-[10px] font-medium">Mais</span>
+          <span class="text-[10px] font-medium">{{ t('nav.more') }}</span>
         </button>
       </div>
     </nav>

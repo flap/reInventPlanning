@@ -1,9 +1,16 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import { useI18n } from '@/composables/useI18n'
 import milestonesData from '@/data/timeline-milestones.json'
 import type { TimelineMilestone } from '@/types'
 
+const { t, locale } = useI18n()
+
 const EVENT_DATE = new Date('2026-11-30')
+
+const milestoneTranslations: Record<string, { titulo: string; descricao: string }> = {
+  // Map by id — we'll populate these from the computed
+}
 
 const milestones = computed(() => {
   const now = new Date()
@@ -19,6 +26,8 @@ const milestones = computed(() => {
 
       return {
         ...milestone,
+        titulo: locale.value === 'en' ? getMilestoneTitle(milestone) : milestone.titulo,
+        descricao: locale.value === 'en' ? getMilestoneDesc(milestone) : milestone.descricao,
         targetDate,
         formattedDate: formatDate(targetDate),
         status: isCurrent ? 'current' : isPast ? 'past' : 'future',
@@ -26,12 +35,55 @@ const milestones = computed(() => {
     })
 })
 
+function getMilestoneTitle(m: TimelineMilestone): string {
+  const map: Record<string, string> = {
+    'Solicitar visto americano B1/B2': 'Apply for US B1/B2 visa',
+    'Monitorar passagens aéreas': 'Monitor flight prices',
+    'Comprar passagem aérea': 'Buy flight tickets',
+    'Reservar hotel': 'Book hotel',
+    'Inscrição no re:Invent (early bird)': 'Register for re:Invent (early bird)',
+    'Reservar sessões no catálogo': 'Reserve sessions from catalog',
+    'Preparação final': 'Final preparation',
+    'Check-in online e últimos preparativos': 'Online check-in and final preparations',
+  }
+  return map[m.titulo] || m.titulo
+}
+
+function getMilestoneDesc(m: TimelineMilestone): string {
+  const map: Record<string, string> = {
+    'Agendar entrevista no consulado. Prazo médio: 3-6 meses. Documentos: DS-160, foto, comprovantes financeiros, carta-convite da empresa.':
+      'Schedule consulate interview. Average timeline: 3-6 months. Documents: DS-160, photo, financial proof, company invitation letter.',
+    'Usar Google Flights, Skyscanner ou MaxMilhas para monitorar preços GRU→LAS. Melhor período para comprar: 4-6 meses antes.':
+      'Use Google Flights, Skyscanner or MaxMilhas to monitor GRU→LAS prices. Best time to buy: 4-6 months before.',
+    'Comprar passagem aproveitando promoção. Conexões comuns: Miami, Dallas, Houston, Atlanta. Tempo total: 14-18h.':
+      'Buy tickets on a deal. Common connections: Miami, Dallas, Houston, Atlanta. Total time: 14-18h.',
+    'Reservar no block oficial AWS (preços especiais) ou hotel próximo aos venues. Verificar resort fee e shuttle gratuito.':
+      'Book in the official AWS block (special prices) or hotel near venues. Check resort fee and free shuttle.',
+    'Registro abre em junho. Early bird até 25 Ago: $1,299 (depois $2,499). Apenas Full Conference pass disponível.':
+      'Registration opens in June. Early bird until Aug 25: $1,299 (then $2,499). Only Full Conference pass available.',
+    'Catálogo disponível desde 30 Jun 2026. Reserve imediatamente — sessões populares esgotam em horas. Máximo 4-5/dia.':
+      'Catalog available since Jun 30, 2026. Reserve immediately — popular sessions fill in hours. Max 4-5/day.',
+    'Comprar chip/eSIM, separar roupas em camadas, power bank, adaptador de tomada. Confirmar reservas de hotel e voo.':
+      'Buy SIM/eSIM, prepare layered clothing, power bank, plug adapter. Confirm hotel and flight reservations.',
+    'Check-in online na companhia aérea. Imprimir documentos importantes. Converter dólares. Baixar app AWS Events.':
+      'Online check-in with airline. Print important documents. Convert dollars. Download AWS Events app.',
+  }
+  return map[m.descricao] || m.descricao
+}
+
+const subtitle = computed(() => {
+  const first = milestones.value[0]?.formattedDate || ''
+  return locale.value === 'pt'
+    ? `Acompanhe os marcos importantes para o re:Invent 2026 — de ${first} até o evento`
+    : `Track important milestones for re:Invent 2026 — from ${first} to the event`
+})
+
 function isCurrentMonth(target: Date, now: Date): boolean {
   return target.getFullYear() === now.getFullYear() && target.getMonth() === now.getMonth()
 }
 
 function formatDate(date: Date): string {
-  return date.toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' })
+  return date.toLocaleDateString(locale.value === 'pt' ? 'pt-BR' : 'en-US', { month: 'long', year: 'numeric' })
 }
 
 function statusClasses(status: string): string {
@@ -78,6 +130,22 @@ function categoriaClass(categoria: string): string {
 }
 
 function categoriaLabel(categoria: string): string {
+  if (locale.value === 'en') {
+    switch (categoria) {
+      case 'documentacao':
+        return '📄 Documentation'
+      case 'hotel':
+        return '🏨 Hotel'
+      case 'voo':
+        return '✈️ Flight'
+      case 'evento':
+        return '🎟️ Event'
+      case 'preparacao':
+        return '🎒 Preparation'
+      default:
+        return categoria
+    }
+  }
   switch (categoria) {
     case 'documentacao':
       return '📄 Documentação'
@@ -106,6 +174,16 @@ function prioridadeClass(prioridade: string): string {
 }
 
 function prioridadeLabel(prioridade: string): string {
+  if (locale.value === 'en') {
+    switch (prioridade) {
+      case 'alta':
+        return '⚠️ High'
+      case 'media':
+        return '📌 Medium'
+      default:
+        return prioridade
+    }
+  }
   switch (prioridade) {
     case 'alta':
       return '⚠️ Alta'
@@ -115,15 +193,21 @@ function prioridadeLabel(prioridade: string): string {
       return prioridade
   }
 }
+
+const eventDateFormatted = computed(() => locale.value === 'pt' ? '30 de novembro de 2026' : 'November 30, 2026')
+const eventVenues = computed(() => locale.value === 'pt'
+  ? 'Las Vegas, Nevada — Caesars Forum, Venetian, MGM Grand, Wynn, Encore, Caesars Palace'
+  : 'Las Vegas, Nevada — Caesars Forum, Venetian, MGM Grand, Wynn, Encore, Caesars Palace'
+)
 </script>
 
 <template>
   <div class="max-w-4xl mx-auto px-4 py-8">
     <!-- Header -->
     <div class="mb-8">
-      <h1 class="text-3xl font-bold text-aws-dark mb-2">🗓️ Timeline de Preparação</h1>
+      <h1 class="text-3xl font-bold text-aws-dark mb-2">🗓️ {{ t('timeline.title') }}</h1>
       <p class="text-gray-600">
-        Acompanhe os marcos importantes para o re:Invent 2026 — de {{ milestones[0]?.formattedDate }} até o evento
+        {{ subtitle }}
       </p>
     </div>
 
@@ -131,15 +215,15 @@ function prioridadeLabel(prioridade: string): string {
     <div class="flex flex-wrap gap-4 mb-8 p-4 bg-white rounded-xl border border-gray-200 shadow-sm">
       <div class="flex items-center gap-2">
         <div class="w-4 h-4 rounded-full bg-aws-success"></div>
-        <span class="text-sm text-gray-600">Concluído</span>
+        <span class="text-sm text-gray-600">{{ t('timeline.completed') }}</span>
       </div>
       <div class="flex items-center gap-2">
         <div class="w-4 h-4 rounded-full bg-aws-orange ring-2 ring-aws-orange/30"></div>
-        <span class="text-sm text-gray-600">Momento atual</span>
+        <span class="text-sm text-gray-600">{{ t('timeline.current') }}</span>
       </div>
       <div class="flex items-center gap-2">
         <div class="w-4 h-4 rounded-full bg-gray-300"></div>
-        <span class="text-sm text-gray-600">Futuro</span>
+        <span class="text-sm text-gray-600">{{ t('timeline.upcoming') }}</span>
       </div>
     </div>
 
@@ -234,10 +318,10 @@ function prioridadeLabel(prioridade: string): string {
         <div class="ml-16 md:ml-[calc(50%+2rem)] md:pl-8">
           <div class="p-5 bg-aws-dark rounded-xl border border-aws-orange/30 shadow-lg">
             <p class="text-xs font-medium text-aws-orange uppercase tracking-wide mb-1">
-              30 de novembro de 2026
+              {{ eventDateFormatted }}
             </p>
             <h3 class="text-lg font-bold text-white mb-1">🎰 AWS re:Invent 2026!</h3>
-            <p class="text-sm text-gray-300">Las Vegas, Nevada — Caesars Forum, Venetian, MGM Grand, Wynn, Encore, Caesars Palace</p>
+            <p class="text-sm text-gray-300">{{ eventVenues }}</p>
           </div>
         </div>
       </div>

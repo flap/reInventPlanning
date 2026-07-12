@@ -11,6 +11,9 @@ export interface Hotel {
   resortFee: number
   destaques: string[]
   dica: string
+  googleMapsUrl: string
+  directionsUrl: string | null
+  bookingUrl: string
 }
 
 export interface EventInfo {

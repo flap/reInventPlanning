@@ -1,16 +1,19 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
+import { useI18n } from '@/composables/useI18n'
+
+const { t } = useI18n()
 
 const navItems = [
-  { name: 'home', label: 'Home', icon: '🏠' },
-  { name: 'evento', label: 'Evento', icon: '🎯' },
-  { name: 'hoteis', label: 'Hotéis', icon: '🏨' },
-  { name: 'voos', label: 'Voos', icon: '✈️' },
-  { name: 'clima', label: 'Clima', icon: '🌡️' },
-  { name: 'turismo', label: 'Turismo', icon: '🎰' },
-  { name: 'checklist', label: 'Checklist', icon: '✅' },
-  { name: 'timeline', label: 'Timeline', icon: '📅' },
-  { name: 'orcamento', label: 'Orçamento', icon: '💰' },
+  { name: 'home', key: 'nav.home', icon: '🏠' },
+  { name: 'evento', key: 'nav.evento', icon: '🎯' },
+  { name: 'hoteis', key: 'nav.hoteis', icon: '🏨' },
+  { name: 'voos', key: 'nav.voos', icon: '✈️' },
+  { name: 'clima', key: 'nav.clima', icon: '🌡️' },
+  { name: 'turismo', key: 'nav.turismo', icon: '🎰' },
+  { name: 'checklist', key: 'nav.checklist', icon: '✅' },
+  { name: 'timeline', key: 'nav.timeline', icon: '📅' },
+  { name: 'orcamento', key: 'nav.orcamento', icon: '💰' },
 ]
 </script>
 
@@ -25,7 +28,7 @@ const navItems = [
             active-class="!bg-aws-orange/10 !text-aws-orange !border-l-aws-orange"
           >
             <span class="text-lg">{{ item.icon }}</span>
-            <span>{{ item.label }}</span>
+            <span>{{ t(item.key) }}</span>
           </RouterLink>
         </li>
       </ul>

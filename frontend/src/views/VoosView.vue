@@ -1,11 +1,30 @@
 <script setup lang="ts">
-const rotas = [
-  { origem: 'GRU', destino: 'LAS', conexao: 'Miami (MIA)', companhias: 'American / LATAM', tempo: '16–18h' },
-  { origem: 'GRU', destino: 'LAS', conexao: 'Dallas (DFW)', companhias: 'American', tempo: '17–20h' },
-  { origem: 'GRU', destino: 'LAS', conexao: 'Atlanta (ATL)', companhias: 'Delta', tempo: '17–20h' },
-  { origem: 'GRU', destino: 'LAS', conexao: 'Houston (IAH)', companhias: 'United', tempo: '16–19h' },
-  { origem: 'GRU', destino: 'LAS', conexao: 'Los Angeles (LAX)', companhias: 'LATAM / Delta', tempo: '18–22h' },
-  { origem: 'GIG', destino: 'LAS', conexao: 'Miami (MIA)', companhias: 'American', tempo: '17–20h' },
+import { useI18n } from '@/composables/useI18n'
+
+const { t } = useI18n()
+
+interface Rota {
+  origem: string
+  conexao: string
+  companhia: string
+  tempo: string
+  link: string
+}
+
+const rotas: Rota[] = [
+  { origem: 'GRU', conexao: 'Miami (MIA)', companhia: 'American Airlines', tempo: '16-18h', link: 'https://www.aa.com' },
+  { origem: 'GRU', conexao: 'Dallas (DFW)', companhia: 'American Airlines', tempo: '17-20h', link: 'https://www.aa.com' },
+  { origem: 'GRU', conexao: 'Atlanta (ATL)', companhia: 'Delta Air Lines', tempo: '17-20h', link: 'https://www.delta.com' },
+  { origem: 'GRU', conexao: 'Houston (IAH)', companhia: 'United Airlines', tempo: '16-19h', link: 'https://www.united.com' },
+  { origem: 'GRU', conexao: 'Los Angeles (LAX)', companhia: 'LATAM', tempo: '18-22h', link: 'https://www.latamairlines.com' },
+  { origem: 'GRU', conexao: 'Panamá (PTY)', companhia: 'Copa Airlines', tempo: '16-19h', link: 'https://www.copaair.com' },
+  { origem: 'GIG', conexao: 'Miami (MIA)', companhia: 'American Airlines', tempo: '17-20h', link: 'https://www.aa.com' },
+]
+
+const searchLinks = [
+  { nome: 'Kayak', icon: '🔍', url: 'https://www.kayak.com.br/flights/GRU-LAS/2026-11-28/2026-12-05' },
+  { nome: 'Google Flights', icon: '✈️', url: 'https://www.google.com/travel/flights?q=Flights+from+GRU+to+LAS+on+2026-11-28+returning+2026-12-05' },
+  { nome: 'CVC', icon: '🌎', url: 'https://www.cvc.com.br/aereo' },
 ]
 
 const visaSteps = [
@@ -34,19 +53,19 @@ const chips = [
 
 <template>
   <div>
-    <h1 class="text-3xl md:text-4xl font-bold text-aws-dark mb-6">✈️ Voos e Deslocamento</h1>
+    <h1 class="text-3xl md:text-4xl font-bold text-aws-dark mb-6">✈️ {{ t('voos.title') }}</h1>
 
     <!-- Voos do Brasil -->
     <section class="mb-10">
-      <h2 class="text-2xl font-bold text-aws-dark mb-4">Voos do Brasil</h2>
+      <h2 class="text-2xl font-bold text-aws-dark mb-4">{{ t('voos.routesTitle') }}</h2>
       <div class="overflow-x-auto">
         <table class="w-full text-sm border border-gray-200 rounded-xl overflow-hidden">
           <thead class="bg-aws-dark text-white">
             <tr>
-              <th class="px-3 py-2 text-left">Origem</th>
-              <th class="px-3 py-2 text-left">Conexão</th>
-              <th class="px-3 py-2 text-left">Companhias</th>
-              <th class="px-3 py-2 text-left">Tempo Total</th>
+              <th class="px-3 py-2 text-left">{{ t('voos.routesFrom') }}</th>
+              <th class="px-3 py-2 text-left">{{ t('voos.routesConnection') }}</th>
+              <th class="px-3 py-2 text-left">{{ t('voos.routesAirline') }}</th>
+              <th class="px-3 py-2 text-left">{{ t('voos.routesTime') }}</th>
             </tr>
           </thead>
           <tbody>
@@ -57,7 +76,16 @@ const chips = [
             >
               <td class="px-3 py-2 font-medium text-aws-dark">{{ rota.origem }}</td>
               <td class="px-3 py-2">{{ rota.conexao }}</td>
-              <td class="px-3 py-2">{{ rota.companhias }}</td>
+              <td class="px-3 py-2">
+                <a
+                  :href="rota.link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-aws-orange hover:underline font-medium"
+                >
+                  {{ rota.companhia }}
+                </a>
+              </td>
               <td class="px-3 py-2 font-mono text-xs">{{ rota.tempo }}</td>
             </tr>
           </tbody>
@@ -66,9 +94,28 @@ const chips = [
       <p class="text-xs text-gray-500 mt-2">* Tempos incluem conexão. Não há voo direto Brasil → Las Vegas.</p>
     </section>
 
+    <!-- Buscar Passagens -->
+    <section class="mb-10">
+      <h2 class="text-2xl font-bold text-aws-dark mb-4">🔎 {{ t('voos.searchFlights') }}</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <a
+          v-for="link in searchLinks"
+          :key="link.nome"
+          :href="link.url"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex flex-col items-center gap-2 p-5 bg-white border border-gray-200 rounded-xl hover:border-aws-orange hover:shadow-md transition-all duration-200 group"
+        >
+          <span class="text-3xl">{{ link.icon }}</span>
+          <span class="font-semibold text-aws-dark group-hover:text-aws-orange transition-colors">{{ link.nome }}</span>
+          <span class="text-xs text-gray-500">{{ t('common.openNewTab') }}</span>
+        </a>
+      </div>
+    </section>
+
     <!-- Visto Americano -->
     <section class="mb-10">
-      <h2 class="text-2xl font-bold text-aws-dark mb-4">🛂 Visto Americano (B1/B2)</h2>
+      <h2 class="text-2xl font-bold text-aws-dark mb-4">🛂 {{ t('voos.visaTitle') }}</h2>
       <div class="relative pl-8 space-y-6">
         <!-- Linha vertical -->
         <div class="absolute left-3 top-2 bottom-2 w-0.5 bg-aws-orange/30"></div>
@@ -92,25 +139,25 @@ const chips = [
 
     <!-- Do Aeroporto ao Hotel -->
     <section class="mb-10">
-      <h2 class="text-2xl font-bold text-aws-dark mb-4">🚗 Do Aeroporto ao Hotel</h2>
+      <h2 class="text-2xl font-bold text-aws-dark mb-4">🚗 {{ t('voos.transportTitle') }}</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div
-          v-for="t in transportes"
-          :key="t.nome"
+          v-for="transporte in transportes"
+          :key="transporte.nome"
           class="bg-white border border-gray-200 rounded-xl p-4 text-center"
         >
-          <span class="text-3xl">{{ t.icon }}</span>
-          <h3 class="font-bold text-aws-dark mt-2">{{ t.nome }}</h3>
-          <p class="text-lg font-semibold text-aws-orange mt-1">{{ t.preco }}</p>
-          <p class="text-xs text-gray-500 mt-1">{{ t.tempo }}</p>
-          <p class="text-xs text-gray-600 mt-2">{{ t.destaque }}</p>
+          <span class="text-3xl">{{ transporte.icon }}</span>
+          <h3 class="font-bold text-aws-dark mt-2">{{ transporte.nome }}</h3>
+          <p class="text-lg font-semibold text-aws-orange mt-1">{{ transporte.preco }}</p>
+          <p class="text-xs text-gray-500 mt-1">{{ transporte.tempo }}</p>
+          <p class="text-xs text-gray-600 mt-2">{{ transporte.destaque }}</p>
         </div>
       </div>
     </section>
 
     <!-- Chip de Dados -->
     <section class="mb-8">
-      <h2 class="text-2xl font-bold text-aws-dark mb-4">📱 Chip de Dados / eSIM</h2>
+      <h2 class="text-2xl font-bold text-aws-dark mb-4">📱 {{ t('voos.chipsTitle') }}</h2>
       <div class="overflow-x-auto">
         <table class="w-full text-sm border border-gray-200 rounded-xl overflow-hidden">
           <thead class="bg-aws-dark text-white">
