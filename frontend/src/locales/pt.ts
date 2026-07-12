@@ -12,7 +12,7 @@ export default {
     more: 'Mais',
   },
   header: {
-    title: 're:Invent Planner',
+    title: 're:Invent Community Planner',
     subtitle: 'Las Vegas • 30 Nov – 4 Dez 2026',
     progress: 'Progresso',
   },

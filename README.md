@@ -1,6 +1,6 @@
-# 🎯 re:Invent Planning — Guia Completo para Brasileiros
+# 🎯 re:Invent Community Planner
 
-> **Vai ao AWS re:Invent pela primeira vez?** Este repositório tem tudo que você precisa saber: hotel, voo, visto, clima, turismo, compras e dicas do evento — do ponto de vista de quem vem do Brasil.
+> **Projeto colaborativo da comunidade de TI brasileira.** Tudo que você precisa saber para ir ao AWS re:Invent: hotel, voo, visto, clima, turismo, compras e dicas do evento — do ponto de vista de quem vem do Brasil.
 
 ---
 

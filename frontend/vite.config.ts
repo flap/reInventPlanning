@@ -17,7 +17,7 @@ export default defineConfig({
       includeAssets: ['favicon.ico'],
       manifest: {
         name: 'TripEvent Planner — re:Invent 2025',
-        short_name: 'reInvent Planner',
+        short_name: 're:Invent Community Planner',
         description: 'Planejador de viagem para o AWS re:Invent 2025 em Las Vegas',
         theme_color: '#232F3E',
         background_color: '#F8F9FA',

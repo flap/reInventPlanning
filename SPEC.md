@@ -1,4 +1,4 @@
-# 📋 Especificação do Sistema — TripEvent Planner
+# 📋 Especificação do Sistema — re:Invent Community Planner
 
 > Sistema de planejamento de viagens e eventos para brasileiros participando de conferências internacionais de tecnologia.
 
@@ -12,7 +12,7 @@ Brasileiros que participam de eventos internacionais de tecnologia (como AWS re:
 
 ### 1.2 Solução
 
-O **TripEvent Planner** é um sistema web que unifica todo o planejamento de viagem + evento em uma experiência guiada, com conteúdo curado em português, ferramentas interativas e timeline de preparação personalizada.
+O **re:Invent Community Planner** é um sistema web que unifica todo o planejamento de viagem + evento em uma experiência guiada, com conteúdo curado em português, ferramentas interativas e timeline de preparação personalizada.
 
 ### 1.3 Público-Alvo
 

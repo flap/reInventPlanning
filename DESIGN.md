@@ -1,6 +1,6 @@
-# 🏗️ Design Document — TripEvent Planner
+# 🏗️ Design Document — re:Invent Community Planner
 
-> Documento de design técnico para o sistema TripEvent Planner.
+> Documento de design técnico para o sistema re:Invent Community Planner.
 > Baseado na especificação [`SPEC.md`](./SPEC.md).
 
 ---
@@ -9,7 +9,7 @@
 
 ### 1.1 Objetivo deste Documento
 
-Definir a arquitetura técnica, stack, estrutura de projeto e estratégia de deploy para o TripEvent Planner — um sistema de planejamento de viagens e eventos para brasileiros.
+Definir a arquitetura técnica, stack, estrutura de projeto e estratégia de deploy para o re:Invent Community Planner — um sistema de planejamento de viagens e eventos para brasileiros.
 
 ### 1.2 Decisões de Stack
 
@@ -869,7 +869,7 @@ from app.routers import cambio, clima, auth, usuarios, viagens
 from app.config import settings
 
 app = FastAPI(
-    title="TripEvent Planner API",
+    title="re:Invent Community Planner API",
     version="0.1.0",
     docs_url="/api/docs",
     openapi_url="/api/openapi.json",
@@ -900,7 +900,7 @@ async def health():
 from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):
-    app_name: str = "TripEvent Planner API"
+    app_name: str = "re:Invent Community Planner API"
     debug: bool = False
     
     # CORS
