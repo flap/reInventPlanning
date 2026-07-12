@@ -23,7 +23,7 @@ O **TripEvent Planner** é um sistema web que unifica todo o planejamento de via
 
 ### 1.4 Primeiro Destino/Evento
 
-**AWS re:Invent 2025** — Las Vegas, Nevada, EUA (1–5 de dezembro de 2025)
+**AWS re:Invent 2026** — Las Vegas, Nevada, EUA (30 Nov – 4 Dez 2026)
 
 O sistema é projetado para ser extensível a qualquer combinação destino + evento, mas o re:Invent serve como implementação de referência com conteúdo completo.
 
@@ -145,7 +145,7 @@ Cada feature é derivada do conteúdo existente nos guias do projeto, expandida 
 **Conteúdo base já disponível:**
 - Tipos de sessão (KEY, BLD, BOF, CHL, CON, DEM, GAM, LAB, WRK)
 - Níveis de profundidade (100–400)
-- Tipos de pass (Full Conference, Builder Pass, Expo Pass)
+- Tipo de pass: Full Conference Pass apenas (Expo Pass descontinuado a partir de 2026)
 - Cronograma típico da semana (domingo a sexta)
 - 15+ dicas para primeira vez
 - Links para app oficial, site e YouTube
@@ -357,11 +357,11 @@ Cada novo evento adicionado ao sistema deve incluir:
 
 ```yaml
 evento:
-  nome: "AWS re:Invent 2025"
+  nome: "AWS re:Invent 2026"
   tipo: "conferência técnica"
   cidade: "Las Vegas"
   pais: "EUA"
-  periodo: "1-5 dezembro 2025"
+  periodo: "30 Nov – 4 Dez 2026"
   
   conteudo_obrigatorio:
     - sobre_o_evento      # O que é, estrutura, registro
@@ -389,7 +389,7 @@ evento:
 | Microsoft Build | Seattle, EUA | Maio | Microsoft/.NET |
 | Web Summit | Lisboa, Portugal | Novembro | Tech geral |
 | AWS Summit SP | São Paulo, BR | Variável | Cloud (local) |
-| re:Inforce | Variável, EUA | Junho | Segurança |
+| re:Inforce | Integrado ao re:Invent (desde 2026) | Dezembro (dia dedicado) | Segurança |
 
 ### 6.3 Dados Compartilhados entre Eventos
 

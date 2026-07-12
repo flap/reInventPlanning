@@ -42,16 +42,24 @@
   {
     "id": "milestone-registro",
     "titulo": "Registro no re:Invent",
-    "descricao": "Portal de registro abre em junho/julho. Full conference pass inclui todas as sessões e eventos.",
-    "mesesAntes": 4,
+    "descricao": "Portal de registro aberto. Early bird $1,299 (até 25 Ago 2026), depois $2,499. Full conference pass inclui todas as sessões, refeições e eventos.",
+    "mesesAntes": 5,
+    "categoria": "evento",
+    "prioridade": "alta"
+  },
+  {
+    "id": "milestone-earlybird",
+    "titulo": "Early bird expira 25 Ago 2026",
+    "descricao": "Último dia para garantir o ingresso a $1,299. Após esta data, o preço sobe para $2,499 (full price).",
+    "mesesAntes": 3,
     "categoria": "evento",
     "prioridade": "alta"
   },
   {
     "id": "milestone-sessoes",
     "titulo": "Catálogo de sessões — reservar!",
-    "descricao": "Catálogo abre em outubro. Sessões populares esgotam em horas — reserve imediatamente!",
-    "mesesAntes": 2,
+    "descricao": "Catálogo disponível desde 30 Jun 2026. São 2.200+ sessões (70% interativas). Sessões populares esgotam em horas — reserve imediatamente!",
+    "mesesAntes": 5,
     "categoria": "evento",
     "prioridade": "alta"
   },

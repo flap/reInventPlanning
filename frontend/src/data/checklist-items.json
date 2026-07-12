@@ -156,23 +156,23 @@
   {
     "id": "evento-registrar",
     "categoria": "evento",
-    "texto": "Fazer registro no AWS re:Invent (portal abre jun/jul)",
+    "texto": "Registrar no re:Invent (early bird $1,299 até 25 Ago 2026)",
     "prioridade": "alta",
-    "timelineMes": -4
+    "timelineMes": -5
   },
   {
     "id": "evento-app",
     "categoria": "evento",
-    "texto": "Baixar e configurar app AWS Events no celular",
+    "texto": "Baixar e configurar app AWS Events no celular (disponível set 2026)",
     "prioridade": "alta",
     "timelineMes": -2
   },
   {
     "id": "evento-sessoes",
     "categoria": "evento",
-    "texto": "Reservar sessões no catálogo (abre em outubro — aja rápido!)",
+    "texto": "Reservar sessões no catálogo (disponível desde 30 Jun 2026 — aja rápido!)",
     "prioridade": "alta",
-    "timelineMes": -2
+    "timelineMes": -5
   },
   {
     "id": "evento-temas",

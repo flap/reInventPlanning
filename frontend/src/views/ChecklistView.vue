@@ -81,7 +81,7 @@ function prioridadeLabel(prioridade: string): string {
     <!-- Header -->
     <div class="mb-8">
       <h1 class="text-3xl font-bold text-aws-dark mb-2">📋 Checklist de Planejamento</h1>
-      <p class="text-gray-600">Acompanhe seu progresso na preparação para o re:Invent 2025</p>
+      <p class="text-gray-600">Acompanhe seu progresso na preparação para o re:Invent 2026</p>
     </div>
 
     <!-- Barra de Progresso -->

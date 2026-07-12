@@ -5,7 +5,7 @@ export type StatusPassagem = 'nao_comprada' | 'monitorando' | 'comprada'
 
 export const useTripStore = defineStore('trip', {
   state: () => ({
-    eventoId: 'reinvent-2025' as string,
+    eventoId: 'reinvent-2026' as string,
     destinoId: 'las-vegas' as string,
     dataIda: null as string | null,
     dataVolta: null as string | null,

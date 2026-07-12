@@ -14,7 +14,7 @@ const checklistStore = useChecklistStore()
             🎯 re:Invent <span class="text-aws-orange">Planner</span>
           </h1>
           <p class="text-xs lg:text-sm text-gray-400 mt-0.5">
-            Las Vegas • 1-5 Dez 2025
+            Las Vegas • 30 Nov – 4 Dez 2026
           </p>
         </div>
 

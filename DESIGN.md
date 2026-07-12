@@ -307,7 +307,7 @@ reInventPlanning/
 │   │   │   └── useOffline.ts
 │   │   ├── data/
 │   │   │   ├── eventos/
-│   │   │   │   └── reinvent-2025.json
+│   │   │   │   └── reinvent-2026.json
 │   │   │   ├── destinos/
 │   │   │   │   └── las-vegas.json
 │   │   │   ├── hoteis.json
@@ -526,7 +526,7 @@ OrcamentoView
 
 ```typescript
 interface TripState {
-  eventoId: string              // 'reinvent-2025'
+  eventoId: string              // 'reinvent-2026'
   destinoId: string             // 'las-vegas'
   dataIda: string | null
   dataVolta: string | null
@@ -966,20 +966,20 @@ dev = [
 
 ```
 GET /api/v1/cambio
-  → { "USD_BRL": 5.42, "updated_at": "2025-10-15T14:30:00Z" }
+  → { "USD_BRL": 5.42, "updated_at": "2026-10-15T14:30:00Z" }
 
 GET /api/v1/cambio/historico?dias=30
-  → [{ "data": "2025-10-01", "valor": 5.38 }, ...]
+  → [{ "data": "2026-10-01", "valor": 5.38 }, ...]
 ```
 
 #### Clima (público, sem auth)
 
 ```
-GET /api/v1/clima/las-vegas?data_inicio=2025-12-01&data_fim=2025-12-06
+GET /api/v1/clima/las-vegas?data_inicio=2026-11-30&data_fim=2026-12-05
   → {
       "cidade": "Las Vegas",
       "previsao": [
-        { "data": "2025-12-01", "min": 3, "max": 15, "umidade": 18, "condicao": "ensolarado" }
+        { "data": "2026-11-30", "min": 3, "max": 15, "umidade": 18, "condicao": "ensolarado" }
       ]
     }
 ```
@@ -1147,7 +1147,7 @@ localStorage keys:
 | PK | SK | TTL | Atributos |
 |----|-----|-----|-----------|
 | `CAMBIO` | `USD_BRL` | +1h | valor, variacao, source |
-| `CLIMA#las-vegas` | `2025-12-01` | +6h | min, max, umidade, condicao |
+| `CLIMA#las-vegas` | `2026-11-30` | +6h | min, max, umidade, condicao |
 
 ### 10.3 Estratégia de Sync (localStorage ↔ API)
 

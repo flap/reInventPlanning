@@ -59,7 +59,7 @@ function handleIofMode(mode: 'cartao' | 'compra_internacional') {
     <!-- Header -->
     <div class="mb-8">
       <h1 class="text-3xl font-bold text-aws-dark mb-2">💰 Calculadora de Orçamento</h1>
-      <p class="text-gray-600">Estime seus gastos para o re:Invent 2025 em Las Vegas</p>
+      <p class="text-gray-600">Estime seus gastos para o re:Invent 2026 em Las Vegas</p>
     </div>
 
     <!-- Seletor de Cenário -->

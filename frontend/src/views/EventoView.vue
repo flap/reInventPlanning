@@ -16,31 +16,32 @@ const niveis = [
   { nivel: 200, label: 'Intermediário', cor: 'bg-blue-100 text-blue-800' },
   { nivel: 300, label: 'Avançado', cor: 'bg-purple-100 text-purple-800' },
   { nivel: 400, label: 'Expert', cor: 'bg-red-100 text-red-800' },
+  { nivel: 500, label: 'Deep Dive', cor: 'bg-orange-100 text-orange-800' },
 ]
 
 const cronograma = [
-  { dia: 'Domingo', data: '30 Nov', atividades: 'Chegada, badge pickup, explorar a Strip, ajustar fuso' },
-  { dia: 'Segunda', data: '1 Dez', atividades: 'Keynote Peter DeSantis, sessões, Expo Hall abre, re:Play party' },
-  { dia: 'Terça', data: '2 Dez', atividades: 'Keynote Adam Selipsky (CEO), sessões técnicas, builders sessions' },
-  { dia: 'Quarta', data: '3 Dez', atividades: 'Keynote Dr. Swami Sivasubramanian, sessões, networking events' },
-  { dia: 'Quinta', data: '4 Dez', atividades: 'Keynote Werner Vogels (CTO), sessões, Expo Hall último dia' },
-  { dia: 'Sexta', data: '5 Dez', atividades: 'Últimas sessões (manhã), encerramento, checkout hotéis' },
+  { dia: 'Sábado', data: '29 Nov', atividades: 'Chegada, explorar a Strip, ajustar fuso horário' },
+  { dia: 'Domingo', data: '30 Nov', atividades: 'Badge pickup, workshops pré-evento, registro, orientação' },
+  { dia: 'Segunda', data: '1 Dez', atividades: 'Keynote Peter DeSantis, sessões, Expo Hall abre' },
+  { dia: 'Terça', data: '2 Dez', atividades: 'Keynote CEO, sessões técnicas, builders sessions, networking' },
+  { dia: 'Quarta', data: '3 Dez', atividades: 'Keynote Dr. Swami, re:Inforce (segurança), sessões, re:Play party' },
+  { dia: 'Quinta', data: '4 Dez', atividades: 'Keynote Werner Vogels (CTO), últimas sessões, Expo Hall último dia, encerramento' },
 ]
 
 const dicasAntes = [
-  'Reserve sessões assim que o catálogo abrir (outubro) — as melhores esgotam em minutos',
-  'Baixe o app AWS Events e configure sua agenda antes de viajar',
-  'Estude o mapa dos venues — são 6+ hotéis com sessões simultâneas',
-  'Planeje no máximo 4-5 sessões por dia — deslocamento consome tempo',
-  'Leve power bank e carregador — celular é indispensável no evento',
+  'Reserve sessões assim que o catálogo abrir (disponível desde 30 Jun 2026) — as melhores esgotam rápido',
+  'Aproveite o early bird até 25 Ago ($1,299) — depois sobe para $2,499',
+  'Baixe o app AWS Events (disponível set 2026) e configure sua agenda antes de viajar',
+  'Estude o mapa dos venues — são 6 hotéis: Caesars Forum, Caesars Palace, Encore, MGM Grand, Venetian e Wynn',
+  'Planeje no máximo 4-5 sessões por dia — deslocamento consome tempo (use o monorail gratuito!)',
 ]
 
 const dicasDurante = [
   'Chegue 15-20 min antes nas sessões populares — overflow é real',
-  'Use o shuttle gratuito entre venues — não caminhe 30min no sol',
-  'Visite a Expo Hall com calma — muitos brindes e demos exclusivas',
-  'Faça networking nos happy hours e community events à noite',
-  'Tire fotos dos slides — palestrantes raramente compartilham depois',
+  'Use o monorail gratuito (badge holders) entre venues — muito mais rápido que caminhar',
+  'Refeições incluídas: breakfast, lunch e snacks nos dias de conferência — aproveite!',
+  'Não perca o re:Inforce na quinta (3 Dez) — conteúdo de segurança integrado ao evento',
+  'Agende seu exame de certificação com 50% de desconto durante o evento',
 ]
 </script>
 
@@ -48,9 +49,9 @@ const dicasDurante = [
   <div>
     <!-- Header -->
     <div class="mb-8">
-      <h1 class="text-3xl md:text-4xl font-bold text-aws-dark">AWS re:Invent 2025</h1>
+      <h1 class="text-3xl md:text-4xl font-bold text-aws-dark">AWS re:Invent 2026</h1>
       <span class="inline-block mt-2 bg-aws-orange/10 text-aws-orange-hover font-medium text-sm px-3 py-1 rounded-full">
-        1–5 Dezembro • Las Vegas, NV
+        30 Nov – 4 Dez 2026 • Las Vegas, NV
       </span>
     </div>
 
@@ -65,9 +66,16 @@ const dicasDurante = [
           anúncios de novos serviços e muito networking.
         </p>
         <p>
-          O evento acontece em <strong>Las Vegas, Nevada</strong>, distribuído por 6+ venues (hotéis/cassinos) 
-          ao longo da Strip. São mais de 2.000 sessões em todos os níveis, desde introdução a tópicos 
-          avançados de arquitetura, segurança, machine learning, serverless e muito mais.
+          O evento acontece em <strong>Las Vegas, Nevada</strong>, distribuído por 6 venues: 
+          Caesars Forum, Caesars Palace, Encore, MGM Grand, The Venetian e Wynn. 
+          São mais de <strong>2.200 sessões</strong> (70% interativas) em todos os níveis — incluindo o novo nível 500 (Deep Dive) —
+          cobrindo arquitetura, segurança, machine learning, serverless e muito mais.
+        </p>
+        <p>
+          <strong>Novidades 2026:</strong> re:Inforce (segurança) agora faz parte do re:Invent (quinta, 3 Dez). 
+          Monorail gratuito para badge holders entre venues. Refeições incluídas (breakfast, lunch e snacks em dias de conferência). 
+          50% de desconto em exames de certificação AWS. Apenas Full Conference pass disponível (sem Expo-only).
+          Early bird $1,299 (até 25 Ago), full price $2,499.
         </p>
         <p>
           Para brasileiros, é uma oportunidade única de aprender diretamente com engenheiros AWS, 

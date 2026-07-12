@@ -3,7 +3,7 @@ import { computed } from 'vue'
 import milestonesData from '@/data/timeline-milestones.json'
 import type { TimelineMilestone } from '@/types'
 
-const EVENT_DATE = new Date('2025-12-01')
+const EVENT_DATE = new Date('2026-11-30')
 
 const milestones = computed(() => {
   const now = new Date()
@@ -123,7 +123,7 @@ function prioridadeLabel(prioridade: string): string {
     <div class="mb-8">
       <h1 class="text-3xl font-bold text-aws-dark mb-2">🗓️ Timeline de Preparação</h1>
       <p class="text-gray-600">
-        Acompanhe os marcos importantes para o re:Invent 2025 — de {{ milestones[0]?.formattedDate }} até o evento
+        Acompanhe os marcos importantes para o re:Invent 2026 — de {{ milestones[0]?.formattedDate }} até o evento
       </p>
     </div>
 
@@ -234,10 +234,10 @@ function prioridadeLabel(prioridade: string): string {
         <div class="ml-16 md:ml-[calc(50%+2rem)] md:pl-8">
           <div class="p-5 bg-aws-dark rounded-xl border border-aws-orange/30 shadow-lg">
             <p class="text-xs font-medium text-aws-orange uppercase tracking-wide mb-1">
-              1 de dezembro de 2025
+              30 de novembro de 2026
             </p>
-            <h3 class="text-lg font-bold text-white mb-1">🎰 AWS re:Invent 2025!</h3>
-            <p class="text-sm text-gray-300">Las Vegas, Nevada — The Venetian Convention Center</p>
+            <h3 class="text-lg font-bold text-white mb-1">🎰 AWS re:Invent 2026!</h3>
+            <p class="text-sm text-gray-300">Las Vegas, Nevada — Caesars Forum, Venetian, MGM Grand, Wynn, Encore, Caesars Palace</p>
           </div>
         </div>
       </div>

@@ -12,7 +12,7 @@ const { formatUSD } = useCurrency()
 const progress = computed(() => checklistStore.progress.percentage)
 
 const diasParaEvento = computed(() => {
-  const evento = new Date('2025-12-01')
+  const evento = new Date('2026-11-30')
   const hoje = new Date()
   const diff = evento.getTime() - hoje.getTime()
   const dias = Math.ceil(diff / (1000 * 60 * 60 * 24))
@@ -44,10 +44,10 @@ const topDicas = [
     <!-- Hero Section -->
     <section class="bg-gradient-to-br from-aws-dark to-aws-dark-lighter rounded-2xl p-8 md:p-12 mb-8 text-white text-center">
       <h1 class="text-3xl md:text-5xl font-bold mb-3">
-        Planeje sua viagem ao re:Invent 2025
+        Planeje sua viagem ao re:Invent 2026
       </h1>
       <p class="text-lg md:text-xl text-gray-300 mb-6">
-        Las Vegas, 1–5 Dezembro
+        Las Vegas, 30 Nov – 4 Dez 2026
       </p>
       <RouterLink
         to="/checklist"
