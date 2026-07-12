@@ -5,6 +5,7 @@ export interface Hotel {
   venue: boolean
   distanciaMinutos: number
   distanciaCategoria: 'verde' | 'amarelo' | 'vermelho'
+  distanciaTexto: string
   precoMin: number
   precoMax: number
   nivel: 1 | 2 | 3 | 4 | 5

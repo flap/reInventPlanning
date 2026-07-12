@@ -104,7 +104,7 @@ function estrelas(nivel: number): string {
         <div class="flex justify-between items-start mb-2">
           <h3 class="font-bold text-aws-dark">{{ hotel.nome }}</h3>
           <span :class="[distanciaBadgeClass(hotel.distanciaCategoria), 'text-xs px-2 py-0.5 rounded-full font-medium']">
-            {{ hotel.distanciaMinutos }}min
+            {{ hotel.distanciaTexto }}
           </span>
         </div>
 
@@ -136,11 +136,11 @@ function estrelas(nivel: number): string {
               rel="noopener noreferrer"
               class="text-aws-orange hover:underline ml-1"
             >
-              🗺️ {{ hotel.distanciaMinutos }} min — {{ t('hoteis.directions') }}
+              🗺️ {{ hotel.distanciaTexto }} — {{ t('hoteis.directions') }}
             </a>
           </template>
           <template v-else>
-            <span class="ml-1">{{ hotel.distanciaMinutos }} min ({{ t('hoteis.venue') }})</span>
+            <span class="ml-1">{{ hotel.distanciaTexto }}</span>
           </template>
         </p>
 
@@ -206,7 +206,7 @@ function estrelas(nivel: number): string {
               <td class="px-3 py-2">${{ hotel.precoMin }}–${{ hotel.precoMax }}</td>
               <td class="px-3 py-2">
                 <span :class="[distanciaBadgeClass(hotel.distanciaCategoria), 'text-xs px-2 py-0.5 rounded-full']">
-                  {{ hotel.distanciaMinutos }}min
+                  {{ hotel.distanciaTexto }}
                 </span>
               </td>
               <td class="px-3 py-2">${{ hotel.resortFee }}</td>
