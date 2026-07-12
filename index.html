@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>re:Invent Planning — Guia Completo para Brasileiros</title>
+  <meta name="description" content="Guia completo para brasileiros que vão ao AWS re:Invent pela primeira vez em Las Vegas. Hotel, voo, visto, clima, turismo e checklist interativo." />
+  <meta property="og:title" content="re:Invent Planning — Guia para Brasileiros" />
+  <meta property="og:description" content="Tudo que você precisa saber para ir ao AWS re:Invent em Las Vegas pela primeira vez." />
+  <meta property="og:type" content="website" />
+  <style>
+    :root {
+      --aws-orange: #FF9900;
+      --aws-dark:   #232F3E;
+      --aws-blue:   #1A73E8;
+      --aws-light:  #F8F9FA;
+      --text:       #2d3748;
+      --muted:      #718096;
+      --border:     #e2e8f0;
+      --radius:     14px;
+      --shadow:     0 4px 20px rgba(0,0,0,0.08);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: #f7f8fc; color: var(--text); }
+    a { color: var(--aws-orange); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, var(--aws-dark) 0%, #37475a 60%, #1a2a3a 100%);
+      color: white; text-align: center; padding: 72px 24px 80px;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 60% 40%, rgba(255,153,0,.18) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,153,0,.18); border: 1px solid rgba(255,153,0,.4);
+      color: var(--aws-orange); font-size: .78rem; font-weight: 700;
+      letter-spacing: .6px; padding: 5px 14px; border-radius: 50px;
+      margin-bottom: 20px; text-transform: uppercase;
+    }
+    .hero h1 { font-size: clamp(1.9rem, 5vw, 3rem); font-weight: 900; line-height: 1.15; margin-bottom: 16px; }
+    .hero h1 span { color: var(--aws-orange); }
+    .hero p  { font-size: 1.05rem; opacity: .8; max-width: 560px; margin: 0 auto 32px; line-height: 1.6; }
+    .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 26px; border-radius: 50px; font-size: .95rem; font-weight: 700;
+      cursor: pointer; border: none; transition: transform .15s, box-shadow .15s;
+      text-decoration: none;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.2); text-decoration: none; }
+    .btn-primary { background: var(--aws-orange); color: white; }
+    .btn-outline { background: transparent; border: 2px solid rgba(255,255,255,.4); color: white; }
+    .btn-outline:hover { border-color: var(--aws-orange); color: var(--aws-orange); }
+
+    /* ── META BAR ── */
+    .meta-bar {
+      background: white; border-bottom: 1px solid var(--border);
+      display: flex; justify-content: center; gap: 36px;
+      padding: 14px 24px; flex-wrap: wrap;
+    }
+    .meta-item { display: flex; align-items: center; gap: 6px; font-size: .85rem; color: var(--muted); }
+    .meta-item strong { color: var(--text); }
+
+
+    /* ── LAYOUT ── */
+    .container { max-width: 1060px; margin: 0 auto; padding: 56px 24px; }
+    .section-title {
+      font-size: 1.5rem; font-weight: 800; color: var(--aws-dark);
+      margin-bottom: 8px;
+    }
+    .section-sub { color: var(--muted); margin-bottom: 32px; font-size: .95rem; }
+
+    /* ── GUIDE CARDS ── */
+    .guides-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 20px; }
+    .guide-card {
+      background: white; border-radius: var(--radius); padding: 24px;
+      box-shadow: var(--shadow); border: 1px solid var(--border);
+      transition: transform .18s, box-shadow .18s; display: flex; flex-direction: column;
+    }
+    .guide-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,.12); }
+    .guide-icon { font-size: 2rem; margin-bottom: 12px; }
+    .guide-card h3 { font-size: 1rem; font-weight: 700; color: var(--aws-dark); margin-bottom: 8px; }
+    .guide-card p  { font-size: .85rem; color: var(--muted); line-height: 1.6; flex: 1; }
+    .guide-link {
+      margin-top: 16px; display: inline-flex; align-items: center; gap: 6px;
+      font-size: .85rem; font-weight: 700; color: var(--aws-orange);
+    }
+    .guide-link:hover { text-decoration: underline; }
+
+    /* ── CHECKLIST EMBED ── */
+    .checklist-section { background: white; border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+    .checklist-header {
+      background: linear-gradient(90deg, var(--aws-dark), #37475a);
+      color: white; padding: 24px 28px;
+    }
+    .checklist-header h2 { font-size: 1.25rem; font-weight: 800; margin-bottom: 4px; }
+    .checklist-header p  { font-size: .88rem; opacity: .75; }
+    .checklist-frame { width: 100%; border: none; height: 780px; display: block; }
+
+
+    /* ── TIPS ── */
+    .tips-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
+    .tip-card {
+      background: white; border-radius: var(--radius); padding: 20px;
+      box-shadow: var(--shadow); border-left: 4px solid var(--aws-orange);
+    }
+    .tip-card h4 { font-size: .92rem; font-weight: 700; color: var(--aws-dark); margin-bottom: 6px; }
+    .tip-card p  { font-size: .82rem; color: var(--muted); line-height: 1.55; }
+
+    /* ── TIMELINE ── */
+    .timeline { position: relative; padding-left: 28px; }
+    .timeline::before {
+      content: ''; position: absolute; left: 8px; top: 4px; bottom: 4px;
+      width: 2px; background: var(--border);
+    }
+    .tl-item { position: relative; margin-bottom: 24px; }
+    .tl-dot {
+      position: absolute; left: -24px; top: 3px;
+      width: 14px; height: 14px; border-radius: 50%;
+      background: var(--aws-orange); border: 3px solid white;
+      box-shadow: 0 0 0 2px var(--aws-orange);
+    }
+    .tl-label { font-size: .75rem; font-weight: 700; color: var(--aws-orange); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 2px; }
+    .tl-text  { font-size: .88rem; color: var(--text); line-height: 1.5; }
+
+    /* ── WEATHER ── */
+    .weather-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 14px; }
+    .weather-card {
+      background: white; border-radius: var(--radius); padding: 20px 18px;
+      box-shadow: var(--shadow); text-align: center;
+    }
+    .weather-icon { font-size: 2rem; margin-bottom: 8px; }
+    .weather-temp { font-size: 1.4rem; font-weight: 800; color: var(--aws-dark); }
+    .weather-label { font-size: .78rem; color: var(--muted); margin-top: 4px; }
+    .weather-tip   { font-size: .78rem; color: var(--aws-blue); margin-top: 6px; font-weight: 600; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--aws-dark); color: rgba(255,255,255,.55);
+      text-align: center; padding: 32px 24px; font-size: .82rem;
+    }
+    footer strong { color: var(--aws-orange); }
+    .version-badge {
+      display: inline-block; background: rgba(255,153,0,.15);
+      border: 1px solid rgba(255,153,0,.3); color: var(--aws-orange);
+      font-size: .72rem; font-weight: 700; padding: 2px 10px;
+      border-radius: 50px; margin-left: 8px; vertical-align: middle;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      .hero { padding: 48px 20px 56px; }
+      .container { padding: 36px 16px; }
+      .checklist-frame { height: 600px; }
+      .meta-bar { gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-badge">🎯 Guia para Primeira Viagem</div>
+  <h1>Planejamento <span>re:Invent</span><br>Las Vegas 🇺🇸</h1>
+  <p>O guia completo em português para brasileiros que vão ao maior evento AWS do mundo pela primeira vez.</p>
+  <div class="hero-btns">
+    <a href="#checklist" class="btn btn-primary">📋 Abrir Checklist Interativo</a>
+    <a href="#guias" class="btn btn-outline">📚 Ver Guias</a>
+  </div>
+</header>
+
+<!-- META BAR -->
+<div class="meta-bar">
+  <div class="meta-item">📅 <strong>1–5 Dez 2025</strong></div>
+  <div class="meta-item">📍 <strong>The Venetian · Las Vegas, NV</strong></div>
+  <div class="meta-item">👥 <strong>60.000+ participantes</strong></div>
+  <div class="meta-item">📖 <strong>5 guias completos</strong></div>
+  <div class="meta-item">✅ <strong>80+ itens no checklist</strong></div>
+</div>
+
+<!-- GUIAS -->
+<div class="container" id="guias">
+  <div class="section-title">📚 Guias Completos</div>
+  <div class="section-sub">Tudo que você precisa saber, do visto ao turismo em Las Vegas.</div>
+  <div class="guides-grid">
+
+    <div class="guide-card">
+      <div class="guide-icon">🎯</div>
+      <h3>Sobre o Evento</h3>
+      <p>O que é o re:Invent, tipos de sessão (Keynote, Workshop, Chalk Talk), como se registrar, app oficial e dicas essenciais para primeira vez.</p>
+      <a class="guide-link" href="guias/01-sobre-o-evento.md">Ver guia →</a>
+    </div>
+
+    <div class="guide-card">
+      <div class="guide-icon">🏨</div>
+      <h3>Hotéis e Hospedagem</h3>
+      <p>Melhores hotéis por localização e preço, sistema de shuttle gratuito da AWS, resort fee e dicas de reserva com antecedência.</p>
+      <a class="guide-link" href="guias/02-hoteis-hospedagem.md">Ver guia →</a>
+    </div>
+
+    <div class="guide-card">
+      <div class="guide-icon">✈️</div>
+      <h3>Voos e Deslocamento</h3>
+      <p>Conexões do Brasil para LAS, visto americano B1/B2, transporte do aeroporto ao hotel, chip de dados e dicas de passagem.</p>
+      <a class="guide-link" href="guias/03-voos-deslocamento.md">Ver guia →</a>
+    </div>
+
+    <div class="guide-card">
+      <div class="guide-icon">🌡️</div>
+      <h3>Clima e Vestuário</h3>
+      <p>Temperatura do deserto em dezembro, estratégia de camadas, hidratação no ar seco, kit de remédios e lista de mala completa.</p>
+      <a class="guide-link" href="guias/04-clima-vestuario.md">Ver guia →</a>
+    </div>
+
+    <div class="guide-card">
+      <div class="guide-icon">🎰</div>
+      <h3>Turismo e Compras</h3>
+      <p>The Sphere, Fontes do Bellagio, Cirque du Soleil, outlets com 65% off, restaurantes para todos os bolsos e passeios além da Strip.</p>
+      <a class="guide-link" href="guias/05-turismo-compras.md">Ver guia →</a>
+    </div>
+
+    <div class="guide-card" style="border: 2px dashed var(--aws-orange); background: #fffbf5;">
+      <div class="guide-icon">🗂️</div>
+      <h3>Índice Completo</h3>
+      <p>Visão geral de todos os guias e linha do tempo de preparação — de 9 meses antes até o dia do voo.</p>
+      <a class="guide-link" href="guias/00-indice.md">Ver índice →</a>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- CHECKLIST EMBED -->
+<div class="container" id="checklist" style="padding-top: 0;">
+  <div class="section-title">📋 Checklist Interativo de Planejamento</div>
+  <div class="section-sub">80+ itens organizados por categoria. Seu progresso é salvo automaticamente no navegador.</div>
+  <div class="checklist-section">
+    <div class="checklist-header">
+      <h2>🎯 Planejador re:Invent Las Vegas</h2>
+      <p>Marque os itens conforme você avança no planejamento. Progresso salvo automaticamente.</p>
+    </div>
+    <iframe class="checklist-frame" src="ferramenta/checklist.html" title="Checklist Interativo re:Invent"></iframe>
+  </div>
+</div>
+
+<!-- TOP DICAS -->
+<div class="container" style="padding-top: 0;">
+  <div class="section-title">⚡ Top 12 Dicas Rápidas</div>
+  <div class="section-sub">O essencial para quem está indo pela primeira vez.</div>
+  <div class="tips-grid">
+    <div class="tip-card"><h4>🛂 Visto com Antecedência</h4><p>Solicite o visto americano B1/B2 com 3–6 meses de antecedência. Entrevistas têm fila longa.</p></div>
+    <div class="tip-card"><h4>🏨 Reserve o Hotel Cedo</h4><p>Os hotéis parceiros da AWS esgotam rapidamente. Reserve 8–10 meses antes do evento.</p></div>
+    <div class="tip-card"><h4>✈️ Monitore Passagens</h4><p>Configure alertas no Google Flights ou Kayak. A melhor janela de compra é 6–9 meses antes.</p></div>
+    <div class="tip-card"><h4>🎟️ Inscrição Antecipada</h4><p>O registro abre em junho/julho. Preços sobem muito à medida que o evento se aproxima.</p></div>
+    <div class="tip-card"><h4>📅 Reserve Sessões Logo</h4><p>O catálogo de sessões abre em outubro. As mais populares esgotam em minutos!</p></div>
+    <div class="tip-card"><h4>📱 App AWS Events</h4><p>Baixe e configure antes de viajar. É sua agenda, mapa e guia do evento — indispensável.</p></div>
+    <div class="tip-card"><h4>👟 Tênis Confortável</h4><p>Você vai andar 15.000+ passos por dia entre venues. Invista num bom calçado com amortecimento.</p></div>
+    <div class="tip-card"><h4>💧 Hidrate-se Muito</h4><p>O deserto de Mojave tem umidade abaixo de 20%. Beba 2–3L de água por dia.</p></div>
+    <div class="tip-card"><h4>🧥 Vista em Camadas</h4><p>Dias: 14–18°C. Noites: 2–6°C. Venues gelados. Tenha sempre um moletom na mochila.</p></div>
+    <div class="tip-card"><h4>🔋 Power Bank é Vital</h4><p>Seu celular é guia, agenda e câmera. Carregador portátil é absolutamente indispensável.</p></div>
+    <div class="tip-card"><h4>💵 Sales Tax de 8,375%</h4><p>Nevada cobra imposto sobre tudo. Produto de US$ 100 custa US$ 108,38 no caixa — planeje!</p></div>
+    <div class="tip-card"><h4>🏥 Seguro Viagem</h4><p>Consultas médicas nos EUA custam US$ 500–2.000+. Contrate cobertura mínima de US$ 100.000.</p></div>
+  </div>
+</div>
+
+
+<!-- CLIMA -->
+<div class="container" style="padding-top: 0;">
+  <div class="section-title">🌡️ Clima em Dezembro</div>
+  <div class="section-sub">Las Vegas fica no deserto de Mojave — amplitude térmica enorme entre dia e noite.</div>
+  <div class="weather-grid">
+    <div class="weather-card">
+      <div class="weather-icon">🌅</div>
+      <div class="weather-temp">2–8°C</div>
+      <div class="weather-label">Manhãs</div>
+      <div class="weather-tip">Casaco obrigatório</div>
+    </div>
+    <div class="weather-card">
+      <div class="weather-icon">☀️</div>
+      <div class="weather-temp">14–18°C</div>
+      <div class="weather-label">Tardes ensolaradas</div>
+      <div class="weather-tip">Camada leve</div>
+    </div>
+    <div class="weather-card">
+      <div class="weather-icon">🌙</div>
+      <div class="weather-temp">2–6°C</div>
+      <div class="weather-label">Noites</div>
+      <div class="weather-tip">Jaqueta + cachecol</div>
+    </div>
+    <div class="weather-card">
+      <div class="weather-icon">❄️</div>
+      <div class="weather-temp">Até -1°C</div>
+      <div class="weather-label">Madrugadas</div>
+      <div class="weather-tip">Evite ficar do lado de fora</div>
+    </div>
+    <div class="weather-card">
+      <div class="weather-icon">💧</div>
+      <div class="weather-temp">10–20%</div>
+      <div class="weather-label">Umidade relativa</div>
+      <div class="weather-tip">Beba muita água!</div>
+    </div>
+    <div class="weather-card">
+      <div class="weather-icon">🧴</div>
+      <div class="weather-temp">Ar seco</div>
+      <div class="weather-label">Pele e lábios</div>
+      <div class="weather-tip">Hidratante + lip balm</div>
+    </div>
+  </div>
+</div>
+
+<!-- TIMELINE -->
+<div class="container" style="padding-top: 0;">
+  <div class="section-title">🗓️ Linha do Tempo de Preparação</div>
+  <div class="section-sub">Do primeiro passo até o check-in no evento.</div>
+  <div style="background: white; border-radius: var(--radius); box-shadow: var(--shadow); padding: 32px 36px;">
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-label">9–6 meses antes</div><div class="tl-text">Solicitar visto americano B1/B2 · Monitorar preços de passagem · Reservar hotel parceiro da AWS</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-label">Junho / Julho</div><div class="tl-text">Comprar passagem aérea · Inscrição no re:Invent (registro abre) · Contratar seguro viagem</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-label">Outubro</div><div class="tl-text">⚡ Catálogo de sessões liberado → Reserve IMEDIATAMENTE! · Montar agenda no app AWS Events</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-label">1 semana antes</div><div class="tl-text">Check-in online · Comprar chip/eSIM americano · Levar dólares em espécie · Avisar o banco</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-label">Sábado (chegada)</div><div class="tl-text">Chegar 1 dia antes para se ambientar · Explorar a Strip · Descansar do jet lag</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-label">Domingo (pré-evento)</div><div class="tl-text">Badge pickup · re:Play party à noite (festa de abertura gratuita!)</div></div>
+      <div class="tl-item"><div class="tl-dot" style="background: #28a745; box-shadow: 0 0 0 2px #28a745;"></div><div class="tl-label" style="color: #28a745;">1–5 de Dezembro 🎉</div><div class="tl-text">AWS re:Invent 2025 — The Venetian, Las Vegas!</div></div>
+      <div class="tl-item" style="margin-bottom:0;"><div class="tl-dot"></div><div class="tl-label">Sábado (pós-evento)</div><div class="tl-text">Turismo · Compras nos outlets · Grand Canyon · Voo de volta</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>Feito com ❤️ para a comunidade brasileira de AWS &nbsp;·&nbsp; <strong>re:Invent Planning Guide</strong> <span class="version-badge">v1.0.0</span></p>
+  <p style="margin-top: 8px; font-size: .75rem;">
+    <a href="https://github.com/flap/reInventPlanning" style="color: rgba(255,255,255,.4);">GitHub</a> &nbsp;·&nbsp;
+    <a href="https://reinvent.awsevents.com" style="color: rgba(255,255,255,.4);">Site oficial re:Invent</a>
+  </p>
+</footer>
+
+</body>
+</html>
