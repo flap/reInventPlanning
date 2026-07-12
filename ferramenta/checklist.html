@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🎯 Planejador re:Invent — AWS Las Vegas</title>
+  <style>
+    :root {
+      --aws-orange: #FF9900;
+      --aws-dark: #232F3E;
+      --aws-blue: #1A73E8;
+      --aws-light: #F8F9FA;
+      --success: #28a745;
+      --danger: #dc3545;
+      --warning: #ffc107;
+      --text: #333;
+      --border: #dde2e8;
+      --shadow: 0 2px 12px rgba(0,0,0,0.08);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #f0f2f5;
+      color: var(--text);
+      min-height: 100vh;
+    }
+    header {
+      background: linear-gradient(135deg, var(--aws-dark) 0%, #37475a 100%);
+      color: white;
+      padding: 32px 24px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    header::before {
+      content: '';
+      position: absolute;
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: radial-gradient(circle, rgba(255,153,0,0.12) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    header h1 { font-size: 2rem; font-weight: 800; letter-spacing: -0.5px; }
+    header h1 span { color: var(--aws-orange); }
+    header p { margin-top: 8px; opacity: 0.8; font-size: 1rem; }
+    .badge {
+      display: inline-block;
+      background: var(--aws-orange);
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+      margin-top: 10px;
+      letter-spacing: 0.5px;
+    }
+
+    .container { max-width: 900px; margin: 0 auto; padding: 24px 16px; }
+    .progress-bar-wrap {
+      background: white;
+      border-radius: 16px;
+      padding: 20px 24px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow);
+    }
+    .progress-bar-wrap h2 { font-size: 1.1rem; margin-bottom: 12px; color: var(--aws-dark); }
+    .progress-track {
+      background: var(--border);
+      border-radius: 50px;
+      height: 18px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      background: linear-gradient(90deg, var(--aws-orange), #ffb347);
+      height: 100%;
+      border-radius: 50px;
+      transition: width 0.5s ease;
+      min-width: 4px;
+    }
+    .progress-stats {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 8px;
+      font-size: 0.85rem;
+      color: #666;
+    }
+    .progress-pct { font-weight: 700; color: var(--aws-orange); font-size: 1rem; }
+    .tabs {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .tab-btn {
+      background: white;
+      border: 2px solid var(--border);
+      border-radius: 50px;
+      padding: 8px 16px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: #555;
+    }
+    .tab-btn:hover { border-color: var(--aws-orange); color: var(--aws-orange); }
+    .tab-btn.active {
+      background: var(--aws-orange);
+      border-color: var(--aws-orange);
+      color: white;
+    }
+    .section { display: none; }
+    .section.active { display: block; }
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 20px 24px;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow);
+    }
+    .card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--aws-dark);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--aws-light);
+    }
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--aws-light);
+      cursor: pointer;
+      transition: background 0.15s;
+      border-radius: 8px;
+      padding-left: 6px;
+      padding-right: 6px;
+    }
+    .checklist-item:last-child { border-bottom: none; }
+    .checklist-item:hover { background: #fafbfc; }
+    .checklist-item input[type="checkbox"] {
+      width: 20px; height: 20px;
+      accent-color: var(--aws-orange);
+      cursor: pointer;
+      margin-top: 1px;
+      flex-shrink: 0;
+    }
+    .item-label { flex: 1; }
+    .item-text { font-size: 0.92rem; line-height: 1.5; }
+    .item-text.done { text-decoration: line-through; color: #aaa; }
+    .item-note {
+      font-size: 0.78rem;
+      color: #888;
+      margin-top: 2px;
+    }
+    .priority-badge {
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 20px;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .p-high { background: #ffe5e5; color: var(--danger); }
+    .p-med { background: #fff3cd; color: #856404; }
+    .p-low { background: #e8f4fd; color: var(--aws-blue); }
+
+    .tips-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+    .tip-card {
+      background: white;
+      border-radius: 14px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+      border-left: 4px solid var(--aws-orange);
+    }
+    .tip-card h4 { font-size: 0.95rem; margin-bottom: 6px; color: var(--aws-dark); }
+    .tip-card p { font-size: 0.83rem; color: #555; line-height: 1.5; }
+    .info-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+    .info-table th {
+      background: var(--aws-dark);
+      color: white;
+      padding: 10px 14px;
+      text-align: left;
+      font-weight: 600;
+    }
+    .info-table th:first-child { border-radius: 8px 0 0 0; }
+    .info-table th:last-child { border-radius: 0 8px 0 0; }
+    .info-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); }
+    .info-table tr:last-child td { border-bottom: none; }
+    .info-table tr:hover td { background: #fafbfc; }
+    .info-table .highlight { font-weight: 700; color: var(--aws-dark); }
+    .alert {
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin-bottom: 14px;
+      font-size: 0.88rem;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .alert-warn { background: #fff8e1; border-left: 4px solid var(--warning); }
+    .alert-info { background: #e3f2fd; border-left: 4px solid var(--aws-blue); }
+    .alert-success { background: #e8f5e9; border-left: 4px solid var(--success); }
+    .reset-btn {
+      background: none;
+      border: 2px solid var(--danger);
+      color: var(--danger);
+      border-radius: 50px;
+      padding: 8px 20px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.2s;
+      margin-top: 8px;
+    }
+    .reset-btn:hover { background: var(--danger); color: white; }
+    footer {
+      text-align: center;
+      padding: 24px;
+      font-size: 0.8rem;
+      color: #999;
+      margin-top: 16px;
+    }
+    @media (max-width: 600px) {
+      header h1 { font-size: 1.4rem; }
+      .container { padding: 16px 10px; }
+      .card { padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>🎯 Planejador <span>re:Invent</span> Las Vegas</h1>
+  <p>Seu guia completo para a maior conferência AWS do mundo</p>
+  <span class="badge">📅 1–5 Dezembro · The Venetian · Las Vegas, NV</span>
+</header>
+
+<div class="container">
+  <!-- Progress -->
+  <div class="progress-bar-wrap">
+    <h2>📊 Progresso do Planejamento</h2>
+    <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+    <div class="progress-stats">
+      <span id="progressText">0 de 0 itens concluídos</span>
+      <span class="progress-pct" id="progressPct">0%</span>
+    </div>
+    <button class="reset-btn" onclick="resetAll()">↺ Reiniciar Checklist</button>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="showTab('tab-docs')">📄 Documentação</button>
+    <button class="tab-btn" onclick="showTab('tab-hotel')">🏨 Hotel</button>
+    <button class="tab-btn" onclick="showTab('tab-voo')">✈️ Voo</button>
+    <button class="tab-btn" onclick="showTab('tab-evento')">🎯 Evento</button>
+    <button class="tab-btn" onclick="showTab('tab-mala')">🧳 Mala</button>
+    <button class="tab-btn" onclick="showTab('tab-turismo')">🎰 Turismo</button>
+    <button class="tab-btn" onclick="showTab('tab-info')">ℹ️ Referências</button>
+  </div>
+
+  <!-- TAB: Documentação -->
+  <div id="tab-docs" class="section active">
+    <div class="alert alert-warn">⚠️ <span><strong>Atenção:</strong> O visto americano pode levar meses. Comece com antecedência de 3–6 meses!</span></div>
+    <div class="card">
+      <h3>📄 Documentação e Visto</h3>
+      <div id="list-docs"></div>
+    </div>
+    <div class="card">
+      <h3>💳 Cartões e Finanças</h3>
+      <div id="list-financas"></div>
+    </div>
+    <div class="card">
+      <h3>🏥 Saúde e Seguro</h3>
+      <div id="list-saude"></div>
+    </div>
+  </div>
+
+  <!-- TAB: Hotel -->
+  <div id="tab-hotel" class="section">
+    <div class="alert alert-info">💡 <span>Reserve o hotel assim que confirmar a inscrição. Hotéis parceiros da AWS esgotam rapidamente!</span></div>
+    <div class="card">
+      <h3>🏨 Reserva e Hospedagem</h3>
+      <div id="list-hotel"></div>
+    </div>
+  </div>
+
+  <!-- TAB: Voo -->
+  <div id="tab-voo" class="section">
+    <div class="card">
+      <h3>✈️ Passagem e Viagem</h3>
+      <div id="list-voo"></div>
+    </div>
+    <div class="card">
+      <h3>📱 Conectividade e Chegada</h3>
+      <div id="list-chegada"></div>
+    </div>
+  </div>
+
+  <!-- TAB: Evento -->
+  <div id="tab-evento" class="section">
+    <div class="alert alert-info">💡 <span>Reserve sessões assim que o catálogo abrir (geralmente outubro). As populares esgotam em minutos!</span></div>
+    <div class="card">
+      <h3>🎟️ Registro e Acesso</h3>
+      <div id="list-registro"></div>
+    </div>
+    <div class="card">
+      <h3>📅 Durante o Evento</h3>
+      <div id="list-durante"></div>
+    </div>
+  </div>
+
+  <!-- TAB: Mala -->
+  <div id="tab-mala" class="section">
+    <div class="alert alert-success">👟 <span>O item mais importante da mala? Um bom tênis! Você vai caminhar 15.000+ passos por dia.</span></div>
+    <div class="card">
+      <h3>👕 Roupas e Calçados</h3>
+      <div id="list-roupas"></div>
+    </div>
+    <div class="card">
+      <h3>🎒 Mochila do Dia (Essenciais)</h3>
+      <div id="list-mochila"></div>
+    </div>
+    <div class="card">
+      <h3>🔌 Eletrônicos e Acessórios</h3>
+      <div id="list-eletronicos"></div>
+    </div>
+  </div>
+
+  <!-- TAB: Turismo -->
+  <div id="tab-turismo" class="section">
+    <div class="card">
+      <h3>🎭 Atrações e Shows</h3>
+      <div id="list-atracoes"></div>
+    </div>
+    <div class="card">
+      <h3>🛍️ Compras</h3>
+      <div id="list-compras"></div>
+    </div>
+    <div class="card">
+      <h3>🍽️ Gastronomia</h3>
+      <div id="list-gastro"></div>
+    </div>
+  </div>
+
+  <!-- TAB: Referências -->
+  <div id="tab-info" class="section">
+    <div class="tips-grid" id="tips-grid"></div>
+    <div class="card" style="margin-top:16px">
+      <h3>🌡️ Clima em Dezembro</h3>
+      <table class="info-table">
+        <tr><th>Período</th><th>Temperatura</th><th>Dica</th></tr>
+        <tr><td>Manhãs</td><td>2°C – 8°C</td><td>Casaco obrigatório</td></tr>
+        <tr><td>Tardes ensolaradas</td><td>14°C – 18°C</td><td>Camada leve</td></tr>
+        <tr><td>Noites</td><td>2°C – 6°C</td><td>Jaqueta + cachecol</td></tr>
+        <tr><td>Madrugadas</td><td>Até -1°C</td><td>Evite ficar do lado de fora</td></tr>
+      </table>
+    </div>
+    <div class="card" style="margin-top:16px">
+      <h3>💰 Preços de Referência (US$)</h3>
+      <table class="info-table">
+        <tr><th>Item</th><th>Preço Médio</th></tr>
+        <tr><td>Almoço simples</td><td class="highlight">US$ 20–35</td></tr>
+        <tr><td>Jantar restaurante</td><td class="highlight">US$ 40–80</td></tr>
+        <tr><td>Uber (aeroporto → Strip)</td><td class="highlight">US$ 18–35</td></tr>
+        <tr><td>Show Cirque du Soleil</td><td class="highlight">US$ 80–200</td></tr>
+        <tr><td>Monorail (por trecho)</td><td class="highlight">US$ 5</td></tr>
+        <tr><td>Sales Tax Nevada</td><td class="highlight">8,375%</td></tr>
+        <tr><td>Resort fee (por noite)</td><td class="highlight">US$ 30–55</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<footer>
+  🎯 re:Invent Planning Guide · Feito com ❤️ para brasileiros indo pela primeira vez ao re:Invent
+</footer>
+
+<script>
+const STORAGE_KEY = 'reinvent_checklist_v1';
+
+const checklistData = {
+  docs: [
+    { id:'d1', text:'Verificar validade do passaporte (mínimo 6 meses após a volta)', note:'Passaporte vence? Renove AGORA.', priority:'high' },
+    { id:'d2', text:'Agendar entrevista para visto americano B1/B2', note:'Sites: casv.com.br ou ustraveldocs.com', priority:'high' },
+    { id:'d3', text:'Preencher formulário DS-160 online', note:'vibe.ceac.state.gov', priority:'high' },
+    { id:'d4', text:'Solicitar carta de convite do re:Invent para o visto', note:'Disponível no portal de registro da AWS', priority:'high' },
+    { id:'d5', text:'Guardar cópia digital e física dos documentos', note:'Passaporte, visto, seguro viagem, reserva hotel', priority:'med' },
+    { id:'d6', text:'Preencher CBP One ou formulário de alfândega (chegada EUA)', note:'App: CBP One (iOS/Android)', priority:'med' },
+  ],
+  financas: [
+    { id:'f1', text:'Avisar banco/operadora sobre viagem ao exterior', note:'Evita bloqueio do cartão', priority:'high' },
+    { id:'f2', text:'Obter cartão sem IOF para uso no exterior', note:'Nubank, C6 Bank, Nomad ou Wise', priority:'high' },
+    { id:'f3', text:'Comprar dólares em espécie no Brasil (US$ 200–300)', note:'Para gorjetas e emergências', priority:'med' },
+    { id:'f4', text:'Instalar app do banco para controle de gastos', priority:'low' },
+    { id:'f5', text:'Verificar plano de milhas para acumular pontos nas compras', priority:'low' },
+  ],
+  saude: [
+    { id:'s1', text:'Contratar seguro viagem com cobertura mínima de US$ 100.000', note:'Porto Seguro, Allianz, Assist Card, Inter Seguros', priority:'high' },
+    { id:'s2', text:'Montar kit de remédios (analgésico, antigripal, antialérgico)', priority:'high' },
+    { id:'s3', text:'Levar descongestionante nasal (ar seco do deserto)', priority:'med' },
+    { id:'s4', text:'Levar hidratante para pele e lip balm', priority:'med' },
+    { id:'s5', text:'Levar protetor solar (sol forte mesmo em dezembro)', priority:'med' },
+    { id:'s6', text:'Verificar vacinas necessárias ou recomendadas para os EUA', priority:'low' },
+  ],
+  hotel: [
+    { id:'h1', text:'Pesquisar hotéis parceiros da AWS para o re:Invent', note:'Venetian, Caesars, Wynn, MGM, Mandalay Bay', priority:'high' },
+    { id:'h2', text:'Reservar hotel com antecedência (8–10 meses antes)', note:'Hotéis parceiros esgotam rápido!', priority:'high' },
+    { id:'h3', text:'Confirmar política de cancelamento', priority:'high' },
+    { id:'h4', text:'Verificar e incluir resort fee no custo total (US$ 30–55/noite)', priority:'med' },
+    { id:'h5', text:'Confirmar check-in no domingo antes do evento', priority:'med' },
+    { id:'h6', text:'Verificar disponibilidade de shuttle gratuito do re:Invent', priority:'med' },
+    { id:'h7', text:'Checar política de Wi-Fi (geralmente incluso na resort fee)', priority:'low' },
+    { id:'h8', text:'Considerar reservar noites extras para turismo', priority:'low' },
+  ],
+  voo: [
+    { id:'v1', text:'Monitorar preços de passagem com Google Flights ou Skyscanner', note:'Melhor janela: 6–9 meses antes', priority:'high' },
+    { id:'v2', text:'Comprar passagem aérea (prefira reembolsável)', note:'Aeroporto de chegada: LAS — Harry Reid International', priority:'high' },
+    { id:'v3', text:'Verificar franquia de bagagem permitida', priority:'med' },
+    { id:'v4', text:'Fazer check-in online (abre 24h antes)', priority:'med' },
+    { id:'v5', text:'Baixar a passagem no celular', priority:'med' },
+    { id:'v6', text:'Planejar transporte do aeroporto ao hotel (Uber/Lyft)', note:'Nível inferior dos terminais — Ride App Pickup', priority:'med' },
+  ],
+  chegada: [
+    { id:'c1', text:'Comprar chip de dados ou eSIM americano antes de viajar', note:'Yesim, Airalo, Holafly ou chip físico T-Mobile', priority:'high' },
+    { id:'c2', text:'Instalar app Uber/Lyft e cadastrar cartão antes de viajar', priority:'high' },
+    { id:'c3', text:'Anotar endereço do hotel para declaração na alfândega', priority:'med' },
+    { id:'c4', text:'Baixar mapa offline de Las Vegas (Google Maps offline)', priority:'low' },
+  ],
+  registro: [
+    { id:'r1', text:'Registrar-se no re:Invent assim que abrir (junho/julho)', note:'Preços sobem conforme a data se aproxima', priority:'high' },
+    { id:'r2', text:'Baixar e configurar o app AWS Events (iOS/Android)', priority:'high' },
+    { id:'r3', text:'Reservar sessões prioritárias quando o catálogo abrir (outubro)', note:'Sessions populares esgotam em minutos!', priority:'high' },
+    { id:'r4', text:'Montar lista de sessões alternativas (backup)', priority:'med' },
+    { id:'r5', text:'Verificar horário e local do badge pickup (geralmente domingo)', priority:'med' },
+    { id:'r6', text:'Definir 3–4 tópicos técnicos foco da semana', priority:'med' },
+  ],
+  durante: [
+    { id:'du1', text:'Chegar 60 min antes nas keynotes para garantir bom lugar', priority:'high' },
+    { id:'du2', text:'Manter carregador portátil sempre na mochila', priority:'high' },
+    { id:'du3', text:'Usar tênis confortável todos os dias', priority:'high' },
+    { id:'du4', text:'Participar do re:Play (festa gratuita de encerramento)', priority:'med' },
+    { id:'du5', text:'Visitar o Expo Hall e colecionar swag/brindes', priority:'med' },
+    { id:'du6', text:'Fazer networking: preparar QR code do LinkedIn', priority:'med' },
+    { id:'du7', text:'Planejar refeições com antecedência (restaurantes ficam lotados)', priority:'med' },
+    { id:'du8', text:'Beber água regularmente (deserto muito seco!)', priority:'high' },
+    { id:'du9', text:'Reservar tempo para descanso — não tente fazer tudo', priority:'med' },
+  ],
+  roupas: [
+    { id:'ro1', text:'4–5 camisetas confortáveis', priority:'high' },
+    { id:'ro2', text:'2–3 camisas de manga longa', priority:'high' },
+    { id:'ro3', text:'2 moletons ou fleeces (um fica na mochila!)', note:'Venues têm ar-condicionado intenso', priority:'high' },
+    { id:'ro4', text:'1 jaqueta média (impermeável de preferência)', priority:'high' },
+    { id:'ro5', text:'3–4 calças jeans ou de tecido', priority:'high' },
+    { id:'ro6', text:'Tênis confortável com bom amortecimento', note:'Nike, Adidas, HOKA, New Balance', priority:'high' },
+    { id:'ro7', text:'Meias extras (pelo menos 5 pares)', priority:'med' },
+    { id:'ro8', text:'1 roupa mais elegante para jantar/evento social', priority:'low' },
+    { id:'ro9', text:'Gorro ou touca para noites frias', priority:'med' },
+    { id:'ro10', text:'Cachecol leve', priority:'med' },
+    { id:'ro11', text:'Óculos de sol', priority:'med' },
+  ],
+  mochila: [
+    { id:'mo1', text:'Carregador portátil (power bank) — INDISPENSÁVEL', priority:'high' },
+    { id:'mo2', text:'Cabo de carregamento do celular', priority:'high' },
+    { id:'mo3', text:'Moletom/jaqueta leve', priority:'high' },
+    { id:'mo4', text:'Garrafa de água reutilizável', priority:'high' },
+    { id:'mo5', text:'Barras de proteína ou snacks para o dia', priority:'med' },
+    { id:'mo6', text:'Lip balm / hidratante labial', priority:'med' },
+    { id:'mo7', text:'Cartões de visita ou QR code do LinkedIn impresso', priority:'med' },
+    { id:'mo8', text:'Curativos/band-aids para bolhas nos pés', priority:'med' },
+  ],
+  eletronicos: [
+    { id:'el1', text:'Adaptador de tomada americano (tipo A/B — 2 pinos planos)', priority:'high' },
+    { id:'el2', text:'Notebook + carregador', priority:'high' },
+    { id:'el3', text:'Hub USB / adaptador de portas', priority:'med' },
+    { id:'el4', text:'Fone de ouvido com cancelamento de ruído', note:'Ótimo para sessões barulhentas e no avião', priority:'med' },
+    { id:'el5', text:'Câmera ou usar câmera do celular', priority:'low' },
+  ],
+  atracoes: [
+    { id:'at1', text:'Fontes do Bellagio (gratuito, noite)', priority:'high' },
+    { id:'at2', text:'The Sphere — show ou experiência imersiva', note:'Fica ao lado do Venetian!', priority:'high' },
+    { id:'at3', text:'Grand Canal Shoppes dentro do Venetian', priority:'med' },
+    { id:'at4', text:'Cirque du Soleil — "O" no Bellagio ou KÀ no MGM', note:'Reserve com meses de antecedência', priority:'med' },
+    { id:'at5', text:'LINQ High Roller (roda-gigante gigante)', priority:'med' },
+    { id:'at6', text:'Vulcão do Mirage (gratuito, 20h/21h/22h)', priority:'low' },
+    { id:'at7', text:'Fremont Street Experience (Downtown — gratuito)', priority:'med' },
+    { id:'at8', text:'Welcome to Las Vegas Sign (foto clássica)', priority:'low' },
+    { id:'at9', text:'Red Rock Canyon (natureza a 30 min)', priority:'low' },
+    { id:'at10', text:'Grand Canyon de helicóptero (excursão de 1 dia)', priority:'low' },
+  ],
+  compras: [
+    { id:'cp1', text:'Grand Canal Shoppes (Venetian — no evento!)', priority:'high' },
+    { id:'cp2', text:'Fashion Show Mall (em frente ao Wynn, 5 min)', note:'Nordstrom, Zara, H&M, Apple Store', priority:'med' },
+    { id:'cp3', text:'Forum Shops at Caesars Palace (venue do re:Invent)', priority:'med' },
+    { id:'cp4', text:'Las Vegas North Premium Outlets (até 65% off)', note:'Polo, Coach, Nike, Tommy Hilfiger', priority:'med' },
+    { id:'cp5', text:'Crystals at City Center (marcas de luxo)', priority:'low' },
+  ],
+  gastro: [
+    { id:'ga1', text:'In-N-Out Burger — clássico americano acessível', priority:'med' },
+    { id:'ga2', text:'Secret Pizza no Cosmopolitan (3° andar, sem fila)', priority:'med' },
+    { id:'ga3', text:'Bouchon Bakery no Venetian (café da manhã)', priority:'low' },
+    { id:'ga4', text:'Jantar especial: STK, Nobu ou Hell\'s Kitchen', priority:'low' },
+    { id:'ga5', text:'Walgreens/CVS — snacks e água a bom preço', priority:'high' },
+  ],
+};
+
+const tips = [
+  { icon:'🚶', title:'Caminhada intensa', text:'Você vai andar 10.000–20.000 passos por dia. Tênis confortável é prioridade #1.' },
+  { icon:'💧', title:'Hidratação no deserto', text:'Umidade < 20%. Beba 2–3L de água por dia. Leve sempre uma garrafa.' },
+  { icon:'❄️', title:'Frio nos venues', text:'Ar-condicionado intenso em salas de conferência. Sempre tenha um moletom na mochila.' },
+  { icon:'🔋', title:'Bateria do celular', text:'Seu celular é guia, agenda e câmera. Power bank é indispensável.' },
+  { icon:'⏰', title:'Keynotes: chegue cedo', text:'Chegue 60 min antes das keynotes para garantir assento. Filas são enormes.' },
+  { icon:'📱', title:'App AWS Events', text:'Baixe e configure antes de viajar. É sua agenda, mapa e guia do evento.' },
+  { icon:'🎟️', title:'Sessions esgotam rápido', text:'Reserve assim que o catálogo abrir. As populares somem em minutos.' },
+  { icon:'🌐', title:'Networking é ouro', text:'O valor do re:Invent está nas conexões. Prepare QR do LinkedIn e seja proativo.' },
+  { icon:'💵', title:'Sales Tax surpresa', text:'Nevada tem 8,375% de imposto. Produto de US$ 100 custa US$ 108,38 no caixa.' },
+  { icon:'🧳', title:'Estenda a viagem', text:'Chegue sábado ou reserve dias após o evento para turistar sem pressa.' },
+  { icon:'🏨', title:'Resort fee', text:'Adicione US$ 30–55/noite ao preço do quarto. Quase todos os hotéis da Strip cobram.' },
+  { icon:'🛸', title:'The Sphere', text:'A maior tela LED do mundo fica do lado do Venetian. Não deixe de ver!' },
+];
+
+
+// Load saved state
+function loadState() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch { return {}; }
+}
+function saveState(state) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
+function buildList(containerId, items) {
+  const state = loadState();
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  container.innerHTML = '';
+  items.forEach(item => {
+    const checked = state[item.id] || false;
+    const div = document.createElement('div');
+    div.className = 'checklist-item';
+    div.onclick = () => toggleItem(item.id, containerId, items);
+    const pClass = item.priority === 'high' ? 'p-high' : item.priority === 'med' ? 'p-med' : 'p-low';
+    const pLabel = item.priority === 'high' ? '⚠️ Alta' : item.priority === 'med' ? '📌 Média' : '💡 Baixa';
+    div.innerHTML = `
+      <input type="checkbox" ${checked ? 'checked' : ''} onclick="event.stopPropagation(); toggleItem('${item.id}', '${containerId}', null)">
+      <div class="item-label">
+        <div class="item-text ${checked ? 'done' : ''}">${item.text}</div>
+        ${item.note ? `<div class="item-note">💬 ${item.note}</div>` : ''}
+      </div>
+      <span class="priority-badge ${pClass}">${pLabel}</span>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function toggleItem(id, containerId, items) {
+  const state = loadState();
+  state[id] = !state[id];
+  saveState(state);
+  const listKey = containerId.replace('list-','');
+  const map = {
+    docs: checklistData.docs, financas: checklistData.financas, saude: checklistData.saude,
+    hotel: checklistData.hotel, voo: checklistData.voo, chegada: checklistData.chegada,
+    registro: checklistData.registro, durante: checklistData.durante,
+    roupas: checklistData.roupas, mochila: checklistData.mochila, eletronicos: checklistData.eletronicos,
+    atracoes: checklistData.atracoes, compras: checklistData.compras, gastro: checklistData.gastro,
+  };
+  if (map[listKey]) buildList(containerId, map[listKey]);
+  updateProgress();
+}
+
+function updateProgress() {
+  const state = loadState();
+  const allItems = Object.values(checklistData).flat();
+  const total = allItems.length;
+  const done = allItems.filter(i => state[i.id]).length;
+  const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressText').textContent = `${done} de ${total} itens concluídos`;
+  document.getElementById('progressPct').textContent = pct + '%';
+}
+
+function resetAll() {
+  if (confirm('Tem certeza que deseja reiniciar todo o checklist?')) {
+    localStorage.removeItem(STORAGE_KEY);
+    initAll();
+  }
+}
+
+function showTab(tabId) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(tabId).classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+
+function buildTips() {
+  const grid = document.getElementById('tips-grid');
+  tips.forEach(t => {
+    const card = document.createElement('div');
+    card.className = 'tip-card';
+    card.innerHTML = `<h4>${t.icon} ${t.title}</h4><p>${t.text}</p>`;
+    grid.appendChild(card);
+  });
+}
+
+function initAll() {
+  buildList('list-docs', checklistData.docs);
+  buildList('list-financas', checklistData.financas);
+  buildList('list-saude', checklistData.saude);
+  buildList('list-hotel', checklistData.hotel);
+  buildList('list-voo', checklistData.voo);
+  buildList('list-chegada', checklistData.chegada);
+  buildList('list-registro', checklistData.registro);
+  buildList('list-durante', checklistData.durante);
+  buildList('list-roupas', checklistData.roupas);
+  buildList('list-mochila', checklistData.mochila);
+  buildList('list-eletronicos', checklistData.eletronicos);
+  buildList('list-atracoes', checklistData.atracoes);
+  buildList('list-compras', checklistData.compras);
+  buildList('list-gastro', checklistData.gastro);
+  buildTips();
+  updateProgress();
+}
+
+document.addEventListener('DOMContentLoaded', initAll);
+</script>
+</body>
+</html>
