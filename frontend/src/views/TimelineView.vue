@@ -8,10 +8,6 @@ const { t, locale } = useI18n()
 
 const EVENT_DATE = new Date('2026-11-30')
 
-const milestoneTranslations: Record<string, { titulo: string; descricao: string }> = {
-  // Map by id — we'll populate these from the computed
-}
-
 const milestones = computed(() => {
   const now = new Date()
 
@@ -26,8 +22,8 @@ const milestones = computed(() => {
 
       return {
         ...milestone,
-        titulo: locale.value === 'en' ? getMilestoneTitle(milestone) : milestone.titulo,
-        descricao: locale.value === 'en' ? getMilestoneDesc(milestone) : milestone.descricao,
+        titulo: locale.value === 'pt' ? milestone.titulo : getMilestoneTitle(milestone),
+        descricao: locale.value === 'pt' ? milestone.descricao : getMilestoneDesc(milestone),
         targetDate,
         formattedDate: formatDate(targetDate),
         status: isCurrent ? 'current' : isPast ? 'past' : 'future',
@@ -36,7 +32,7 @@ const milestones = computed(() => {
 })
 
 function getMilestoneTitle(m: TimelineMilestone): string {
-  const map: Record<string, string> = {
+  const mapEn: Record<string, string> = {
     'Solicitar visto americano B1/B2': 'Apply for US B1/B2 visa',
     'Monitorar passagens aéreas': 'Monitor flight prices',
     'Comprar passagem aérea': 'Buy flight tickets',
@@ -46,11 +42,22 @@ function getMilestoneTitle(m: TimelineMilestone): string {
     'Preparação final': 'Final preparation',
     'Check-in online e últimos preparativos': 'Online check-in and final preparations',
   }
+  const mapEs: Record<string, string> = {
+    'Solicitar visto americano B1/B2': 'Solicitar visa americana B1/B2',
+    'Monitorar passagens aéreas': 'Monitorear pasajes aéreos',
+    'Comprar passagem aérea': 'Comprar pasaje aéreo',
+    'Reservar hotel': 'Reservar hotel',
+    'Inscrição no re:Invent (early bird)': 'Inscripción en re:Invent (early bird)',
+    'Reservar sessões no catálogo': 'Reservar sesiones del catálogo',
+    'Preparação final': 'Preparación final',
+    'Check-in online e últimos preparativos': 'Check-in online y últimos preparativos',
+  }
+  const map = locale.value === 'es' ? mapEs : mapEn
   return map[m.titulo] || m.titulo
 }
 
 function getMilestoneDesc(m: TimelineMilestone): string {
-  const map: Record<string, string> = {
+  const mapEn: Record<string, string> = {
     'Agendar entrevista no consulado. Prazo médio: 3-6 meses. Documentos: DS-160, foto, comprovantes financeiros, carta-convite da empresa.':
       'Schedule consulate interview. Average timeline: 3-6 months. Documents: DS-160, photo, financial proof, company invitation letter.',
     'Usar Google Flights, Skyscanner ou MaxMilhas para monitorar preços GRU→LAS. Melhor período para comprar: 4-6 meses antes.':
@@ -68,14 +75,36 @@ function getMilestoneDesc(m: TimelineMilestone): string {
     'Check-in online na companhia aérea. Imprimir documentos importantes. Converter dólares. Baixar app AWS Events.':
       'Online check-in with airline. Print important documents. Convert dollars. Download AWS Events app.',
   }
+  const mapEs: Record<string, string> = {
+    'Agendar entrevista no consulado. Prazo médio: 3-6 meses. Documentos: DS-160, foto, comprovantes financeiros, carta-convite da empresa.':
+      'Agendar entrevista en el consulado. Plazo promedio: 3-6 meses. Documentos: DS-160, foto, comprobantes financieros, carta invitación de la empresa.',
+    'Usar Google Flights, Skyscanner ou MaxMilhas para monitorar preços GRU→LAS. Melhor período para comprar: 4-6 meses antes.':
+      'Usar Google Flights, Skyscanner o MaxMilhas para monitorear precios GRU→LAS. Mejor período para comprar: 4-6 meses antes.',
+    'Comprar passagem aproveitando promoção. Conexões comuns: Miami, Dallas, Houston, Atlanta. Tempo total: 14-18h.':
+      'Comprar pasaje aprovechando promoción. Conexiones comunes: Miami, Dallas, Houston, Atlanta. Tiempo total: 14-18h.',
+    'Reservar no block oficial AWS (preços especiais) ou hotel próximo aos venues. Verificar resort fee e shuttle gratuito.':
+      'Reservar en el bloque oficial AWS (precios especiales) u hotel cercano a los venues. Verificar resort fee y shuttle gratuito.',
+    'Registro abre em junho. Early bird até 25 Ago: $1,299 (depois $2,499). Apenas Full Conference pass disponível.':
+      'Registro abre en junio. Early bird hasta 25 Ago: $1,299 (después $2,499). Solo Full Conference pass disponible.',
+    'Catálogo disponível desde 30 Jun 2026. Reserve imediatamente — sessões populares esgotam em horas. Máximo 4-5/dia.':
+      'Catálogo disponible desde 30 Jun 2026. Reserva inmediatamente — sesiones populares se agotan en horas. Máximo 4-5/día.',
+    'Comprar chip/eSIM, separar roupas em camadas, power bank, adaptador de tomada. Confirmar reservas de hotel e voo.':
+      'Comprar chip/eSIM, separar ropa en capas, power bank, adaptador de enchufe. Confirmar reservas de hotel y vuelo.',
+    'Check-in online na companhia aérea. Imprimir documentos importantes. Converter dólares. Baixar app AWS Events.':
+      'Check-in online en la aerolínea. Imprimir documentos importantes. Convertir dólares. Descargar app AWS Events.',
+  }
+  const map = locale.value === 'es' ? mapEs : mapEn
   return map[m.descricao] || m.descricao
 }
 
 const subtitle = computed(() => {
   const first = milestones.value[0]?.formattedDate || ''
-  return locale.value === 'pt'
-    ? `Acompanhe os marcos importantes para o re:Invent 2026 — de ${first} até o evento`
-    : `Track important milestones for re:Invent 2026 — from ${first} to the event`
+  const data = {
+    pt: `Acompanhe os marcos importantes para o re:Invent 2026 — de ${first} até o evento`,
+    en: `Track important milestones for re:Invent 2026 — from ${first} to the event`,
+    es: `Sigue los hitos importantes para el re:Invent 2026 — desde ${first} hasta el evento`,
+  }
+  return data[locale.value] || data.en
 })
 
 function isCurrentMonth(target: Date, now: Date): boolean {
@@ -83,7 +112,8 @@ function isCurrentMonth(target: Date, now: Date): boolean {
 }
 
 function formatDate(date: Date): string {
-  return date.toLocaleDateString(locale.value === 'pt' ? 'pt-BR' : 'en-US', { month: 'long', year: 'numeric' })
+  const localeMap = { pt: 'pt-BR', en: 'en-US', es: 'es-MX' }
+  return date.toLocaleDateString(localeMap[locale.value] || 'en-US', { month: 'long', year: 'numeric' })
 }
 
 function statusClasses(status: string): string {
@@ -130,36 +160,13 @@ function categoriaClass(categoria: string): string {
 }
 
 function categoriaLabel(categoria: string): string {
-  if (locale.value === 'en') {
-    switch (categoria) {
-      case 'documentacao':
-        return '📄 Documentation'
-      case 'hotel':
-        return '🏨 Hotel'
-      case 'voo':
-        return '✈️ Flight'
-      case 'evento':
-        return '🎟️ Event'
-      case 'preparacao':
-        return '🎒 Preparation'
-      default:
-        return categoria
-    }
+  const labels: Record<string, Record<string, string>> = {
+    pt: { documentacao: '📄 Documentação', hotel: '🏨 Hotel', voo: '✈️ Voo', evento: '🎟️ Evento', preparacao: '🎒 Preparação' },
+    en: { documentacao: '📄 Documentation', hotel: '🏨 Hotel', voo: '✈️ Flight', evento: '🎟️ Event', preparacao: '🎒 Preparation' },
+    es: { documentacao: '📄 Documentación', hotel: '🏨 Hotel', voo: '✈️ Vuelo', evento: '🎟️ Evento', preparacao: '🎒 Preparación' },
   }
-  switch (categoria) {
-    case 'documentacao':
-      return '📄 Documentação'
-    case 'hotel':
-      return '🏨 Hotel'
-    case 'voo':
-      return '✈️ Voo'
-    case 'evento':
-      return '🎟️ Evento'
-    case 'preparacao':
-      return '🎒 Preparação'
-    default:
-      return categoria
-  }
+  const map = (labels[locale.value] || labels.en)!
+  return map[categoria] || categoria
 }
 
 function prioridadeClass(prioridade: string): string {
@@ -174,31 +181,20 @@ function prioridadeClass(prioridade: string): string {
 }
 
 function prioridadeLabel(prioridade: string): string {
-  if (locale.value === 'en') {
-    switch (prioridade) {
-      case 'alta':
-        return '⚠️ High'
-      case 'media':
-        return '📌 Medium'
-      default:
-        return prioridade
-    }
+  const labels: Record<string, Record<string, string>> = {
+    pt: { alta: '⚠️ Alta', media: '📌 Média' },
+    en: { alta: '⚠️ High', media: '📌 Medium' },
+    es: { alta: '⚠️ Alta', media: '📌 Media' },
   }
-  switch (prioridade) {
-    case 'alta':
-      return '⚠️ Alta'
-    case 'media':
-      return '📌 Média'
-    default:
-      return prioridade
-  }
+  const map = (labels[locale.value] || labels.en)!
+  return map[prioridade] || prioridade
 }
 
-const eventDateFormatted = computed(() => locale.value === 'pt' ? '30 de novembro de 2026' : 'November 30, 2026')
-const eventVenues = computed(() => locale.value === 'pt'
-  ? 'Las Vegas, Nevada — Caesars Forum, Venetian, MGM Grand, Wynn, Encore, Caesars Palace'
-  : 'Las Vegas, Nevada — Caesars Forum, Venetian, MGM Grand, Wynn, Encore, Caesars Palace'
-)
+const eventDateFormatted = computed(() => {
+  const data = { pt: '30 de novembro de 2026', en: 'November 30, 2026', es: '30 de noviembre de 2026' }
+  return data[locale.value] || data.en
+})
+const eventVenues = computed(() => 'Las Vegas, Nevada — Caesars Forum, Venetian, MGM Grand, Wynn, Encore, Caesars Palace')
 </script>
 
 <template>

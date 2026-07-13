@@ -180,5 +180,6 @@ export default {
     language: 'Language',
     pt: 'Português',
     en: 'English',
+    es: 'Español',
   },
 }

@@ -42,17 +42,24 @@ const { t, locale, setLocale } = useI18n()
           <div class="flex items-center rounded-lg overflow-hidden border border-gray-600">
             <button
               class="px-2.5 py-1 text-xs font-semibold transition-colors"
-              :class="locale === 'pt' ? 'bg-aws-orange text-white' : 'bg-transparent text-gray-300 hover:text-white'"
+              :class="locale === 'pt' ? 'bg-aws-orange text-white' : 'bg-white/20 text-gray-300 hover:text-white'"
               @click="setLocale('pt')"
             >
               PT
             </button>
             <button
               class="px-2.5 py-1 text-xs font-semibold transition-colors"
-              :class="locale === 'en' ? 'bg-aws-orange text-white' : 'bg-transparent text-gray-300 hover:text-white'"
+              :class="locale === 'en' ? 'bg-aws-orange text-white' : 'bg-white/20 text-gray-300 hover:text-white'"
               @click="setLocale('en')"
             >
               EN
+            </button>
+            <button
+              class="px-2.5 py-1 text-xs font-semibold transition-colors"
+              :class="locale === 'es' ? 'bg-aws-orange text-white' : 'bg-white/20 text-gray-300 hover:text-white'"
+              @click="setLocale('es')"
+            >
+              ES
             </button>
           </div>
         </div>

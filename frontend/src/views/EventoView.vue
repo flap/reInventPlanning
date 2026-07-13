@@ -4,95 +4,179 @@ import { useI18n } from '@/composables/useI18n'
 
 const { t, locale } = useI18n()
 
-const sessionTypes = computed(() => locale.value === 'pt' ? [
-  { code: 'KEY', nome: 'Keynote', descricao: 'Apresentações principais com anúncios de novos serviços e recursos AWS.' },
-  { code: 'BLD', nome: 'Builders\' Session', descricao: 'Sessões práticas em grupo pequeno com engenheiros AWS. Traga seu laptop!' },
-  { code: 'BOF', nome: 'Birds of a Feather', descricao: 'Discussões abertas entre participantes com interesses em comum.' },
-  { code: 'CHL', nome: 'Chalk Talk', descricao: 'Sessões interativas com whiteboard, discussão bidirecional com especialistas.' },
-  { code: 'CON', nome: 'Conference Talk', descricao: 'Palestras tradicionais de 60min com clientes e parceiros compartilhando cases.' },
-  { code: 'DEM', nome: 'Demo', descricao: 'Demonstrações ao vivo de produtos e serviços em funcionamento.' },
-  { code: 'GAM', nome: 'GameDay', descricao: 'Competição em equipe resolvendo problemas reais sob pressão. Muito divertido!' },
-  { code: 'LAB', nome: 'Workshop/Lab', descricao: 'Labs hands-on com ambiente provisionado. Prática guiada passo a passo.' },
-  { code: 'WRK', nome: 'Workshop', descricao: 'Sessões práticas de 2h+ com cenários complexos e projetos completos.' },
-] : [
-  { code: 'KEY', nome: 'Keynote', descricao: 'Main presentations with announcements of new AWS services and features.' },
-  { code: 'BLD', nome: 'Builders\' Session', descricao: 'Hands-on small group sessions with AWS engineers. Bring your laptop!' },
-  { code: 'BOF', nome: 'Birds of a Feather', descricao: 'Open discussions between attendees with shared interests.' },
-  { code: 'CHL', nome: 'Chalk Talk', descricao: 'Interactive whiteboard sessions, two-way discussion with experts.' },
-  { code: 'CON', nome: 'Conference Talk', descricao: 'Traditional 60min talks with customers and partners sharing case studies.' },
-  { code: 'DEM', nome: 'Demo', descricao: 'Live demonstrations of products and services in action.' },
-  { code: 'GAM', nome: 'GameDay', descricao: 'Team competition solving real problems under pressure. Very fun!' },
-  { code: 'LAB', nome: 'Workshop/Lab', descricao: 'Hands-on labs with provisioned environment. Step-by-step guided practice.' },
-  { code: 'WRK', nome: 'Workshop', descricao: '2h+ hands-on sessions with complex scenarios and full projects.' },
-])
+const sessionTypes = computed(() => {
+  const data = {
+    pt: [
+      { code: 'KEY', nome: 'Keynote', descricao: 'Apresentações principais com anúncios de novos serviços e recursos AWS.' },
+      { code: 'BLD', nome: 'Builders\' Session', descricao: 'Sessões práticas em grupo pequeno com engenheiros AWS. Traga seu laptop!' },
+      { code: 'BOF', nome: 'Birds of a Feather', descricao: 'Discussões abertas entre participantes com interesses em comum.' },
+      { code: 'CHL', nome: 'Chalk Talk', descricao: 'Sessões interativas com whiteboard, discussão bidirecional com especialistas.' },
+      { code: 'CON', nome: 'Conference Talk', descricao: 'Palestras tradicionais de 60min com clientes e parceiros compartilhando cases.' },
+      { code: 'DEM', nome: 'Demo', descricao: 'Demonstrações ao vivo de produtos e serviços em funcionamento.' },
+      { code: 'GAM', nome: 'GameDay', descricao: 'Competição em equipe resolvendo problemas reais sob pressão. Muito divertido!' },
+      { code: 'LAB', nome: 'Workshop/Lab', descricao: 'Labs hands-on com ambiente provisionado. Prática guiada passo a passo.' },
+      { code: 'WRK', nome: 'Workshop', descricao: 'Sessões práticas de 2h+ com cenários complexos e projetos completos.' },
+    ],
+    en: [
+      { code: 'KEY', nome: 'Keynote', descricao: 'Main presentations with announcements of new AWS services and features.' },
+      { code: 'BLD', nome: 'Builders\' Session', descricao: 'Hands-on small group sessions with AWS engineers. Bring your laptop!' },
+      { code: 'BOF', nome: 'Birds of a Feather', descricao: 'Open discussions between attendees with shared interests.' },
+      { code: 'CHL', nome: 'Chalk Talk', descricao: 'Interactive whiteboard sessions, two-way discussion with experts.' },
+      { code: 'CON', nome: 'Conference Talk', descricao: 'Traditional 60min talks with customers and partners sharing case studies.' },
+      { code: 'DEM', nome: 'Demo', descricao: 'Live demonstrations of products and services in action.' },
+      { code: 'GAM', nome: 'GameDay', descricao: 'Team competition solving real problems under pressure. Very fun!' },
+      { code: 'LAB', nome: 'Workshop/Lab', descricao: 'Hands-on labs with provisioned environment. Step-by-step guided practice.' },
+      { code: 'WRK', nome: 'Workshop', descricao: '2h+ hands-on sessions with complex scenarios and full projects.' },
+    ],
+    es: [
+      { code: 'KEY', nome: 'Keynote', descricao: 'Presentaciones principales con anuncios de nuevos servicios y recursos AWS.' },
+      { code: 'BLD', nome: 'Builders\' Session', descricao: 'Sesiones prácticas en grupo pequeño con ingenieros AWS. ¡Trae tu laptop!' },
+      { code: 'BOF', nome: 'Birds of a Feather', descricao: 'Discusiones abiertas entre participantes con intereses en común.' },
+      { code: 'CHL', nome: 'Chalk Talk', descricao: 'Sesiones interactivas con pizarra, discusión bidireccional con expertos.' },
+      { code: 'CON', nome: 'Conference Talk', descricao: 'Charlas tradicionales de 60min con clientes y socios compartiendo casos de éxito.' },
+      { code: 'DEM', nome: 'Demo', descricao: 'Demostraciones en vivo de productos y servicios en funcionamiento.' },
+      { code: 'GAM', nome: 'GameDay', descricao: 'Competencia en equipo resolviendo problemas reales bajo presión. ¡Muy divertido!' },
+      { code: 'LAB', nome: 'Workshop/Lab', descricao: 'Labs hands-on con ambiente provisionado. Práctica guiada paso a paso.' },
+      { code: 'WRK', nome: 'Workshop', descricao: 'Sesiones prácticas de 2h+ con escenarios complejos y proyectos completos.' },
+    ],
+  }
+  return data[locale.value] || data.en
+})
 
-const niveis = computed(() => locale.value === 'pt' ? [
-  { nivel: 100, label: 'Introdutório', cor: 'bg-green-100 text-green-800' },
-  { nivel: 200, label: 'Intermediário', cor: 'bg-blue-100 text-blue-800' },
-  { nivel: 300, label: 'Avançado', cor: 'bg-purple-100 text-purple-800' },
-  { nivel: 400, label: 'Expert', cor: 'bg-red-100 text-red-800' },
-  { nivel: 500, label: 'Deep Dive', cor: 'bg-orange-100 text-orange-800' },
-] : [
-  { nivel: 100, label: 'Introductory', cor: 'bg-green-100 text-green-800' },
-  { nivel: 200, label: 'Intermediate', cor: 'bg-blue-100 text-blue-800' },
-  { nivel: 300, label: 'Advanced', cor: 'bg-purple-100 text-purple-800' },
-  { nivel: 400, label: 'Expert', cor: 'bg-red-100 text-red-800' },
-  { nivel: 500, label: 'Deep Dive', cor: 'bg-orange-100 text-orange-800' },
-])
+const niveis = computed(() => {
+  const data = {
+    pt: [
+      { nivel: 100, label: 'Introdutório', cor: 'bg-green-100 text-green-800' },
+      { nivel: 200, label: 'Intermediário', cor: 'bg-blue-100 text-blue-800' },
+      { nivel: 300, label: 'Avançado', cor: 'bg-purple-100 text-purple-800' },
+      { nivel: 400, label: 'Expert', cor: 'bg-red-100 text-red-800' },
+      { nivel: 500, label: 'Deep Dive', cor: 'bg-orange-100 text-orange-800' },
+    ],
+    en: [
+      { nivel: 100, label: 'Introductory', cor: 'bg-green-100 text-green-800' },
+      { nivel: 200, label: 'Intermediate', cor: 'bg-blue-100 text-blue-800' },
+      { nivel: 300, label: 'Advanced', cor: 'bg-purple-100 text-purple-800' },
+      { nivel: 400, label: 'Expert', cor: 'bg-red-100 text-red-800' },
+      { nivel: 500, label: 'Deep Dive', cor: 'bg-orange-100 text-orange-800' },
+    ],
+    es: [
+      { nivel: 100, label: 'Introductorio', cor: 'bg-green-100 text-green-800' },
+      { nivel: 200, label: 'Intermedio', cor: 'bg-blue-100 text-blue-800' },
+      { nivel: 300, label: 'Avanzado', cor: 'bg-purple-100 text-purple-800' },
+      { nivel: 400, label: 'Experto', cor: 'bg-red-100 text-red-800' },
+      { nivel: 500, label: 'Deep Dive', cor: 'bg-orange-100 text-orange-800' },
+    ],
+  }
+  return data[locale.value] || data.en
+})
 
-const cronograma = computed(() => locale.value === 'pt' ? [
-  { dia: 'Sábado', data: '28 Nov', atividades: 'Chegada, explorar a Strip, ajustar fuso horário' },
-  { dia: 'Domingo', data: '29 Nov', atividades: 'Badge pickup, workshops pré-evento, registro, orientação' },
-  { dia: 'Segunda', data: '30 Nov', atividades: 'Keynote abertura, sessões, Expo Hall abre' },
-  { dia: 'Terça', data: '1 Dez', atividades: 'Keynote CEO, sessões técnicas, builders sessions, networking' },
-  { dia: 'Quarta', data: '2 Dez', atividades: 'Keynote Dr. Swami, sessões, Expo Hall' },
-  { dia: 'Quinta', data: '3 Dez', atividades: 're:Inforce (segurança dedicado), sessões avançadas, re:Play party à noite' },
-  { dia: 'Sexta', data: '4 Dez', atividades: 'Keynote Werner Vogels (CTO), últimas sessões, encerramento' },
-] : [
-  { dia: 'Saturday', data: 'Nov 28', atividades: 'Arrival, explore the Strip, adjust to time zone' },
-  { dia: 'Sunday', data: 'Nov 29', atividades: 'Badge pickup, pre-event workshops, registration, orientation' },
-  { dia: 'Monday', data: 'Nov 30', atividades: 'Opening Keynote, sessions, Expo Hall opens' },
-  { dia: 'Tuesday', data: 'Dec 1', atividades: 'CEO Keynote, technical sessions, builders sessions, networking' },
-  { dia: 'Wednesday', data: 'Dec 2', atividades: 'Dr. Swami Keynote, sessions, Expo Hall' },
-  { dia: 'Thursday', data: 'Dec 3', atividades: 're:Inforce (dedicated security day), advanced sessions, re:Play party' },
-  { dia: 'Friday', data: 'Dec 4', atividades: 'Werner Vogels (CTO) Keynote, final sessions, closing' },
-])
+const cronograma = computed(() => {
+  const data = {
+    pt: [
+      { dia: 'Sábado', data: '28 Nov', atividades: 'Chegada, explorar a Strip, ajustar fuso horário' },
+      { dia: 'Domingo', data: '29 Nov', atividades: 'Badge pickup, workshops pré-evento, registro, orientação' },
+      { dia: 'Segunda', data: '30 Nov', atividades: 'Keynote abertura, sessões, Expo Hall abre' },
+      { dia: 'Terça', data: '1 Dez', atividades: 'Keynote CEO, sessões técnicas, builders sessions, networking' },
+      { dia: 'Quarta', data: '2 Dez', atividades: 'Keynote Dr. Swami, sessões, Expo Hall' },
+      { dia: 'Quinta', data: '3 Dez', atividades: 're:Inforce (segurança dedicado), sessões avançadas, re:Play party à noite' },
+      { dia: 'Sexta', data: '4 Dez', atividades: 'Keynote Werner Vogels (CTO), últimas sessões, encerramento' },
+    ],
+    en: [
+      { dia: 'Saturday', data: 'Nov 28', atividades: 'Arrival, explore the Strip, adjust to time zone' },
+      { dia: 'Sunday', data: 'Nov 29', atividades: 'Badge pickup, pre-event workshops, registration, orientation' },
+      { dia: 'Monday', data: 'Nov 30', atividades: 'Opening Keynote, sessions, Expo Hall opens' },
+      { dia: 'Tuesday', data: 'Dec 1', atividades: 'CEO Keynote, technical sessions, builders sessions, networking' },
+      { dia: 'Wednesday', data: 'Dec 2', atividades: 'Dr. Swami Keynote, sessions, Expo Hall' },
+      { dia: 'Thursday', data: 'Dec 3', atividades: 're:Inforce (dedicated security day), advanced sessions, re:Play party' },
+      { dia: 'Friday', data: 'Dec 4', atividades: 'Werner Vogels (CTO) Keynote, final sessions, closing' },
+    ],
+    es: [
+      { dia: 'Sábado', data: '28 Nov', atividades: 'Llegada, explorar la Strip, ajustar zona horaria' },
+      { dia: 'Domingo', data: '29 Nov', atividades: 'Retiro de credencial, talleres pre-evento, registro, orientación' },
+      { dia: 'Lunes', data: '30 Nov', atividades: 'Keynote de apertura, sesiones, Expo Hall abre' },
+      { dia: 'Martes', data: '1 Dic', atividades: 'Keynote CEO, sesiones técnicas, builders sessions, networking' },
+      { dia: 'Miércoles', data: '2 Dic', atividades: 'Keynote Dr. Swami, sesiones, Expo Hall' },
+      { dia: 'Jueves', data: '3 Dic', atividades: 're:Inforce (seguridad dedicado), sesiones avanzadas, re:Play party' },
+      { dia: 'Viernes', data: '4 Dic', atividades: 'Keynote Werner Vogels (CTO), últimas sesiones, cierre' },
+    ],
+  }
+  return data[locale.value] || data.en
+})
 
-const dicasAntes = computed(() => locale.value === 'pt' ? [
-  'Reserve sessões assim que o catálogo abrir (disponível desde 30 Jun 2026) — as melhores esgotam rápido',
-  'Aproveite o early bird até 25 Ago ($1,299) — depois sobe para $2,499',
-  'Baixe o app AWS Events (disponível set 2026) e configure sua agenda antes de viajar',
-  'Estude o mapa dos venues — são 6 hotéis: Caesars Forum, Caesars Palace, Encore, MGM Grand, Venetian e Wynn',
-  'Planeje no máximo 4-5 sessões por dia — deslocamento consome tempo (use o monorail gratuito!)',
-] : [
-  'Reserve sessions as soon as the catalog opens (available since Jun 30, 2026) — the best ones fill fast',
-  'Take advantage of early bird by Aug 25 ($1,299) — after that it goes up to $2,499',
-  'Download the AWS Events app (available Sep 2026) and set up your agenda before traveling',
-  'Study the venue map — there are 6 hotels: Caesars Forum, Caesars Palace, Encore, MGM Grand, Venetian and Wynn',
-  'Plan no more than 4-5 sessions per day — commuting takes time (use the free monorail!)',
-])
+const dicasAntes = computed(() => {
+  const data = {
+    pt: [
+      'Reserve sessões assim que o catálogo abrir (disponível desde 30 Jun 2026) — as melhores esgotam rápido',
+      'Aproveite o early bird até 25 Ago ($1,299) — depois sobe para $2,499',
+      'Baixe o app AWS Events (disponível set 2026) e configure sua agenda antes de viajar',
+      'Estude o mapa dos venues — são 6 hotéis: Caesars Forum, Caesars Palace, Encore, MGM Grand, Venetian e Wynn',
+      'Planeje no máximo 4-5 sessões por dia — deslocamento consome tempo (use o monorail gratuito!)',
+    ],
+    en: [
+      'Reserve sessions as soon as the catalog opens (available since Jun 30, 2026) — the best ones fill fast',
+      'Take advantage of early bird by Aug 25 ($1,299) — after that it goes up to $2,499',
+      'Download the AWS Events app (available Sep 2026) and set up your agenda before traveling',
+      'Study the venue map — there are 6 hotels: Caesars Forum, Caesars Palace, Encore, MGM Grand, Venetian and Wynn',
+      'Plan no more than 4-5 sessions per day — commuting takes time (use the free monorail!)',
+    ],
+    es: [
+      'Reserva sesiones apenas el catálogo se abra (disponible desde 30 Jun 2026) — las mejores se agotan rápido',
+      'Aprovecha el early bird hasta 25 Ago ($1,299) — después sube a $2,499',
+      'Descarga la app AWS Events (disponible sep 2026) y configura tu agenda antes de viajar',
+      'Estudia el mapa de venues — son 6 hoteles: Caesars Forum, Caesars Palace, Encore, MGM Grand, Venetian y Wynn',
+      'Planifica máximo 4-5 sesiones por día — el traslado consume tiempo (¡usa el monorail gratuito!)',
+    ],
+  }
+  return data[locale.value] || data.en
+})
 
-const dicasDurante = computed(() => locale.value === 'pt' ? [
-  'Chegue 15-20 min antes nas sessões populares — overflow é real',
-  'Use o monorail gratuito (badge holders) entre venues — muito mais rápido que caminhar',
-  'Refeições incluídas: breakfast, lunch e snacks nos dias de conferência — aproveite!',
-  'Não perca o re:Inforce na quinta (3 Dez) — conteúdo de segurança integrado ao evento',
-  'Agende seu exame de certificação com 50% de desconto durante o evento',
-  'Credenciamento pode ser feito no aeroporto Harry Reid na chegada — sem fila',
-  'Monorail gratuito com badge: mais rápido que shuttles (5 min entre venues)',
-  'Evento vai das 8h às 22h. Networking à noite: mixers LATAM, festas de empresas, baladas',
-  'Community Builders/Leaders: restaurante Buddy V no Venetian é exclusivo (café/almoço/jantar gratis)',
-] : [
-  'Arrive 15-20 min early to popular sessions — overflow is real',
-  'Use the free monorail (badge holders) between venues — much faster than walking',
-  'Meals included: breakfast, lunch and snacks on conference days — enjoy!',
-  'Don\'t miss re:Inforce on Thursday (Dec 3) — security content integrated into the event',
-  'Schedule your certification exam with 50% discount during the event',
-  'Badge pickup can be done at Harry Reid airport on arrival — no lines',
-  'Free monorail with badge: faster than shuttles (5 min between venues)',
-  'Event runs 8am-10pm. Night networking: LATAM mixers, company parties, clubs',
-  'Community Builders/Leaders: Buddy V restaurant at Venetian is exclusive (free breakfast/lunch/dinner)',
-])
+const dicasDurante = computed(() => {
+  const data = {
+    pt: [
+      'Chegue 15-20 min antes nas sessões populares — overflow é real',
+      'Use o monorail gratuito (badge holders) entre venues — muito mais rápido que caminhar',
+      'Refeições incluídas: breakfast, lunch e snacks nos dias de conferência — aproveite!',
+      'Não perca o re:Inforce na quinta (3 Dez) — conteúdo de segurança integrado ao evento',
+      'Agende seu exame de certificação com 50% de desconto durante o evento',
+      'Credenciamento pode ser feito no aeroporto Harry Reid na chegada — sem fila',
+      'Monorail gratuito com badge: mais rápido que shuttles (5 min entre venues)',
+      'Evento vai das 8h às 22h. Networking à noite: mixers LATAM, festas de empresas, baladas',
+      'Community Builders/Leaders: restaurante Buddy V no Venetian é exclusivo (café/almoço/jantar gratis)',
+    ],
+    en: [
+      'Arrive 15-20 min early to popular sessions — overflow is real',
+      'Use the free monorail (badge holders) between venues — much faster than walking',
+      'Meals included: breakfast, lunch and snacks on conference days — enjoy!',
+      'Don\'t miss re:Inforce on Thursday (Dec 3) — security content integrated into the event',
+      'Schedule your certification exam with 50% discount during the event',
+      'Badge pickup can be done at Harry Reid airport on arrival — no lines',
+      'Free monorail with badge: faster than shuttles (5 min between venues)',
+      'Event runs 8am-10pm. Night networking: LATAM mixers, company parties, clubs',
+      'Community Builders/Leaders: Buddy V restaurant at Venetian is exclusive (free breakfast/lunch/dinner)',
+    ],
+    es: [
+      'Llega 15-20 min antes a sesiones populares — el overflow es real',
+      'Usa el monorail gratuito (badge holders) entre venues — mucho más rápido que caminar',
+      'Comidas incluidas: desayuno, almuerzo y snacks en días de conferencia — ¡aprovecha!',
+      'No te pierdas re:Inforce el jueves (3 Dic) — contenido de seguridad integrado al evento',
+      'Agenda tu examen de certificación con 50% de descuento durante el evento',
+      'El registro se puede hacer en el aeropuerto Harry Reid al llegar — sin fila',
+      'Monorail gratuito con badge: más rápido que shuttles (5 min entre venues)',
+      'El evento va de 8am a 10pm. Networking nocturno: mixers LATAM, fiestas de empresas, clubs',
+      'Community Builders/Leaders: restaurante Buddy V en el Venetian es exclusivo (desayuno/almuerzo/cena gratis)',
+    ],
+  }
+  return data[locale.value] || data.en
+})
+
+const tableHeaders = computed(() => {
+  const data = {
+    pt: { day: 'Dia', date: 'Data', activities: 'Atividades Principais' },
+    en: { day: 'Day', date: 'Date', activities: 'Main Activities' },
+    es: { day: 'Día', date: 'Fecha', activities: 'Actividades Principales' },
+  }
+  return data[locale.value] || data.en
+})
 </script>
 
 <template>
@@ -154,9 +238,9 @@ const dicasDurante = computed(() => locale.value === 'pt' ? [
         <table class="w-full text-sm border border-gray-200 rounded-xl overflow-hidden">
           <thead class="bg-aws-dark text-white">
             <tr>
-              <th class="px-4 py-3 text-left">{{ locale === 'pt' ? 'Dia' : 'Day' }}</th>
-              <th class="px-4 py-3 text-left">{{ locale === 'pt' ? 'Data' : 'Date' }}</th>
-              <th class="px-4 py-3 text-left">{{ locale === 'pt' ? 'Atividades Principais' : 'Main Activities' }}</th>
+              <th class="px-4 py-3 text-left">{{ tableHeaders.day }}</th>
+              <th class="px-4 py-3 text-left">{{ tableHeaders.date }}</th>
+              <th class="px-4 py-3 text-left">{{ tableHeaders.activities }}</th>
             </tr>
           </thead>
           <tbody>

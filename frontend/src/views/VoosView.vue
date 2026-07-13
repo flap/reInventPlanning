@@ -158,12 +158,12 @@ const chips = [
     <!-- Dicas da Comunidade — Transporte -->
     <div class="mt-8 bg-green-50 border border-green-200 rounded-xl p-6 mb-10">
       <h3 class="text-lg font-bold text-green-800 mb-4">
-        {{ locale === 'pt' ? '💡 Dicas da Comunidade — Transporte' : '💡 Community Tips — Transport' }}
+        {{ {pt: '💡 Dicas da Comunidade — Transporte', en: '💡 Community Tips — Transport', es: '💡 Tips de la Comunidad — Transporte'}[locale] }}
       </h3>
       <ul class="space-y-3 text-sm text-green-900">
-        <li>💰 {{ locale === 'pt' ? 'Uber em horário de pico (18h) chega a $50+ fácil. Rache com outros brasileiros! Uber XL (7 lugares) é uma opção.' : 'Uber at peak hours (6pm) easily reaches $50+. Split with others! Uber XL (7 seats) is an option.' }}</li>
-        <li>🚇 {{ locale === 'pt' ? 'Monorail gratuito com badge do re:Invent — muito mais rápido que shuttles (5 min entre venues)' : 'Free monorail with re:Invent badge — much faster than shuttles (5 min between venues)' }}</li>
-        <li>💳 {{ locale === 'pt' ? 'Use Nomad ou Wise para pagar em dólar sem IOF (4.38%). Nomad dá acesso à Sala VIP Guarulhos!' : 'Use Nomad or Wise to pay in USD without IOF tax (4.38%). Nomad gives access to Guarulhos VIP Lounge!' }}</li>
+        <li>💰 {{ {pt: 'Uber em horário de pico (18h) chega a $50+ fácil. Rache com outros brasileiros! Uber XL (7 lugares) é uma opção.', en: 'Uber at peak hours (6pm) easily reaches $50+. Split with others! Uber XL (7 seats) is an option.', es: 'Uber en hora pico (18h) llega fácil a $50+. ¡Compártelo con otros! Uber XL (7 asientos) es una opción.'}[locale] }}</li>
+        <li>🚇 {{ {pt: 'Monorail gratuito com badge do re:Invent — muito mais rápido que shuttles (5 min entre venues)', en: 'Free monorail with re:Invent badge — much faster than shuttles (5 min between venues)', es: 'Monorail gratuito con badge del re:Invent — mucho más rápido que shuttles (5 min entre venues)'}[locale] }}</li>
+        <li>💳 {{ {pt: 'Use Nomad ou Wise para pagar em dólar sem IOF (4.38%). Nomad dá acesso à Sala VIP Guarulhos!', en: 'Use Nomad or Wise to pay in USD without IOF tax (4.38%). Nomad gives access to Guarulhos VIP Lounge!', es: 'Usa Nomad o Wise para pagar en dólares sin IOF (4.38%). ¡Nomad da acceso a la Sala VIP de Guarulhos!'}[locale] }}</li>
       </ul>
     </div>
 

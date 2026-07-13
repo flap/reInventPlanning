@@ -1,22 +1,24 @@
 import { ref } from 'vue'
 import pt from '../locales/pt'
 import en from '../locales/en'
+import es from '../locales/es'
 
-type Locale = 'pt' | 'en'
+type Locale = 'pt' | 'en' | 'es'
 
-const messages: Record<Locale, Record<string, unknown>> = { pt, en }
+const messages: Record<Locale, Record<string, unknown>> = { pt, en, es }
 
 const STORAGE_KEY = 'tripevent:locale'
 
 function detectLocale(): Locale {
   try {
     const saved = localStorage.getItem(STORAGE_KEY)
-    if (saved === 'pt' || saved === 'en') return saved
+    if (saved === 'pt' || saved === 'en' || saved === 'es') return saved
   } catch {
     // localStorage unavailable (SSR or privacy mode)
   }
-  if (typeof navigator !== 'undefined' && navigator.language.startsWith('pt')) {
-    return 'pt'
+  if (typeof navigator !== 'undefined') {
+    if (navigator.language.startsWith('pt')) return 'pt'
+    if (navigator.language.startsWith('es')) return 'es'
   }
   return 'en'
 }

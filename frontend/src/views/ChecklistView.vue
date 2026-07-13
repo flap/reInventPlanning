@@ -44,10 +44,14 @@ const progressText = computed(() => {
     .replace('{total}', String(progress.value.total))
 })
 
-const subtitle = computed(() => locale.value === 'pt'
-  ? 'Acompanhe seu progresso na preparação para o re:Invent 2026'
-  : 'Track your progress preparing for re:Invent 2026'
-)
+const subtitle = computed(() => {
+  const data = {
+    pt: 'Acompanhe seu progresso na preparação para o re:Invent 2026',
+    en: 'Track your progress preparing for re:Invent 2026',
+    es: 'Sigue tu progreso en la preparación para el re:Invent 2026',
+  }
+  return data[locale.value] || data.en
+})
 
 function isCompleted(id: string): boolean {
   return store.items[id]?.completed ?? false
@@ -77,28 +81,13 @@ function prioridadeClass(prioridade: string): string {
 }
 
 function prioridadeLabel(prioridade: string): string {
-  if (locale.value === 'en') {
-    switch (prioridade) {
-      case 'alta':
-        return '⚠️ High'
-      case 'media':
-        return '📌 Medium'
-      case 'baixa':
-        return '💡 Low'
-      default:
-        return prioridade
-    }
+  const labels: Record<string, Record<string, string>> = {
+    pt: { alta: '⚠️ Alta', media: '📌 Média', baixa: '💡 Baixa' },
+    en: { alta: '⚠️ High', media: '📌 Medium', baixa: '💡 Low' },
+    es: { alta: '⚠️ Alta', media: '📌 Media', baixa: '💡 Baja' },
   }
-  switch (prioridade) {
-    case 'alta':
-      return '⚠️ Alta'
-    case 'media':
-      return '📌 Média'
-    case 'baixa':
-      return '💡 Baixa'
-    default:
-      return prioridade
-  }
+  const map = labels[locale.value] || labels.en!
+  return map![prioridade] || prioridade
 }
 </script>
 
