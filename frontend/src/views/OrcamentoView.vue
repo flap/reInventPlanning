@@ -84,7 +84,7 @@ const defaultItems = computed((): CustomItem[] => {
     name,
     value: i === 2 ? 1299 : 0,
     currency: 'USD' as const,
-    courtesy: false,
+    courtesy: i === 2, // ingresso como cortesia por default
   }))
 })
 

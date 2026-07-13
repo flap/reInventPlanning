@@ -17,8 +17,8 @@ const taxas = budgetDefaults.taxas
 
 export const useBudgetStore = defineStore('budget', {
   state: () => ({
-    scenario: 'confortavel' as BudgetScenarioKey,
-    inputs: { ...cenarios.confortavel } as BudgetInputs,
+    scenario: 'economico' as BudgetScenarioKey,
+    inputs: { ...cenarios.economico } as BudgetInputs,
     taxaUSD: 5.40,
     iofMode: 'cartao' as IofMode,
   }),
