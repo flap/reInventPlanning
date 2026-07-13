@@ -94,6 +94,25 @@ reInventPlanning/
 
 Encontrou algo desatualizado ou quer adicionar uma dica? Contribuições são bem-vindas!
 
+### 💡 Compartilhe suas Dicas!
+
+Este é um projeto **colaborativo da comunidade**. Se você já foi ao re:Invent ou tem dicas úteis para quem vai, contribua:
+
+1. Acesse [**Issues → New Issue**](https://github.com/flap/reInventPlanning/issues/new/choose)
+2. Escolha o template **"💡 Dica da Comunidade (TIP)"**
+3. Preencha sua dica com categoria e contexto
+4. Sua dica será analisada e, se aprovada, incorporada ao app!
+
+**Exemplos de dicas aceitas:**
+- 🏨 Hotéis com boa relação custo-benefício
+- 💰 Formas de economizar (rachar Uber, cartões sem IOF)
+- 🍽️ Restaurantes bons e baratos
+- 🚇 Dicas de transporte (monorail, shuttles)
+- 🧳 O que levar na mala
+- 🤝 Networking e eventos noturnos
+
+> Todas as dicas aprovadas dão crédito ao autor na issue. Obrigado por ajudar a comunidade! 🇧🇷
+
 ---
 
 *Feito com ❤️ para a comunidade brasileira de AWS*
