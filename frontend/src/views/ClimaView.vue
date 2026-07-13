@@ -319,6 +319,105 @@ const medsTableHeader = computed(() => {
       </div>
     </section>
 
+    <!-- Guia de Medicamentos para os EUA -->
+    <div class="mt-8 bg-amber-50 border border-amber-200 rounded-xl p-6">
+      <h3 class="text-lg font-bold text-amber-900 mb-2">
+        {{ {pt: '⚠️ Regulamentação de Medicamentos nos EUA', en: '⚠️ US Medication Regulations', es: '⚠️ Regulación de Medicamentos en EE.UU.'}[locale] }}
+      </h3>
+      <p class="text-sm text-amber-800 mb-4">
+        {{ {pt: 'Fontes: FDA, CBP (Customs and Border Protection) e DEA. Leve a sério — violações podem resultar em detenção na imigração.', en: 'Sources: FDA, CBP (Customs and Border Protection) and DEA. Take this seriously — violations can result in detention at immigration.', es: 'Fuentes: FDA, CBP (Customs and Border Protection) y DEA. Tómelo en serio — violaciones pueden resultar en detención en inmigración.'}[locale] }}
+      </p>
+
+      <!-- Regras Gerais -->
+      <div class="mb-4">
+        <h4 class="font-semibold text-amber-900 mb-2">
+          {{ {pt: '📋 Regras Gerais (CBP/FDA)', en: '📋 General Rules (CBP/FDA)', es: '📋 Reglas Generales (CBP/FDA)'}[locale] }}
+        </h4>
+        <ul class="text-sm text-amber-900 space-y-1 list-disc list-inside">
+          <li>{{ {pt: 'Medicamentos devem estar na embalagem ORIGINAL com rótulo da farmácia', en: 'Medications must be in ORIGINAL packaging with pharmacy label', es: 'Medicamentos deben estar en el empaque ORIGINAL con etiqueta de farmacia'}[locale] }}</li>
+          <li>{{ {pt: 'Leve no máximo suprimento para 90 dias de uso pessoal', en: 'Bring no more than a 90-day personal use supply', es: 'Lleve máximo suministro para 90 días de uso personal'}[locale] }}</li>
+          <li>{{ {pt: 'Prescrição (receita) deve estar em nome do viajante', en: 'Prescription must be in the traveler\'s name', es: 'La receta debe estar a nombre del viajero'}[locale] }}</li>
+          <li>{{ {pt: 'Tenha cópia da receita médica ou carta do médico (preferencialmente em inglês)', en: 'Have a copy of your prescription or doctor\'s letter (preferably in English)', es: 'Tenga copia de la receta médica o carta del médico (preferiblemente en inglés)'}[locale] }}</li>
+          <li>{{ {pt: 'Declare todos os medicamentos na alfandega se questionado', en: 'Declare all medications at customs if asked', es: 'Declare todos los medicamentos en aduana si le preguntan'}[locale] }}</li>
+          <li>{{ {pt: 'Leve medicamentos na bagagem de MÃO (não despachada)', en: 'Carry medications in CARRY-ON luggage (not checked)', es: 'Lleve medicamentos en equipaje de MANO (no despachado)'}[locale] }}</li>
+        </ul>
+      </div>
+
+      <!-- Permitidos sem restrição -->
+      <div class="mb-4 bg-green-50 border border-green-200 rounded-lg p-4">
+        <h4 class="font-semibold text-green-800 mb-2">
+          {{ {pt: '✅ Permitidos Sem Restrição (OTC — venda livre)', en: '✅ Allowed Without Restriction (OTC — over the counter)', es: '✅ Permitidos Sin Restricción (OTC — venta libre)'}[locale] }}
+        </h4>
+        <ul class="text-sm text-green-900 space-y-1 list-disc list-inside">
+          <li>{{ {pt: 'Paracetamol (Tylenol) — analgésico/antitérmico', en: 'Acetaminophen (Tylenol) — pain relief/fever', es: 'Paracetamol (Tylenol) — analgésico/antipirético'}[locale] }}</li>
+          <li>{{ {pt: 'Ibuprofeno (Advil/Motrin) — anti-inflamatório', en: 'Ibuprofen (Advil/Motrin) — anti-inflammatory', es: 'Ibuprofeno (Advil/Motrin) — antiinflamatorio'}[locale] }}</li>
+          <li>{{ {pt: 'Loratadina/Cetirizina — antialérgico', en: 'Loratadine/Cetirizine — antihistamine', es: 'Loratadina/Cetirizina — antialérgico'}[locale] }}</li>
+          <li>{{ {pt: 'Omeprazol — antiácido (Prilosec OTC nos EUA)', en: 'Omeprazole — antacid (Prilosec OTC in the US)', es: 'Omeprazol — antiácido (Prilosec OTC en EE.UU.)'}[locale] }}</li>
+          <li>{{ {pt: 'Loperamida (Imosec/Imodium) — antidiarreico', en: 'Loperamide (Imodium) — anti-diarrheal', es: 'Loperamida (Imodium) — antidiarreico'}[locale] }}</li>
+          <li>{{ {pt: 'Descongestionante nasal (pseudoefedrina — limite de compra nos EUA)', en: 'Nasal decongestant (pseudoephedrine — purchase limit in US)', es: 'Descongestionante nasal (pseudoefedrina — límite de compra en EE.UU.)'}[locale] }}</li>
+          <li>{{ {pt: 'Vitamina C, probióticos, soro fisiológico nasal', en: 'Vitamin C, probiotics, saline nasal spray', es: 'Vitamina C, probióticos, solución salina nasal'}[locale] }}</li>
+          <li>{{ {pt: 'Band-aids, pomadas para bolha, protetor solar', en: 'Band-aids, blister ointment, sunscreen', es: 'Curitas, pomada para ampollas, protector solar'}[locale] }}</li>
+        </ul>
+      </div>
+
+      <!-- Atenção: Controlados -->
+      <div class="mb-4 bg-yellow-50 border border-yellow-300 rounded-lg p-4">
+        <h4 class="font-semibold text-yellow-900 mb-2">
+          {{ {pt: '⚠️ Controlados — PRECISAM de Receita em Inglês', en: '⚠️ Controlled — REQUIRE English Prescription', es: '⚠️ Controlados — REQUIEREN Receta en Inglés'}[locale] }}
+        </h4>
+        <p class="text-xs text-yellow-800 mb-2">
+          {{ {pt: 'Leve: receita traduzida ou carta do médico em inglês + embalagem original com seu nome. Sem isso, podem ser confiscados.', en: 'Bring: translated prescription or doctor\'s letter in English + original packaging with your name. Without these, they may be confiscated.', es: 'Lleve: receta traducida o carta del médico en inglés + empaque original con su nombre. Sin esto, pueden ser confiscados.'}[locale] }}
+        </p>
+        <ul class="text-sm text-yellow-900 space-y-1 list-disc list-inside">
+          <li>{{ {pt: 'Rivotril/Clonazepam (benzodiazepínico — DEA Schedule IV)', en: 'Clonazepam/Klonopin (benzodiazepine — DEA Schedule IV)', es: 'Clonazepam/Rivotril (benzodiazepina — DEA Schedule IV)'}[locale] }}</li>
+          <li>{{ {pt: 'Diazepam/Valium (benzodiazepínico — DEA Schedule IV)', en: 'Diazepam/Valium (benzodiazepine — DEA Schedule IV)', es: 'Diazepam/Valium (benzodiazepina — DEA Schedule IV)'}[locale] }}</li>
+          <li>{{ {pt: 'Alprazolam/Frontal (benzodiazepínico — DEA Schedule IV)', en: 'Alprazolam/Xanax (benzodiazepine — DEA Schedule IV)', es: 'Alprazolam/Xanax (benzodiazepina — DEA Schedule IV)'}[locale] }}</li>
+          <li>{{ {pt: 'Zolpidem (indução de sono — DEA Schedule IV)', en: 'Zolpidem/Ambien (sleep aid — DEA Schedule IV)', es: 'Zolpidem/Ambien (inductor de sueño — DEA Schedule IV)'}[locale] }}</li>
+          <li>{{ {pt: 'Codeína (analgésico opióide — DEA Schedule II-III)', en: 'Codeine (opioid analgesic — DEA Schedule II-III)', es: 'Codeína (analgésico opioide — DEA Schedule II-III)'}[locale] }}</li>
+          <li>{{ {pt: 'Tramadol (analgésico opióide — DEA Schedule IV)', en: 'Tramadol (opioid analgesic — DEA Schedule IV)', es: 'Tramadol (analgésico opioide — DEA Schedule IV)'}[locale] }}</li>
+          <li>{{ {pt: 'Ritalina/Metilfenidato (estimulante — DEA Schedule II)', en: 'Ritalin/Methylphenidate (stimulant — DEA Schedule II)', es: 'Ritalina/Metilfenidato (estimulante — DEA Schedule II)'}[locale] }}</li>
+          <li>{{ {pt: 'Venvanse/Lisdexanfetamina (TDAH — DEA Schedule II)', en: 'Vyvanse/Lisdexamfetamine (ADHD — DEA Schedule II)', es: 'Vyvanse/Lisdexanfetamina (TDAH — DEA Schedule II)'}[locale] }}</li>
+        </ul>
+      </div>
+
+      <!-- Proibidos / Problemáticos -->
+      <div class="mb-4 bg-red-50 border border-red-300 rounded-lg p-4">
+        <h4 class="font-semibold text-red-800 mb-2">
+          {{ {pt: '❌ Proibidos ou Problemáticos nos EUA', en: '❌ Prohibited or Problematic in the US', es: '❌ Prohibidos o Problemáticos en EE.UU.'}[locale] }}
+        </h4>
+        <ul class="text-sm text-red-900 space-y-1 list-disc list-inside">
+          <li>{{ {pt: 'Dipirona (Novalgina) — PROIBIDA nos EUA (banida pela FDA). Leve Paracetamol ou Ibuprofeno como substituto.', en: 'Dipyrone (Metamizole) — BANNED in the US (FDA banned). Bring Acetaminophen or Ibuprofen instead.', es: 'Dipirona (Metamizol) — PROHIBIDA en EE.UU. (prohibida por la FDA). Lleve Paracetamol o Ibuprofeno como sustituto.'}[locale] }}</li>
+          <li>{{ {pt: 'Dorflex (contém dipirona) — PROIBIDO nos EUA pelo mesmo motivo.', en: 'Dorflex (contains dipyrone) — BANNED in the US for the same reason.', es: 'Dorflex (contiene dipirona) — PROHIBIDO en EE.UU. por la misma razón.'}[locale] }}</li>
+          <li>{{ {pt: 'Qualquer medicação com cannabis/CBD (mesmo que legal no Brasil para uso medicinal)', en: 'Any cannabis/CBD medication (even if legal in Brazil for medical use)', es: 'Cualquier medicación con cannabis/CBD (aunque sea legal en Brasil para uso medicinal)'}[locale] }}</li>
+          <li>{{ {pt: 'Antibióticos sem receita — são OTC no Brasil mas nos EUA só com prescrição. Leve a receita!', en: 'Antibiotics without prescription — OTC in Brazil but prescription-only in the US. Bring your prescription!', es: 'Antibióticos sin receta — son OTC en Brasil pero en EE.UU. solo con prescripción. ¡Lleve la receta!'}[locale] }}</li>
+        </ul>
+      </div>
+
+      <!-- Dica prática -->
+      <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+        <h4 class="font-semibold text-blue-800 mb-2">
+          {{ {pt: '💡 Dica Prática', en: '💡 Practical Tip', es: '💡 Consejo Práctico'}[locale] }}
+        </h4>
+        <ul class="text-sm text-blue-900 space-y-1 list-disc list-inside">
+          <li>{{ {pt: 'Peça ao seu médico uma carta em INGLÊS listando seus medicamentos (nome genérico, dose, frequência e motivo)', en: 'Ask your doctor for a letter in ENGLISH listing your medications (generic name, dose, frequency and reason)', es: 'Pídale a su médico una carta en INGLÉS listando sus medicamentos (nombre genérico, dosis, frecuencia y motivo)'}[locale] }}</li>
+          <li>{{ {pt: 'Faça a carta com antecedência — alguns médicos cobram pela tradução', en: 'Get the letter in advance — some doctors charge for translation', es: 'Haga la carta con anticipación — algunos médicos cobran por la traducción'}[locale] }}</li>
+          <li>{{ {pt: 'Remédios básicos (Tylenol, Advil, Tums) são facilmente comprados em qualquer Walgreens/CVS em Las Vegas', en: 'Basic medicines (Tylenol, Advil, Tums) are easily bought at any Walgreens/CVS in Las Vegas', es: 'Medicinas básicas (Tylenol, Advil, Tums) se compran fácilmente en cualquier Walgreens/CVS en Las Vegas'}[locale] }}</li>
+          <li>{{ {pt: 'NÃO leve Dipirona/Novalgina — é proibida nos EUA. Use Paracetamol (Tylenol) como substituto.', en: 'DO NOT bring Dipyrone/Novalgina — it is banned in the US. Use Acetaminophen (Tylenol) instead.', es: 'NO lleve Dipirona/Novalgina — está prohibida en EE.UU. Use Paracetamol (Tylenol) como sustituto.'}[locale] }}</li>
+        </ul>
+      </div>
+
+      <!-- Referências -->
+      <div class="mt-4 pt-3 border-t border-amber-200">
+        <p class="text-xs text-amber-700 font-medium mb-1">{{ {pt: '🔗 Referências Oficiais:', en: '🔗 Official References:', es: '🔗 Referencias Oficiales:'}[locale] }}</p>
+        <div class="flex flex-wrap gap-3 text-xs">
+          <a href="https://www.fda.gov/drugs/information-healthcare-professionals-drugs/traveling-prescription-medications" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">FDA — Traveling with Medications</a>
+          <a href="https://www.cbp.gov/travel/us-citizens/know-before-you-go/your-trip" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">CBP — Know Before You Go</a>
+          <a href="https://www.deadiversion.usdoj.gov/schedules/schedules.html" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">DEA — Controlled Substances</a>
+          <a href="https://origin.cdc.gov/yellow-book/hcp/travelers-with-additional-considerations/traveling-with-prohibited-or-restricted-medications.html" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">CDC — Traveling with Medications</a>
+        </div>
+      </div>
+    </div>
+
     <!-- Dicas de Saúde -->
     <section class="mb-8">
       <h2 class="text-2xl font-bold text-aws-dark mb-4">❤️ {{ t('clima.healthTitle') }}</h2>
