@@ -9,7 +9,7 @@
       </p>
       <div class="flex items-center justify-center gap-4 mt-3">
         <a
-          href="https://github.com"
+          href="https://github.com/flap/reInventPlanning"
           target="_blank"
           rel="noopener noreferrer"
           class="text-xs text-gray-400 hover:text-aws-orange transition-colors"
