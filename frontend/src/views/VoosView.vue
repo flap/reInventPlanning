@@ -36,10 +36,10 @@ const visaSteps = [
 ]
 
 const transportes = [
-  { nome: 'Uber/Lyft', preco: '$15–35', tempo: '15–25 min', destaque: 'Mais prático, direto ao hotel', icon: '🚗' },
-  { nome: 'Táxi', preco: '$22–35', tempo: '15–25 min', destaque: 'Fila dedicada no aeroporto', icon: '🚕' },
-  { nome: 'Ônibus (RTC)', preco: '$6', tempo: '30–45 min', destaque: 'Mais econômico, várias paradas', icon: '🚌' },
-  { nome: 'Shuttle Hotel', preco: '$8–15', tempo: '20–40 min', destaque: 'Compartilhado, direto aos hotéis', icon: '🚐' },
+  { nome: 'Uber/Lyft', preco: '$15–35', tempo: '15–25 min', destaque: { pt: 'Rápido, porta a porta', en: 'Fast, door to door', es: 'Rápido, puerta a puerta' }, icon: '🚗' },
+  { nome: 'Táxi', preco: '$22–35', tempo: '15–25 min', destaque: { pt: 'Sistema de zona fixa', en: 'Fixed zone system', es: 'Sistema de zona fija' }, icon: '🚕' },
+  { nome: 'Ônibus (RTC)', preco: '$6', tempo: '30–45 min', destaque: { pt: 'Econômico, 40-50 min', en: 'Budget, 40-50 min', es: 'Económico, 40-50 min' }, icon: '🚌' },
+  { nome: 'Shuttle Hotel', preco: '$8–15', tempo: '20–40 min', destaque: { pt: 'Compartilhado, direto aos hotéis', en: 'Shared, direct to hotels', es: 'Compartido, directo a hoteles' }, icon: '🚐' },
 ]
 
 const chips = [
@@ -150,7 +150,7 @@ const chips = [
           <h3 class="font-bold text-aws-dark mt-2">{{ transporte.nome }}</h3>
           <p class="text-lg font-semibold text-aws-orange mt-1">{{ transporte.preco }}</p>
           <p class="text-xs text-gray-500 mt-1">{{ transporte.tempo }}</p>
-          <p class="text-xs text-gray-600 mt-2">{{ transporte.destaque }}</p>
+          <p class="text-xs text-gray-600 mt-2">{{ transporte.destaque[locale] }}</p>
         </div>
       </div>
     </section>
