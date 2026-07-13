@@ -107,6 +107,7 @@ const dicasSaude = computed(() => locale.value === 'pt' ? [
   '😴 Ajuste o fuso gradualmente: durma 1h mais cedo nos dias antes da viagem',
   '🌞 Use protetor solar FPS 50 — mesmo em dezembro o sol do deserto é forte',
   '🍺 Modere no álcool — a altitude (600m) + ar seco amplifica a ressaca',
+  '🏨 Hotéis têm bebedouros na academia e máquinas de gelo grátis — leve garrafa retornável para economizar',
 ] : [
   '💧 Drink at least 3L of water/day — desert air dehydrates you quickly without noticing',
   '🧴 Use body and face moisturizer 2x/day — your skin will dry out significantly',
@@ -116,6 +117,7 @@ const dicasSaude = computed(() => locale.value === 'pt' ? [
   '😴 Adjust timezone gradually: sleep 1h earlier in the days before the trip',
   '🌞 Use SPF 50 sunscreen — even in December the desert sun is strong',
   '🍺 Go easy on alcohol — altitude (600m) + dry air amplifies hangovers',
+  '🏨 Hotels have water fountains in the gym and free ice machines — bring a reusable bottle to save money',
 ])
 
 const layersIntro = computed(() => locale.value === 'pt'

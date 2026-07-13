@@ -26,6 +26,7 @@ const atracoes = computed(() => locale.value === 'pt' ? [
   { nome: 'Madame Tussauds', local: 'Venetian', preco: '$30–40', tipo: 'pago' },
   { nome: 'Shark Reef Aquarium', local: 'Mandalay Bay', preco: '$25–30', tipo: 'pago' },
   { nome: 'Welcome to Las Vegas Sign', local: 'South Strip', preco: 'Gratuito', tipo: 'gratuito' },
+  { nome: 'The Strat Tower', local: 'Norte da Strip', preco: '$25-35', tipo: 'pago', descricao: 'Observatório de 350m com vista 360° de Las Vegas inteira. Brinquedos radicais no topo.' },
 ] : [
   { nome: 'Bellagio Fountains', local: 'Bellagio Hotel', preco: 'Free', tipo: 'gratuito' },
   { nome: 'High Roller', local: 'The LINQ', preco: '$25–37', tipo: 'pago' },
@@ -35,6 +36,7 @@ const atracoes = computed(() => locale.value === 'pt' ? [
   { nome: 'Madame Tussauds', local: 'Venetian', preco: '$30–40', tipo: 'pago' },
   { nome: 'Shark Reef Aquarium', local: 'Mandalay Bay', preco: '$25–30', tipo: 'pago' },
   { nome: 'Welcome to Las Vegas Sign', local: 'South Strip', preco: 'Free', tipo: 'gratuito' },
+  { nome: 'The Strat Tower', local: 'North Strip', preco: '$25-35', tipo: 'paid', descricao: 'Observatory at 350m with 360° views of all Las Vegas. Thrill rides on top.' },
 ])
 
 const shoppings = computed(() => locale.value === 'pt' ? [
