@@ -20,37 +20,58 @@ const paidLabel = computed(() => t('turismo.paid'))
 const atracoes = computed(() => {
   const data = {
     pt: [
-      { nome: 'Bellagio Fountains', local: 'Bellagio Hotel', preco: 'Gratuito', tipo: 'gratuito' },
-      { nome: 'High Roller', local: 'The LINQ', preco: '$25–37', tipo: 'pago' },
-      { nome: 'Fremont Street Experience', local: 'Downtown', preco: 'Gratuito', tipo: 'gratuito' },
-      { nome: 'The Sphere (exterior)', local: 'Venetian', preco: 'Gratuito', tipo: 'gratuito' },
+      { nome: 'Bellagio Fountains', local: 'Bellagio Hotel', preco: 'Gratuito', tipo: 'gratuito', maps: 'https://www.google.com/maps/place/Fountains+of+Bellagio/@36.1126,-115.1767,17z' },
+      { nome: 'The Sphere (exterior)', local: 'Venetian', preco: 'Gratuito', tipo: 'gratuito', maps: 'https://www.google.com/maps/place/Sphere/@36.1208,-115.1656,17z' },
+      { nome: 'High Roller', local: 'The LINQ', preco: '$25–37', tipo: 'pago', maps: 'https://www.google.com/maps/place/High+Roller/@36.1173,-115.1685,17z' },
+      { nome: 'Fremont Street Experience', local: 'Downtown', preco: 'Gratuito', tipo: 'gratuito', maps: 'https://www.google.com/maps/place/Fremont+Street+Experience/@36.1700,-115.1426,17z' },
+      { nome: 'The Strat Tower', local: 'Norte da Strip', preco: '$25-35', tipo: 'pago', maps: 'https://www.google.com/maps/place/The+STRAT+Hotel/@36.1474,-115.1558,17z', descricao: 'Observatório de 350m com vista 360° de Las Vegas inteira. Brinquedos radicais no topo.' },
       { nome: 'Cirque du Soleil (O, KÀ, Beatles)', local: 'Vários hotéis', preco: '$80–200', tipo: 'pago' },
       { nome: 'Madame Tussauds', local: 'Venetian', preco: '$30–40', tipo: 'pago' },
       { nome: 'Shark Reef Aquarium', local: 'Mandalay Bay', preco: '$25–30', tipo: 'pago' },
       { nome: 'Welcome to Las Vegas Sign', local: 'South Strip', preco: 'Gratuito', tipo: 'gratuito' },
-      { nome: 'The Strat Tower', local: 'Norte da Strip', preco: '$25-35', tipo: 'pago', descricao: 'Observatório de 350m com vista 360° de Las Vegas inteira. Brinquedos radicais no topo.' },
     ],
     en: [
-      { nome: 'Bellagio Fountains', local: 'Bellagio Hotel', preco: 'Free', tipo: 'gratuito' },
-      { nome: 'High Roller', local: 'The LINQ', preco: '$25–37', tipo: 'pago' },
-      { nome: 'Fremont Street Experience', local: 'Downtown', preco: 'Free', tipo: 'gratuito' },
-      { nome: 'The Sphere (exterior)', local: 'Venetian', preco: 'Free', tipo: 'gratuito' },
+      { nome: 'Bellagio Fountains', local: 'Bellagio Hotel', preco: 'Free', tipo: 'gratuito', maps: 'https://www.google.com/maps/place/Fountains+of+Bellagio/@36.1126,-115.1767,17z' },
+      { nome: 'The Sphere (exterior)', local: 'Venetian', preco: 'Free', tipo: 'gratuito', maps: 'https://www.google.com/maps/place/Sphere/@36.1208,-115.1656,17z' },
+      { nome: 'High Roller', local: 'The LINQ', preco: '$25–37', tipo: 'pago', maps: 'https://www.google.com/maps/place/High+Roller/@36.1173,-115.1685,17z' },
+      { nome: 'Fremont Street Experience', local: 'Downtown', preco: 'Free', tipo: 'gratuito', maps: 'https://www.google.com/maps/place/Fremont+Street+Experience/@36.1700,-115.1426,17z' },
+      { nome: 'The Strat Tower', local: 'North Strip', preco: '$25-35', tipo: 'pago', maps: 'https://www.google.com/maps/place/The+STRAT+Hotel/@36.1474,-115.1558,17z', descricao: 'Observatory at 350m with 360° views of all Las Vegas. Thrill rides on top.' },
       { nome: 'Cirque du Soleil (O, KÀ, Beatles)', local: 'Various hotels', preco: '$80–200', tipo: 'pago' },
       { nome: 'Madame Tussauds', local: 'Venetian', preco: '$30–40', tipo: 'pago' },
       { nome: 'Shark Reef Aquarium', local: 'Mandalay Bay', preco: '$25–30', tipo: 'pago' },
       { nome: 'Welcome to Las Vegas Sign', local: 'South Strip', preco: 'Free', tipo: 'gratuito' },
-      { nome: 'The Strat Tower', local: 'North Strip', preco: '$25-35', tipo: 'paid', descricao: 'Observatory at 350m with 360° views of all Las Vegas. Thrill rides on top.' },
     ],
     es: [
-      { nome: 'Bellagio Fountains', local: 'Bellagio Hotel', preco: 'Gratis', tipo: 'gratuito' },
-      { nome: 'High Roller', local: 'The LINQ', preco: '$25–37', tipo: 'pago' },
-      { nome: 'Fremont Street Experience', local: 'Downtown', preco: 'Gratis', tipo: 'gratuito' },
-      { nome: 'The Sphere (exterior)', local: 'Venetian', preco: 'Gratis', tipo: 'gratuito' },
+      { nome: 'Bellagio Fountains', local: 'Bellagio Hotel', preco: 'Gratis', tipo: 'gratuito', maps: 'https://www.google.com/maps/place/Fountains+of+Bellagio/@36.1126,-115.1767,17z' },
+      { nome: 'The Sphere (exterior)', local: 'Venetian', preco: 'Gratis', tipo: 'gratuito', maps: 'https://www.google.com/maps/place/Sphere/@36.1208,-115.1656,17z' },
+      { nome: 'High Roller', local: 'The LINQ', preco: '$25–37', tipo: 'pago', maps: 'https://www.google.com/maps/place/High+Roller/@36.1173,-115.1685,17z' },
+      { nome: 'Fremont Street Experience', local: 'Downtown', preco: 'Gratis', tipo: 'gratuito', maps: 'https://www.google.com/maps/place/Fremont+Street+Experience/@36.1700,-115.1426,17z' },
+      { nome: 'The Strat Tower', local: 'Norte de la Strip', preco: '$25-35', tipo: 'pago', maps: 'https://www.google.com/maps/place/The+STRAT+Hotel/@36.1474,-115.1558,17z', descricao: 'Observatorio de 350m con vista 360° de todo Las Vegas. Juegos extremos en la cima.' },
       { nome: 'Cirque du Soleil (O, KÀ, Beatles)', local: 'Varios hoteles', preco: '$80–200', tipo: 'pago' },
       { nome: 'Madame Tussauds', local: 'Venetian', preco: '$30–40', tipo: 'pago' },
       { nome: 'Shark Reef Aquarium', local: 'Mandalay Bay', preco: '$25–30', tipo: 'pago' },
       { nome: 'Welcome to Las Vegas Sign', local: 'South Strip', preco: 'Gratis', tipo: 'gratuito' },
-      { nome: 'The Strat Tower', local: 'Norte de la Strip', preco: '$25-35', tipo: 'pago', descricao: 'Observatorio de 350m con vista 360° de todo Las Vegas. Juegos extremos en la cima.' },
+    ],
+  }
+  return data[locale.value] || data.en
+})
+
+const lojasEssenciais = computed(() => {
+  const data = {
+    pt: [
+      { nome: 'Target Las Vegas Showcase', endereco: '3767 Las Vegas Blvd S, Las Vegas, NV 89109', distancia: '15 min a pé do Venetian (na Strip!)', distanciaCor: 'bg-green-100 text-green-800', maps: 'https://www.google.com/maps/place/Target/@36.1040,-115.1724,17z', descricao: 'Loja de departamentos americana com eletrônicos, roupas, cosméticos e snacks. Fica NA Strip, fácil de ir a pé!' },
+      { nome: 'Best Buy Maryland Parkway', endereco: '3820 S Maryland Pkwy, Las Vegas, NV 89119', distancia: '10 min de Uber', distanciaCor: 'bg-blue-100 text-blue-800', maps: 'https://www.google.com/maps/place/Best+Buy/@36.1080,-115.1350,17z', descricao: 'Maior loja de eletrônicos dos EUA. Notebooks, câmeras, fones, gadgets. Preços melhores que no Brasil.' },
+      { nome: 'Walmart Supercenter (Tropicana)', endereco: '3615 S Rainbow Blvd, Las Vegas, NV 89103', distancia: '10 min de Uber', distanciaCor: 'bg-blue-100 text-blue-800', maps: 'https://www.google.com/maps/place/Walmart+Supercenter/@36.1012,-115.2080,17z', descricao: 'Hipermercado completo. Ótimo para comprar água, snacks, remédios e itens do dia a dia com preços baixos.' },
+    ],
+    en: [
+      { nome: 'Target Las Vegas Showcase', endereco: '3767 Las Vegas Blvd S, Las Vegas, NV 89109', distancia: '15 min walk from Venetian (on the Strip!)', distanciaCor: 'bg-green-100 text-green-800', maps: 'https://www.google.com/maps/place/Target/@36.1040,-115.1724,17z', descricao: 'American department store with electronics, clothes, cosmetics and snacks. Located ON the Strip, easy walk!' },
+      { nome: 'Best Buy Maryland Parkway', endereco: '3820 S Maryland Pkwy, Las Vegas, NV 89119', distancia: '10 min Uber', distanciaCor: 'bg-blue-100 text-blue-800', maps: 'https://www.google.com/maps/place/Best+Buy/@36.1080,-115.1350,17z', descricao: 'Largest electronics store in the US. Laptops, cameras, headphones, gadgets. Better prices than abroad.' },
+      { nome: 'Walmart Supercenter (Tropicana)', endereco: '3615 S Rainbow Blvd, Las Vegas, NV 89103', distancia: '10 min Uber', distanciaCor: 'bg-blue-100 text-blue-800', maps: 'https://www.google.com/maps/place/Walmart+Supercenter/@36.1012,-115.2080,17z', descricao: 'Complete hypermarket. Great for buying water, snacks, medicine and daily items at low prices.' },
+    ],
+    es: [
+      { nome: 'Target Las Vegas Showcase', endereco: '3767 Las Vegas Blvd S, Las Vegas, NV 89109', distancia: '15 min a pie del Venetian (en la Strip!)', distanciaCor: 'bg-green-100 text-green-800', maps: 'https://www.google.com/maps/place/Target/@36.1040,-115.1724,17z', descricao: 'Tienda departamental americana con electrónica, ropa, cosméticos y snacks. ¡Está EN la Strip, fácil caminar!' },
+      { nome: 'Best Buy Maryland Parkway', endereco: '3820 S Maryland Pkwy, Las Vegas, NV 89119', distancia: '10 min de Uber', distanciaCor: 'bg-blue-100 text-blue-800', maps: 'https://www.google.com/maps/place/Best+Buy/@36.1080,-115.1350,17z', descricao: 'Mayor tienda de electrónica de EE.UU. Notebooks, cámaras, audífonos, gadgets. Mejores precios.' },
+      { nome: 'Walmart Supercenter (Tropicana)', endereco: '3615 S Rainbow Blvd, Las Vegas, NV 89103', distancia: '10 min de Uber', distanciaCor: 'bg-blue-100 text-blue-800', maps: 'https://www.google.com/maps/place/Walmart+Supercenter/@36.1012,-115.2080,17z', descricao: 'Hipermercado completo. Ideal para comprar agua, snacks, medicinas y artículos diarios a bajo precio.' },
     ],
   }
   return data[locale.value] || data.en
@@ -59,41 +80,25 @@ const atracoes = computed(() => {
 const shoppings = computed(() => {
   const data = {
     pt: [
-      { nome: 'Forum Shops at Caesars', destaque: 'Maior shopping de luxo da Strip', local: 'Caesars Palace', tipo: 'Luxo' },
-      { nome: 'Grand Canal Shoppes', destaque: 'Ambientação de Veneza com canais internos', local: 'Venetian', tipo: 'Luxo' },
-      { nome: 'Fashion Show Mall', destaque: 'Maior variedade de lojas mid-range', local: 'Strip (frente ao Wynn)', tipo: 'Acessível' },
-      { nome: 'Las Vegas North Premium Outlets', destaque: 'Outlets com desconto 25-65%', local: '15 min (Downtown)', tipo: 'Outlet' },
-      { nome: 'Las Vegas South Premium Outlets', destaque: 'Mais lojas premium (Nike, Coach, Kate Spade)', local: '10 min (South Strip)', tipo: 'Outlet' },
-      { nome: 'Town Square', destaque: 'Shopping ao ar livre com ambiente familiar', local: '10 min (South Strip)', tipo: 'Acessível' },
+      { nome: 'Las Vegas North Premium Outlets', endereco: '875 S Grand Central Pkwy, Las Vegas, NV 89106', distancia: '15 min de Uber', distanciaCor: 'bg-blue-100 text-blue-800', maps: 'https://www.google.com/maps/place/Las+Vegas+North+Premium+Outlets/@36.1612,-115.1570,17z', descricao: '175+ lojas outlet com 25-65% desconto: Nike, Adidas, Coach, Calvin Klein, Tommy Hilfiger, Michael Kors.' },
+      { nome: 'Grand Canal Shoppes (Venetian)', distancia: 'Dentro do Venetian!', distanciaCor: 'bg-green-100 text-green-800', maps: 'https://www.google.com/maps/place/Grand+Canal+Shoppes/@36.1215,-115.1700,17z', descricao: 'Shopping de luxo DENTRO do Venetian. Burberry, Kate Spade, Michael Kors. Perfeito para intervalos do evento.' },
+      { nome: 'Fashion Show Mall', distancia: '5 min a pé', distanciaCor: 'bg-green-100 text-green-800', maps: 'https://www.google.com/maps/place/Fashion+Show+Las+Vegas/@36.1269,-115.1699,17z', descricao: 'Shopping tradicional em frente ao Wynn. Nordstrom, Macy\'s, Zara, H&M, Apple Store. 5 min do Venetian.' },
+      { nome: 'Forum Shops at Caesars', distancia: '10 min a pé', distanciaCor: 'bg-green-100 text-green-800', maps: 'https://www.google.com/maps/place/The+Forum+Shops+at+Caesars+Palace/@36.1172,-115.1728,17z', descricao: 'Maior shopping de luxo da Strip com ambientação romana. Gucci, Louis Vuitton, Versace.' },
     ],
     en: [
-      { nome: 'Forum Shops at Caesars', destaque: 'Largest luxury mall on the Strip', local: 'Caesars Palace', tipo: 'Luxo' },
-      { nome: 'Grand Canal Shoppes', destaque: 'Venice-themed with indoor canals', local: 'Venetian', tipo: 'Luxo' },
-      { nome: 'Fashion Show Mall', destaque: 'Largest variety of mid-range stores', local: 'Strip (across from Wynn)', tipo: 'Acessível' },
-      { nome: 'Las Vegas North Premium Outlets', destaque: 'Outlets with 25-65% discounts', local: '15 min (Downtown)', tipo: 'Outlet' },
-      { nome: 'Las Vegas South Premium Outlets', destaque: 'More premium stores (Nike, Coach, Kate Spade)', local: '10 min (South Strip)', tipo: 'Outlet' },
-      { nome: 'Town Square', destaque: 'Open-air mall with family-friendly vibe', local: '10 min (South Strip)', tipo: 'Acessível' },
+      { nome: 'Las Vegas North Premium Outlets', endereco: '875 S Grand Central Pkwy, Las Vegas, NV 89106', distancia: '15 min Uber', distanciaCor: 'bg-blue-100 text-blue-800', maps: 'https://www.google.com/maps/place/Las+Vegas+North+Premium+Outlets/@36.1612,-115.1570,17z', descricao: '175+ outlet stores with 25-65% off: Nike, Adidas, Coach, Calvin Klein, Tommy Hilfiger, Michael Kors.' },
+      { nome: 'Grand Canal Shoppes (Venetian)', distancia: 'Inside the Venetian!', distanciaCor: 'bg-green-100 text-green-800', maps: 'https://www.google.com/maps/place/Grand+Canal+Shoppes/@36.1215,-115.1700,17z', descricao: 'Luxury mall INSIDE the Venetian. Burberry, Kate Spade, Michael Kors. Perfect for event breaks.' },
+      { nome: 'Fashion Show Mall', distancia: '5 min walk', distanciaCor: 'bg-green-100 text-green-800', maps: 'https://www.google.com/maps/place/Fashion+Show+Las+Vegas/@36.1269,-115.1699,17z', descricao: 'Traditional mall across from Wynn. Nordstrom, Macy\'s, Zara, H&M, Apple Store. 5 min from Venetian.' },
+      { nome: 'Forum Shops at Caesars', distancia: '10 min walk', distanciaCor: 'bg-green-100 text-green-800', maps: 'https://www.google.com/maps/place/The+Forum+Shops+at+Caesars+Palace/@36.1172,-115.1728,17z', descricao: 'Largest luxury mall on the Strip with Roman-themed setting. Gucci, Louis Vuitton, Versace.' },
     ],
     es: [
-      { nome: 'Forum Shops at Caesars', destaque: 'El shopping de lujo más grande de la Strip', local: 'Caesars Palace', tipo: 'Luxo' },
-      { nome: 'Grand Canal Shoppes', destaque: 'Ambientación de Venecia con canales internos', local: 'Venetian', tipo: 'Luxo' },
-      { nome: 'Fashion Show Mall', destaque: 'Mayor variedad de tiendas mid-range', local: 'Strip (frente al Wynn)', tipo: 'Acessível' },
-      { nome: 'Las Vegas North Premium Outlets', destaque: 'Outlets con descuento 25-65%', local: '15 min (Downtown)', tipo: 'Outlet' },
-      { nome: 'Las Vegas South Premium Outlets', destaque: 'Más tiendas premium (Nike, Coach, Kate Spade)', local: '10 min (South Strip)', tipo: 'Outlet' },
-      { nome: 'Town Square', destaque: 'Shopping al aire libre con ambiente familiar', local: '10 min (South Strip)', tipo: 'Acessível' },
+      { nome: 'Las Vegas North Premium Outlets', endereco: '875 S Grand Central Pkwy, Las Vegas, NV 89106', distancia: '15 min de Uber', distanciaCor: 'bg-blue-100 text-blue-800', maps: 'https://www.google.com/maps/place/Las+Vegas+North+Premium+Outlets/@36.1612,-115.1570,17z', descricao: '175+ tiendas outlet con 25-65% descuento: Nike, Adidas, Coach, Calvin Klein, Tommy Hilfiger, Michael Kors.' },
+      { nome: 'Grand Canal Shoppes (Venetian)', distancia: 'Dentro del Venetian!', distanciaCor: 'bg-green-100 text-green-800', maps: 'https://www.google.com/maps/place/Grand+Canal+Shoppes/@36.1215,-115.1700,17z', descricao: 'Shopping de lujo DENTRO del Venetian. Burberry, Kate Spade, Michael Kors. Perfecto para descansos del evento.' },
+      { nome: 'Fashion Show Mall', distancia: '5 min a pie', distanciaCor: 'bg-green-100 text-green-800', maps: 'https://www.google.com/maps/place/Fashion+Show+Las+Vegas/@36.1269,-115.1699,17z', descricao: 'Shopping tradicional frente al Wynn. Nordstrom, Macy\'s, Zara, H&M, Apple Store. 5 min del Venetian.' },
+      { nome: 'Forum Shops at Caesars', distancia: '10 min a pie', distanciaCor: 'bg-green-100 text-green-800', maps: 'https://www.google.com/maps/place/The+Forum+Shops+at+Caesars+Palace/@36.1172,-115.1728,17z', descricao: 'El mayor shopping de lujo de la Strip con ambientación romana. Gucci, Louis Vuitton, Versace.' },
     ],
   }
   return data[locale.value] || data.en
-})
-
-const shoppingTypeLabel = computed(() => (tipo: string) => {
-  const labels: Record<string, Record<string, string>> = {
-    pt: { Luxo: 'Luxo', Acessível: 'Acessível', Outlet: 'Outlet' },
-    en: { Luxo: 'Luxury', Acessível: 'Affordable', Outlet: 'Outlet' },
-    es: { Luxo: 'Lujo', Acessível: 'Accesible', Outlet: 'Outlet' },
-  }
-  const map = (labels[locale.value] || labels.en)!
-  return map[tipo] || tipo
 })
 
 const shoppingTip = computed(() => {
@@ -102,6 +107,16 @@ const shoppingTip = computed(() => {
     en: 'Shop BEFORE or AFTER the event (Black Friday is close!). During re:Invent there is no time — it runs 8am-10pm. Take a shared Uber XL to Target/Best Buy, buy everything at once.',
     es: 'Haz compras ANTES o DESPUÉS del evento (¡Black Friday está cerca!). Durante el re:Invent no hay tiempo — va de 8am a 10pm. Ve en Uber XL compartido a Target/Best Buy, compra todo de una vez.',
   }
+  return data[locale.value] || data.en
+})
+
+const essentialStoresTitle = computed(() => {
+  const data = { pt: '🏪 Lojas Essenciais', en: '🏪 Essential Stores', es: '🏪 Tiendas Esenciales' }
+  return data[locale.value] || data.en
+})
+
+const shoppingsTitle = computed(() => {
+  const data = { pt: '🛍️ Shoppings', en: '🛍️ Shopping Malls', es: '🛍️ Centros Comerciales' }
   return data[locale.value] || data.en
 })
 
@@ -181,22 +196,22 @@ const foodTableHeaders = computed(() => {
 const passeios = computed(() => {
   const data = {
     pt: [
-      { nome: 'Grand Canyon (West Rim)', distancia: '2h de carro', custo: '$30–300', descricao: 'Skywalk de vidro, vistas épicas. Helicóptero opcional ($200-300).' },
-      { nome: 'Red Rock Canyon', distancia: '30 min', custo: '$15 (carro)', descricao: 'Scenic drive de 20km no deserto. Trilhas fáceis com vistas incríveis.' },
-      { nome: 'Hoover Dam', distancia: '45 min', custo: '$10–30', descricao: 'Represa histórica. Tour guiado dentro da barragem disponível.' },
-      { nome: 'Fremont Street (Downtown)', distancia: '15 min', custo: 'Gratuito', descricao: 'Teto de LED de 460m, shows de luzes, zip line, vibe retrô de Vegas.' },
+      { nome: 'Grand Canyon (West Rim)', distancia: '2h de carro', custo: '$30–300', descricao: 'Skywalk de vidro, vistas épicas. Helicóptero opcional ($200-300).', maps: 'https://www.google.com/maps/place/Grand+Canyon+National+Park/@36.1069,-112.1129,11z' },
+      { nome: 'Red Rock Canyon', distancia: '30 min', custo: '$15 (carro)', descricao: 'Scenic drive de 20km no deserto. Trilhas fáceis com vistas incríveis.', maps: 'https://www.google.com/maps/place/Red+Rock+Canyon/@36.1353,-115.4294,13z' },
+      { nome: 'Hoover Dam', distancia: '45 min', custo: '$10–30', descricao: 'Represa histórica. Tour guiado dentro da barragem disponível.', maps: 'https://www.google.com/maps/place/Hoover+Dam/@36.0160,-114.7377,15z' },
+      { nome: 'Fremont Street (Downtown)', distancia: '15 min', custo: 'Gratuito', descricao: 'Teto de LED de 460m, shows de luzes, zip line, vibe retrô de Vegas.', maps: 'https://www.google.com/maps/place/Fremont+Street+Experience/@36.1700,-115.1426,17z' },
     ],
     en: [
-      { nome: 'Grand Canyon (West Rim)', distancia: '2h drive', custo: '$30–300', descricao: 'Glass skywalk, epic views. Optional helicopter ($200-300).' },
-      { nome: 'Red Rock Canyon', distancia: '30 min', custo: '$15 (car)', descricao: '20km scenic drive in the desert. Easy trails with incredible views.' },
-      { nome: 'Hoover Dam', distancia: '45 min', custo: '$10–30', descricao: 'Historic dam. Guided tour inside the dam available.' },
-      { nome: 'Fremont Street (Downtown)', distancia: '15 min', custo: 'Free', descricao: '460m LED canopy, light shows, zip line, retro Vegas vibe.' },
+      { nome: 'Grand Canyon (West Rim)', distancia: '2h drive', custo: '$30–300', descricao: 'Glass skywalk, epic views. Optional helicopter ($200-300).', maps: 'https://www.google.com/maps/place/Grand+Canyon+National+Park/@36.1069,-112.1129,11z' },
+      { nome: 'Red Rock Canyon', distancia: '30 min', custo: '$15 (car)', descricao: '20km scenic drive in the desert. Easy trails with incredible views.', maps: 'https://www.google.com/maps/place/Red+Rock+Canyon/@36.1353,-115.4294,13z' },
+      { nome: 'Hoover Dam', distancia: '45 min', custo: '$10–30', descricao: 'Historic dam. Guided tour inside the dam available.', maps: 'https://www.google.com/maps/place/Hoover+Dam/@36.0160,-114.7377,15z' },
+      { nome: 'Fremont Street (Downtown)', distancia: '15 min', custo: 'Free', descricao: '460m LED canopy, light shows, zip line, retro Vegas vibe.', maps: 'https://www.google.com/maps/place/Fremont+Street+Experience/@36.1700,-115.1426,17z' },
     ],
     es: [
-      { nome: 'Grand Canyon (West Rim)', distancia: '2h en auto', custo: '$30–300', descricao: 'Skywalk de vidrio, vistas épicas. Helicóptero opcional ($200-300).' },
-      { nome: 'Red Rock Canyon', distancia: '30 min', custo: '$15 (auto)', descricao: 'Scenic drive de 20km en el desierto. Senderos fáciles con vistas increíbles.' },
-      { nome: 'Hoover Dam', distancia: '45 min', custo: '$10–30', descricao: 'Represa histórica. Tour guiado dentro de la represa disponible.' },
-      { nome: 'Fremont Street (Downtown)', distancia: '15 min', custo: 'Gratis', descricao: 'Techo LED de 460m, shows de luces, zip line, vibra retro de Vegas.' },
+      { nome: 'Grand Canyon (West Rim)', distancia: '2h en auto', custo: '$30–300', descricao: 'Skywalk de vidrio, vistas épicas. Helicóptero opcional ($200-300).', maps: 'https://www.google.com/maps/place/Grand+Canyon+National+Park/@36.1069,-112.1129,11z' },
+      { nome: 'Red Rock Canyon', distancia: '30 min', custo: '$15 (auto)', descricao: 'Scenic drive de 20km en el desierto. Senderos fáciles con vistas increíbles.', maps: 'https://www.google.com/maps/place/Red+Rock+Canyon/@36.1353,-115.4294,13z' },
+      { nome: 'Hoover Dam', distancia: '45 min', custo: '$10–30', descricao: 'Represa histórica. Tour guiado dentro de la represa disponible.', maps: 'https://www.google.com/maps/place/Hoover+Dam/@36.0160,-114.7377,15z' },
+      { nome: 'Fremont Street (Downtown)', distancia: '15 min', custo: 'Gratis', descricao: 'Techo LED de 460m, shows de luces, zip line, vibra retro de Vegas.', maps: 'https://www.google.com/maps/place/Fremont+Street+Experience/@36.1700,-115.1426,17z' },
     ],
   }
   return data[locale.value] || data.en
@@ -271,6 +286,16 @@ const financialTips = computed(() => {
             </span>
           </div>
           <p class="text-xs text-gray-500 mt-1">📍 {{ a.local }}</p>
+          <p v-if="a.descricao" class="text-xs text-gray-600 mt-1">{{ a.descricao }}</p>
+          <a
+            v-if="a.maps"
+            :href="a.maps"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-block mt-2 text-xs text-aws-orange hover:text-aws-orange-hover font-medium"
+          >
+            📍 Google Maps →
+          </a>
         </div>
       </div>
     </div>
@@ -284,27 +309,57 @@ const financialTips = computed(() => {
         </p>
       </div>
 
-      <div class="space-y-3">
+      <!-- Lojas Essenciais -->
+      <h3 class="font-bold text-aws-dark text-lg mb-4">{{ essentialStoresTitle }}</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+        <div
+          v-for="loja in lojasEssenciais"
+          :key="loja.nome"
+          class="bg-white border border-gray-200 rounded-xl p-5 hover:shadow-md transition-shadow"
+        >
+          <div class="flex items-start justify-between mb-2">
+            <h4 class="font-bold text-aws-dark text-sm">{{ loja.nome }}</h4>
+            <span :class="[loja.distanciaCor, 'text-xs px-2 py-0.5 rounded-full font-medium whitespace-nowrap ml-2']">
+              {{ loja.distancia }}
+            </span>
+          </div>
+          <p v-if="loja.endereco" class="text-xs text-gray-400 mb-2">{{ loja.endereco }}</p>
+          <p class="text-sm text-gray-600 mb-3">{{ loja.descricao }}</p>
+          <a
+            :href="loja.maps"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-block text-xs text-aws-orange hover:text-aws-orange-hover font-medium"
+          >
+            📍 Google Maps →
+          </a>
+        </div>
+      </div>
+
+      <!-- Shoppings -->
+      <h3 class="font-bold text-aws-dark text-lg mb-4">{{ shoppingsTitle }}</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div
           v-for="s in shoppings"
           :key="s.nome"
-          class="bg-white border border-gray-200 rounded-xl p-4 flex justify-between items-center"
+          class="bg-white border border-gray-200 rounded-xl p-5 hover:shadow-md transition-shadow"
         >
-          <div>
-            <h3 class="font-bold text-aws-dark text-sm">{{ s.nome }}</h3>
-            <p class="text-xs text-gray-500 mt-0.5">{{ s.destaque }}</p>
-            <p class="text-xs text-gray-400 mt-0.5">📍 {{ s.local }}</p>
+          <div class="flex items-start justify-between mb-2">
+            <h4 class="font-bold text-aws-dark text-sm">{{ s.nome }}</h4>
+            <span :class="[s.distanciaCor, 'text-xs px-2 py-0.5 rounded-full font-medium whitespace-nowrap ml-2']">
+              {{ s.distancia }}
+            </span>
           </div>
-          <span
-            :class="[
-              s.tipo === 'Luxo' ? 'bg-purple-100 text-purple-800' :
-              s.tipo === 'Outlet' ? 'bg-orange-100 text-orange-800' :
-              'bg-gray-100 text-gray-700',
-              'text-xs px-2 py-0.5 rounded-full font-medium whitespace-nowrap',
-            ]"
+          <p v-if="s.endereco" class="text-xs text-gray-400 mb-2">{{ s.endereco }}</p>
+          <p class="text-sm text-gray-600 mb-3">{{ s.descricao }}</p>
+          <a
+            :href="s.maps"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-block text-xs text-aws-orange hover:text-aws-orange-hover font-medium"
           >
-            {{ shoppingTypeLabel(s.tipo) }}
-          </span>
+            📍 Google Maps →
+          </a>
         </div>
       </div>
     </div>
@@ -380,6 +435,15 @@ const financialTips = computed(() => {
             <span class="bg-aws-orange/10 text-aws-orange-hover px-2 py-0.5 rounded-full">💰 {{ p.custo }}</span>
           </div>
           <p class="text-sm text-gray-600 mt-3">{{ p.descricao }}</p>
+          <a
+            v-if="p.maps"
+            :href="p.maps"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-block mt-2 text-xs text-aws-orange hover:text-aws-orange-hover font-medium"
+          >
+            📍 Google Maps →
+          </a>
         </div>
       </div>
     </div>
