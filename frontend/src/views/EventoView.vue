@@ -41,19 +41,21 @@ const niveis = computed(() => locale.value === 'pt' ? [
 ])
 
 const cronograma = computed(() => locale.value === 'pt' ? [
-  { dia: 'Sábado', data: '29 Nov', atividades: 'Chegada, explorar a Strip, ajustar fuso horário' },
-  { dia: 'Domingo', data: '30 Nov', atividades: 'Badge pickup, workshops pré-evento, registro, orientação' },
-  { dia: 'Segunda', data: '1 Dez', atividades: 'Keynote Peter DeSantis, sessões, Expo Hall abre' },
-  { dia: 'Terça', data: '2 Dez', atividades: 'Keynote CEO, sessões técnicas, builders sessions, networking' },
-  { dia: 'Quarta', data: '3 Dez', atividades: 'Keynote Dr. Swami, re:Inforce (segurança), sessões, re:Play party' },
-  { dia: 'Quinta', data: '4 Dez', atividades: 'Keynote Werner Vogels (CTO), últimas sessões, Expo Hall último dia, encerramento' },
+  { dia: 'Sábado', data: '28 Nov', atividades: 'Chegada, explorar a Strip, ajustar fuso horário' },
+  { dia: 'Domingo', data: '29 Nov', atividades: 'Badge pickup, workshops pré-evento, registro, orientação' },
+  { dia: 'Segunda', data: '30 Nov', atividades: 'Keynote abertura, sessões, Expo Hall abre' },
+  { dia: 'Terça', data: '1 Dez', atividades: 'Keynote CEO, sessões técnicas, builders sessions, networking' },
+  { dia: 'Quarta', data: '2 Dez', atividades: 'Keynote Dr. Swami, sessões, Expo Hall' },
+  { dia: 'Quinta', data: '3 Dez', atividades: 're:Inforce (segurança dedicado), sessões avançadas, re:Play party à noite' },
+  { dia: 'Sexta', data: '4 Dez', atividades: 'Keynote Werner Vogels (CTO), últimas sessões, encerramento' },
 ] : [
-  { dia: 'Saturday', data: 'Nov 29', atividades: 'Arrival, explore the Strip, adjust to time zone' },
-  { dia: 'Sunday', data: 'Nov 30', atividades: 'Badge pickup, pre-event workshops, registration, orientation' },
-  { dia: 'Monday', data: 'Dec 1', atividades: 'Peter DeSantis Keynote, sessions, Expo Hall opens' },
-  { dia: 'Tuesday', data: 'Dec 2', atividades: 'CEO Keynote, technical sessions, builders sessions, networking' },
-  { dia: 'Wednesday', data: 'Dec 3', atividades: 'Dr. Swami Keynote, re:Inforce (security), sessions, re:Play party' },
-  { dia: 'Thursday', data: 'Dec 4', atividades: 'Werner Vogels (CTO) Keynote, final sessions, Expo Hall last day, closing' },
+  { dia: 'Saturday', data: 'Nov 28', atividades: 'Arrival, explore the Strip, adjust to time zone' },
+  { dia: 'Sunday', data: 'Nov 29', atividades: 'Badge pickup, pre-event workshops, registration, orientation' },
+  { dia: 'Monday', data: 'Nov 30', atividades: 'Opening Keynote, sessions, Expo Hall opens' },
+  { dia: 'Tuesday', data: 'Dec 1', atividades: 'CEO Keynote, technical sessions, builders sessions, networking' },
+  { dia: 'Wednesday', data: 'Dec 2', atividades: 'Dr. Swami Keynote, sessions, Expo Hall' },
+  { dia: 'Thursday', data: 'Dec 3', atividades: 're:Inforce (dedicated security day), advanced sessions, re:Play party' },
+  { dia: 'Friday', data: 'Dec 4', atividades: 'Werner Vogels (CTO) Keynote, final sessions, closing' },
 ])
 
 const dicasAntes = computed(() => locale.value === 'pt' ? [
