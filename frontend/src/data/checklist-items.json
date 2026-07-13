@@ -3,6 +3,8 @@
     "id": "doc-passaporte",
     "categoria": "documentacao",
     "texto": "Verificar validade do passaporte (mínimo 6 meses após a viagem)",
+    "texto_en": "Check passport validity (minimum 6 months after return)",
+    "texto_es": "Verificar validez del pasaporte (mínimo 6 meses después del viaje)",
     "prioridade": "alta",
     "timelineMes": -9
   },
@@ -10,6 +12,8 @@
     "id": "doc-ds160",
     "categoria": "documentacao",
     "texto": "Preencher formulário DS-160 para visto americano",
+    "texto_en": "Fill DS-160 form for US visa",
+    "texto_es": "Llenar formulario DS-160 para visa americana",
     "prioridade": "alta",
     "timelineMes": -9
   },
@@ -17,6 +21,8 @@
     "id": "doc-entrevista",
     "categoria": "documentacao",
     "texto": "Agendar e comparecer à entrevista no consulado americano",
+    "texto_en": "Schedule and attend interview at US consulate",
+    "texto_es": "Agendar y asistir a la entrevista en el consulado americano",
     "prioridade": "alta",
     "timelineMes": -8
   },
@@ -24,6 +30,8 @@
     "id": "doc-seguro",
     "categoria": "documentacao",
     "texto": "Contratar seguro viagem internacional com cobertura médica",
+    "texto_en": "Purchase international travel insurance with medical coverage",
+    "texto_es": "Contratar seguro de viaje internacional con cobertura médica",
     "prioridade": "alta",
     "timelineMes": -5
   },
@@ -31,6 +39,8 @@
     "id": "doc-carta-convite",
     "categoria": "documentacao",
     "texto": "Solicitar carta convite da empresa ou AWS (se aplicável)",
+    "texto_en": "Request invitation letter from employer or AWS (if applicable)",
+    "texto_es": "Solicitar carta de invitación de la empresa o AWS (si aplica)",
     "prioridade": "media",
     "timelineMes": -8
   },
@@ -38,6 +48,8 @@
     "id": "doc-avisar-banco",
     "categoria": "documentacao",
     "texto": "Avisar banco e operadora de cartão sobre viagem internacional",
+    "texto_en": "Notify bank and credit card company about international travel",
+    "texto_es": "Avisar al banco y operadora de tarjeta sobre viaje internacional",
     "prioridade": "media",
     "timelineMes": -1
   },
@@ -45,6 +57,8 @@
     "id": "doc-copias",
     "categoria": "documentacao",
     "texto": "Fazer cópias digitais de passaporte, visto e documentos importantes",
+    "texto_en": "Make digital copies of passport, visa, and important documents",
+    "texto_es": "Hacer copias digitales del pasaporte, visa y documentos importantes",
     "prioridade": "media",
     "timelineMes": -1
   },
@@ -52,6 +66,8 @@
     "id": "doc-esta",
     "categoria": "documentacao",
     "texto": "ESTA não se aplica a brasileiros — necessário visto B1/B2",
+    "texto_en": "ESTA does not apply to Brazilians — B1/B2 visa required",
+    "texto_es": "ESTA no aplica para brasileños — se requiere visa B1/B2",
     "prioridade": "baixa",
     "timelineMes": -9
   },
@@ -59,6 +75,8 @@
     "id": "hotel-pesquisar",
     "categoria": "hotel",
     "texto": "Pesquisar hotéis parceiros AWS e comparar preços/localização",
+    "texto_en": "Research AWS partner hotels and compare prices/locations",
+    "texto_es": "Investigar hoteles asociados de AWS y comparar precios/ubicación",
     "prioridade": "alta",
     "timelineMes": -8
   },
@@ -66,6 +84,8 @@
     "id": "hotel-reservar",
     "categoria": "hotel",
     "texto": "Reservar hotel (preferência: venue ou próximo ao Venetian)",
+    "texto_en": "Book hotel (preference: venue or close to The Venetian)",
+    "texto_es": "Reservar hotel (preferencia: venue o cerca del Venetian)",
     "prioridade": "alta",
     "timelineMes": -7
   },
@@ -73,6 +93,8 @@
     "id": "hotel-cancelamento",
     "categoria": "hotel",
     "texto": "Confirmar política de cancelamento gratuito da reserva",
+    "texto_en": "Confirm free cancellation policy for booking",
+    "texto_es": "Confirmar política de cancelación gratuita de la reserva",
     "prioridade": "media",
     "timelineMes": -7
   },
@@ -80,6 +102,8 @@
     "id": "hotel-resort-fee",
     "categoria": "hotel",
     "texto": "Verificar valor do resort fee diário (cobrado no check-out)",
+    "texto_en": "Check daily resort fee amount (charged at check-out)",
+    "texto_es": "Verificar valor del resort fee diario (cobrado al check-out)",
     "prioridade": "media",
     "timelineMes": -7
   },
@@ -87,6 +111,8 @@
     "id": "hotel-shuttle",
     "categoria": "hotel",
     "texto": "Verificar se hotel tem shuttle gratuito AWS para venues",
+    "texto_en": "Check if hotel has free AWS shuttle to venues",
+    "texto_es": "Verificar si el hotel tiene shuttle gratuito de AWS a los venues",
     "prioridade": "media",
     "timelineMes": -2
   },
@@ -94,6 +120,8 @@
     "id": "hotel-checkin",
     "categoria": "hotel",
     "texto": "Confirmar horário de check-in e solicitar early check-in se possível",
+    "texto_en": "Confirm check-in time and request early check-in if possible",
+    "texto_es": "Confirmar horario de check-in y solicitar early check-in si es posible",
     "prioridade": "media",
     "timelineMes": -1
   },
@@ -101,6 +129,8 @@
     "id": "voo-monitorar",
     "categoria": "voo",
     "texto": "Monitorar preços de passagens (Google Flights, Skyscanner)",
+    "texto_en": "Monitor flight prices (Google Flights, Skyscanner)",
+    "texto_es": "Monitorear precios de vuelos (Google Flights, Skyscanner)",
     "prioridade": "alta",
     "timelineMes": -8
   },
@@ -108,6 +138,8 @@
     "id": "voo-comprar",
     "categoria": "voo",
     "texto": "Comprar passagem aérea Brasil → Las Vegas",
+    "texto_en": "Purchase flight ticket Brazil → Las Vegas",
+    "texto_es": "Comprar pasaje aéreo Brasil → Las Vegas",
     "prioridade": "alta",
     "timelineMes": -7
   },
@@ -115,6 +147,8 @@
     "id": "voo-assento",
     "categoria": "voo",
     "texto": "Escolher assento no voo (corredor para voos longos)",
+    "texto_en": "Choose flight seat (aisle for long flights)",
+    "texto_es": "Elegir asiento en el vuelo (pasillo para vuelos largos)",
     "prioridade": "media",
     "timelineMes": -2
   },
@@ -122,6 +156,8 @@
     "id": "voo-checkin",
     "categoria": "voo",
     "texto": "Fazer check-in online 24-48h antes do voo",
+    "texto_en": "Complete online check-in 24-48h before the flight",
+    "texto_es": "Hacer check-in en línea 24-48h antes del vuelo",
     "prioridade": "media",
     "timelineMes": -1
   },
@@ -129,6 +165,8 @@
     "id": "voo-chip",
     "categoria": "voo",
     "texto": "Comprar chip internacional ou eSIM com dados nos EUA",
+    "texto_en": "Buy international SIM or eSIM with US data plan",
+    "texto_es": "Comprar chip internacional o eSIM con datos en EE.UU.",
     "prioridade": "alta",
     "timelineMes": -1
   },
@@ -136,6 +174,8 @@
     "id": "voo-dolares",
     "categoria": "voo",
     "texto": "Comprar dólares em espécie (US$ 200-500 para emergências)",
+    "texto_en": "Buy cash dollars (US$ 200-500 for emergencies)",
+    "texto_es": "Comprar dólares en efectivo (US$ 200-500 para emergencias)",
     "prioridade": "alta",
     "timelineMes": -1
   },
@@ -143,6 +183,8 @@
     "id": "voo-adaptador",
     "categoria": "voo",
     "texto": "Comprar adaptador de tomada (EUA usa tipo A/B, 110V)",
+    "texto_en": "Buy power adapter (US uses type A/B, 110V)",
+    "texto_es": "Comprar adaptador de enchufe (EE.UU. usa tipo A/B, 110V)",
     "prioridade": "media",
     "timelineMes": -2
   },
@@ -150,6 +192,8 @@
     "id": "voo-powerbank",
     "categoria": "voo",
     "texto": "Garantir power bank carregado (celular é guia, agenda e câmera)",
+    "texto_en": "Ensure power bank is charged (phone is your guide, agenda, and camera)",
+    "texto_es": "Asegurar power bank cargado (el celular es guía, agenda y cámara)",
     "prioridade": "media",
     "timelineMes": -1
   },
@@ -157,6 +201,8 @@
     "id": "evento-registrar",
     "categoria": "evento",
     "texto": "Registrar no re:Invent (early bird $1,299 até 25 Ago 2026)",
+    "texto_en": "Register for re:Invent (early bird $1,299 until Aug 25, 2026)",
+    "texto_es": "Registrarse en re:Invent (early bird $1,299 hasta 25 Ago 2026)",
     "prioridade": "alta",
     "timelineMes": -5
   },
@@ -164,6 +210,8 @@
     "id": "evento-app",
     "categoria": "evento",
     "texto": "Baixar e configurar app AWS Events no celular (disponível set 2026)",
+    "texto_en": "Download and set up AWS Events app on phone (available Sep 2026)",
+    "texto_es": "Descargar y configurar app AWS Events en el celular (disponible sep 2026)",
     "prioridade": "alta",
     "timelineMes": -2
   },
@@ -171,6 +219,8 @@
     "id": "evento-sessoes",
     "categoria": "evento",
     "texto": "Reservar sessões no catálogo (disponível desde 30 Jun 2026 — aja rápido!)",
+    "texto_en": "Reserve sessions from catalog (available since Jun 30, 2026 — act fast!)",
+    "texto_es": "Reservar sesiones del catálogo (disponible desde 30 Jun 2026 — ¡actúa rápido!)",
     "prioridade": "alta",
     "timelineMes": -5
   },
@@ -178,6 +228,8 @@
     "id": "evento-temas",
     "categoria": "evento",
     "texto": "Definir 3-5 temas de interesse prioritários para o evento",
+    "texto_en": "Define 3-5 priority topics of interest for the event",
+    "texto_es": "Definir 3-5 temas de interés prioritarios para el evento",
     "prioridade": "media",
     "timelineMes": -3
   },
@@ -185,6 +237,8 @@
     "id": "evento-planob",
     "categoria": "evento",
     "texto": "Montar plano B com sessões alternativas (walk-up e overflow)",
+    "texto_en": "Create plan B with alternative sessions (walk-up and overflow)",
+    "texto_es": "Armar plan B con sesiones alternativas (walk-up y overflow)",
     "prioridade": "media",
     "timelineMes": -2
   },
@@ -192,6 +246,8 @@
     "id": "evento-linkedin",
     "categoria": "evento",
     "texto": "Preparar QR code do LinkedIn para networking rápido",
+    "texto_en": "Prepare LinkedIn QR code for quick networking",
+    "texto_es": "Preparar código QR de LinkedIn para networking rápido",
     "prioridade": "media",
     "timelineMes": -1
   },
@@ -199,6 +255,8 @@
     "id": "evento-cartoes",
     "categoria": "evento",
     "texto": "Imprimir cartões de visita (inglês, com QR para LinkedIn)",
+    "texto_en": "Print business cards (English, with QR to LinkedIn)",
+    "texto_es": "Imprimir tarjetas de presentación (inglés, con QR para LinkedIn)",
     "prioridade": "media",
     "timelineMes": -1
   },
@@ -206,6 +264,8 @@
     "id": "evento-agenda",
     "categoria": "evento",
     "texto": "Imprimir agenda de backup (caso app fique offline)",
+    "texto_en": "Print backup agenda (in case app goes offline)",
+    "texto_es": "Imprimir agenda de respaldo (en caso de que la app quede offline)",
     "prioridade": "baixa",
     "timelineMes": -1
   },
@@ -213,6 +273,8 @@
     "id": "mala-tenis",
     "categoria": "mala",
     "texto": "Levar tênis confortável já amaciado (15.000+ passos/dia)",
+    "texto_en": "Bring comfortable broken-in sneakers (15,000+ steps/day)",
+    "texto_es": "Llevar tenis cómodos ya usados (15,000+ pasos/día)",
     "prioridade": "alta",
     "timelineMes": -1
   },
@@ -220,6 +282,8 @@
     "id": "mala-camadas",
     "categoria": "mala",
     "texto": "Montar roupas em camadas (calor dentro, frio fora)",
+    "texto_en": "Pack layered clothing (warm inside, cold outside)",
+    "texto_es": "Armar ropa en capas (calor adentro, frío afuera)",
     "prioridade": "alta",
     "timelineMes": -1
   },
@@ -227,6 +291,8 @@
     "id": "mala-jaqueta",
     "categoria": "mala",
     "texto": "Levar jaqueta média para noites frias (2-6°C em dezembro)",
+    "texto_en": "Bring medium jacket for cold nights (2-6°C / 35-43°F in December)",
+    "texto_es": "Llevar chaqueta media para noches frías (2-6°C en diciembre)",
     "prioridade": "alta",
     "timelineMes": -1
   },
@@ -234,6 +300,8 @@
     "id": "mala-hidratante",
     "categoria": "mala",
     "texto": "Levar hidratante labial e protetor (clima extremamente seco)",
+    "texto_en": "Bring lip balm and moisturizer (extremely dry climate)",
+    "texto_es": "Llevar bálsamo labial e hidratante (clima extremadamente seco)",
     "prioridade": "media",
     "timelineMes": -1
   },
@@ -241,6 +309,8 @@
     "id": "mala-garrafa",
     "categoria": "mala",
     "texto": "Levar garrafa de água reutilizável (hidratação é essencial no deserto)",
+    "texto_en": "Bring reusable water bottle (hydration is essential in the desert)",
+    "texto_es": "Llevar botella de agua reutilizable (la hidratación es esencial en el desierto)",
     "prioridade": "media",
     "timelineMes": -1
   },
@@ -248,6 +318,8 @@
     "id": "mala-remedios",
     "categoria": "mala",
     "texto": "Levar kit de remédios básicos (dor de cabeça, estômago, band-aid)",
+    "texto_en": "Bring basic medicine kit (headache, stomach, band-aids)",
+    "texto_es": "Llevar kit de medicamentos básicos (dolor de cabeza, estómago, curitas)",
     "prioridade": "media",
     "timelineMes": -1
   },
@@ -255,6 +327,8 @@
     "id": "turismo-shows",
     "categoria": "turismo",
     "texto": "Pesquisar e reservar shows/espetáculos (Cirque du Soleil, etc.)",
+    "texto_en": "Research and book shows/performances (Cirque du Soleil, etc.)",
+    "texto_es": "Investigar y reservar shows/espectáculos (Cirque du Soleil, etc.)",
     "prioridade": "media",
     "timelineMes": -2
   },
@@ -262,6 +336,8 @@
     "id": "turismo-restaurante",
     "categoria": "turismo",
     "texto": "Reservar restaurantes desejados (populares lotam rápido)",
+    "texto_en": "Reserve desired restaurants (popular ones fill up fast)",
+    "texto_es": "Reservar restaurantes deseados (los populares se llenan rápido)",
     "prioridade": "media",
     "timelineMes": -2
   },
@@ -269,6 +345,8 @@
     "id": "turismo-outlets",
     "categoria": "turismo",
     "texto": "Definir outlets para compras (Las Vegas Premium Outlets North/South)",
+    "texto_en": "Plan outlet shopping (Las Vegas Premium Outlets North/South)",
+    "texto_es": "Definir outlets para compras (Las Vegas Premium Outlets North/South)",
     "prioridade": "media",
     "timelineMes": -1
   },
@@ -276,6 +354,8 @@
     "id": "turismo-passeios",
     "categoria": "turismo",
     "texto": "Planejar passeios extras (Grand Canyon, Hoover Dam, Valley of Fire)",
+    "texto_en": "Plan extra excursions (Grand Canyon, Hoover Dam, Valley of Fire)",
+    "texto_es": "Planear paseos extras (Grand Canyon, Hoover Dam, Valley of Fire)",
     "prioridade": "baixa",
     "timelineMes": -2
   }

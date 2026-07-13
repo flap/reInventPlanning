@@ -7,10 +7,19 @@ import type { BudgetInputs } from '@/types'
 
 const store = useBudgetStore()
 const { formatUSD, formatBRL, convertUsdToBrl, convertBrlToUsd } = useCurrency()
-const { t } = useI18n()
+const { t, locale } = useI18n()
 
 // --- Tab state ---
 const activeTab = ref<'scenarios' | 'custom'>('scenarios')
+
+const budgetSubtitle = computed(() => {
+  const data: Record<string, string> = {
+    pt: 'Estime seus gastos para o re:Invent 2026 em Las Vegas',
+    en: 'Estimate your expenses for re:Invent 2026 in Las Vegas',
+    es: 'Estima tus gastos para el re:Invent 2026 en Las Vegas',
+  }
+  return data[locale.value] || data.en
+})
 
 // --- Scenarios tab ---
 const cenarios: { key: BudgetScenarioKey; label: string; icon: string }[] = [
@@ -63,14 +72,21 @@ interface CustomItem {
 
 const STORAGE_KEY = 'tripevent:custom-budget'
 
-const defaultItems: CustomItem[] = [
-  { id: crypto.randomUUID(), name: 'Passagem aérea', value: 0, currency: 'USD', courtesy: false },
-  { id: crypto.randomUUID(), name: 'Hotel', value: 0, currency: 'USD', courtesy: false },
-  { id: crypto.randomUUID(), name: 'Ingresso re:Invent', value: 1299, currency: 'USD', courtesy: false },
-  { id: crypto.randomUUID(), name: 'Alimentação', value: 0, currency: 'USD', courtesy: false },
-  { id: crypto.randomUUID(), name: 'Transporte', value: 0, currency: 'USD', courtesy: false },
-  { id: crypto.randomUUID(), name: 'Seguro viagem', value: 0, currency: 'USD', courtesy: false },
-]
+const defaultItems = computed((): CustomItem[] => {
+  const names: Record<string, string[]> = {
+    pt: ['Passagem aérea', 'Hotel', 'Ingresso re:Invent', 'Alimentação', 'Transporte', 'Seguro viagem'],
+    en: ['Airfare', 'Hotel', 're:Invent ticket', 'Food & dining', 'Transportation', 'Travel insurance'],
+    es: ['Pasaje aéreo', 'Hotel', 'Entrada re:Invent', 'Alimentación', 'Transporte', 'Seguro de viaje'],
+  }
+  const labels = names[locale.value] ?? names['en']!
+  return labels.map((name, i) => ({
+    id: crypto.randomUUID(),
+    name,
+    value: i === 2 ? 1299 : 0,
+    currency: 'USD' as const,
+    courtesy: false,
+  }))
+})
 
 const customItems = ref<CustomItem[]>([])
 
@@ -84,7 +100,7 @@ function loadCustomItems(): CustomItem[] {
   } catch {
     // ignore parse errors
   }
-  return defaultItems.map((item) => ({ ...item, id: crypto.randomUUID() }))
+  return defaultItems.value.map((item) => ({ ...item, id: crypto.randomUUID() }))
 }
 
 function addItem() {
@@ -149,7 +165,7 @@ onMounted(() => {
     <!-- Header -->
     <div class="mb-8">
       <h1 class="text-3xl font-bold text-aws-dark mb-2">💰 {{ t('orcamento.title') }}</h1>
-      <p class="text-gray-600">Estime seus gastos para o re:Invent 2026 em Las Vegas</p>
+      <p class="text-gray-600">{{ budgetSubtitle }}</p>
     </div>
 
     <!-- Tabs -->

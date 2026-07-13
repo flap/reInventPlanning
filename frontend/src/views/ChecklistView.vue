@@ -67,6 +67,12 @@ function handleReset() {
   }
 }
 
+function getItemText(item: ChecklistItem): string {
+  if (locale.value === 'en') return item.texto_en || item.texto
+  if (locale.value === 'es') return item.texto_es || item.texto
+  return item.texto
+}
+
 function prioridadeClass(prioridade: string): string {
   switch (prioridade) {
     case 'alta':
@@ -187,7 +193,7 @@ function prioridadeLabel(prioridade: string): string {
               isCompleted(item.id) ? 'line-through text-gray-400' : 'text-gray-800',
             ]"
           >
-            {{ item.texto }}
+            {{ getItemText(item) }}
           </p>
         </div>
 

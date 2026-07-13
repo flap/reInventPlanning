@@ -43,6 +43,8 @@ export interface ChecklistItem {
   id: string
   categoria: 'documentacao' | 'hotel' | 'voo' | 'evento' | 'mala' | 'turismo'
   texto: string
+  texto_en: string
+  texto_es: string
   prioridade: 'alta' | 'media' | 'baixa'
   timelineMes: number
 }
