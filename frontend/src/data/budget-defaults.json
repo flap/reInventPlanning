@@ -1,46 +1,46 @@
 {
   "cenarios": {
     "economico": {
-      "passagem": 4500,
-      "hotelDiaria": 80,
+      "passagem": 900,
+      "hotelDiaria": 50,
       "noites": 7,
-      "resortFee": 35,
-      "ingresso": 1299,
-      "alimentacaoDia": 40,
+      "resortFee": 0,
+      "ingresso": 0,
+      "alimentacaoDia": 30,
       "dias": 7,
-      "transporte": 100,
-      "turismo": 150,
-      "seguro": 200,
-      "chip": 25,
-      "extras": 100
+      "transporte": 60,
+      "turismo": 100,
+      "seguro": 80,
+      "chip": 20,
+      "extras": 50
     },
     "confortavel": {
-      "passagem": 7000,
-      "hotelDiaria": 200,
+      "passagem": 1200,
+      "hotelDiaria": 150,
       "noites": 8,
-      "resortFee": 45,
+      "resortFee": 40,
       "ingresso": 1299,
-      "alimentacaoDia": 70,
+      "alimentacaoDia": 50,
       "dias": 8,
-      "transporte": 200,
-      "turismo": 400,
-      "seguro": 350,
+      "transporte": 150,
+      "turismo": 300,
+      "seguro": 150,
       "chip": 30,
-      "extras": 200
+      "extras": 150
     },
     "luxo": {
-      "passagem": 12000,
-      "hotelDiaria": 400,
+      "passagem": 2500,
+      "hotelDiaria": 350,
       "noites": 9,
-      "resortFee": 50,
+      "resortFee": 45,
       "ingresso": 2499,
-      "alimentacaoDia": 120,
+      "alimentacaoDia": 100,
       "dias": 9,
-      "transporte": 400,
-      "turismo": 800,
-      "seguro": 500,
+      "transporte": 300,
+      "turismo": 600,
+      "seguro": 250,
       "chip": 50,
-      "extras": 500
+      "extras": 400
     }
   },
   "taxas": {

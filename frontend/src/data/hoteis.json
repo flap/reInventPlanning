@@ -251,5 +251,23 @@
     "googleMapsUrl": "https://www.google.com/maps/place/Mandalay+Bay+Resort+%26+Casino/@36.0909,-115.1763,17z",
     "directionsUrl": "https://www.google.com/maps/dir/The+Venetian+Resort,+S+Las+Vegas+Blvd,+Las+Vegas,+NV/Mandalay+Bay+Resort+%26+Casino,+Las+Vegas+Boulevard+South,+Las+Vegas,+NV/@36.1060,-115.1740,14z/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0x80c8c43d2aaaed63:0x7dba2569a8daad20!2m2!1d-115.1693!2d36.1212!1m5!1m1!1s0x80c8c5fc72ec4c91:0x57b0b57c0b5e6f4a!2m2!1d-115.1763!2d36.0909!3e0",
     "bookingUrl": "https://www.booking.com/hotel/us/mandalay-bay-resort-and-casino.html?checkin=2026-11-29&checkout=2026-12-05"
+  },
+  {
+    "id": "hampton-airport",
+    "nome": "Hampton Inn Las Vegas Airport",
+    "endereco": "6500 Surrey St, Las Vegas, NV 89119",
+    "venue": false,
+    "distanciaMinutos": 30,
+    "distanciaCategoria": "vermelho",
+    "distanciaTexto": "30 min (Uber/shuttle)",
+    "precoMin": 60,
+    "precoMax": 120,
+    "nivel": 3,
+    "resortFee": 0,
+    "destaques": ["Perto do aeroporto (5 min)", "Shuttle aeroporto gratuito", "Sem resort fee", "Café da manhã incluso", "Ideal para antes/depois do evento"],
+    "dica": "Ótimo para quem chega antes do evento ou fica depois para turismo/compras. Longe do Venetian mas muito barato e sem taxas extras. Shuttle gratuito para o aeroporto.",
+    "googleMapsUrl": "https://www.google.com/maps/place/Hampton+Inn+Las+Vegas+Airport/@36.0830,-115.1480,17z",
+    "directionsUrl": "https://www.google.com/maps/dir/The+Venetian+Resort,+S+Las+Vegas+Blvd,+Las+Vegas,+NV/Hampton+Inn+Las+Vegas+Airport,+Surrey+Street,+Las+Vegas,+NV/@36.1020,-115.1600,14z/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0x80c8c43d2aaaed63:0x7dba2569a8daad20!2m2!1d-115.1693!2d36.1212!1m5!1m1!1s0x80c8c3f4e5d6c7b8:0xe5d6c7b8a9012345!2m2!1d-115.1480!2d36.0830!3e0",
+    "bookingUrl": "https://www.booking.com/hotel/us/hampton-inn-las-vegas-airport.html?checkin=2026-11-29&checkout=2026-12-05"
   }
 ]
