@@ -6,7 +6,7 @@ import { useCurrency } from '@/composables/useCurrency'
 import { useI18n } from '@/composables/useI18n'
 
 const { formatUSD, formatBRL, convertUsdToBrl } = useCurrency()
-const { t } = useI18n()
+const { t, locale } = useI18n()
 
 const allHoteis = hoteis as Hotel[]
 
@@ -273,5 +273,19 @@ function estrelas(nivel: number): string {
         </div>
       </div>
     </section>
+
+    <!-- Dicas da Comunidade -->
+    <div class="mt-8 bg-green-50 border border-green-200 rounded-xl p-6">
+      <h3 class="text-lg font-bold text-green-800 mb-4">
+        {{ locale === 'pt' ? '💡 Dicas da Comunidade' : '💡 Community Tips' }}
+      </h3>
+      <ul class="space-y-3 text-sm text-green-900">
+        <li>✅ {{ locale === 'pt' ? 'Treasure Island e Flamingo: melhor custo-benefício perto do Venetian (recomendados pela comunidade)' : 'Treasure Island & Flamingo: best value near Venetian (community recommended)' }}</li>
+        <li>✅ {{ locale === 'pt' ? 'Excalibur e OYO: baratos e ao lado do MGM Grand (monorail gratuito até o Venetian em 5 min)' : 'Excalibur & OYO: cheap and next to MGM Grand (free monorail to Venetian in 5 min)' }}</li>
+        <li>✅ {{ locale === 'pt' ? 'Rachar quarto: 2 pessoas tranquilo (2 camas). 3-4 pessoas paga taxa extra (~$35-50). Reserve pelo Booking para escolher tipo de quarto.' : 'Share room: 2 people easy (2 beds). 3-4 people pay extra fee (~$35-50). Book via Booking to choose room type.' }}</li>
+        <li>✅ {{ locale === 'pt' ? 'CVC pode ter preços melhores que Booking + parcela em 10x + suporte PT. Mas confirme se resort fee está inclusa!' : 'CVC (Brazilian agency) may have better prices + 10x installments + PT support. But confirm if resort fee is included!' }}</li>
+        <li>⚠️ {{ locale === 'pt' ? 'Atenção: resort fee ($30-50/dia) geralmente NÃO está no preço anunciado. Calcule o custo total antes de reservar!' : 'Warning: resort fee ($30-50/day) usually NOT included in advertised price. Calculate total cost before booking!' }}</li>
+      </ul>
+    </div>
   </div>
 </template>

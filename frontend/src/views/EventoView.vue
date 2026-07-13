@@ -76,12 +76,20 @@ const dicasDurante = computed(() => locale.value === 'pt' ? [
   'Refeições incluídas: breakfast, lunch e snacks nos dias de conferência — aproveite!',
   'Não perca o re:Inforce na quinta (3 Dez) — conteúdo de segurança integrado ao evento',
   'Agende seu exame de certificação com 50% de desconto durante o evento',
+  'Credenciamento pode ser feito no aeroporto Harry Reid na chegada — sem fila',
+  'Monorail gratuito com badge: mais rápido que shuttles (5 min entre venues)',
+  'Evento vai das 8h às 22h. Networking à noite: mixers LATAM, festas de empresas, baladas',
+  'Community Builders/Leaders: restaurante Buddy V no Venetian é exclusivo (café/almoço/jantar gratis)',
 ] : [
   'Arrive 15-20 min early to popular sessions — overflow is real',
   'Use the free monorail (badge holders) between venues — much faster than walking',
   'Meals included: breakfast, lunch and snacks on conference days — enjoy!',
   'Don\'t miss re:Inforce on Thursday (Dec 3) — security content integrated into the event',
   'Schedule your certification exam with 50% discount during the event',
+  'Badge pickup can be done at Harry Reid airport on arrival — no lines',
+  'Free monorail with badge: faster than shuttles (5 min between venues)',
+  'Event runs 8am-10pm. Night networking: LATAM mixers, company parties, clubs',
+  'Community Builders/Leaders: Buddy V restaurant at Venetian is exclusive (free breakfast/lunch/dinner)',
 ])
 </script>
 

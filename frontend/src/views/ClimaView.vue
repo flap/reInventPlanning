@@ -108,6 +108,10 @@ const dicasSaude = computed(() => locale.value === 'pt' ? [
   '🌞 Use protetor solar FPS 50 — mesmo em dezembro o sol do deserto é forte',
   '🍺 Modere no álcool — a altitude (600m) + ar seco amplifica a ressaca',
   '🏨 Hotéis têm bebedouros na academia e máquinas de gelo grátis — leve garrafa retornável para economizar',
+  '🪥 Manteiga de cacau/lip balm é ESSENCIAL — o deserto seca demais a boca (dica da comunidade)',
+  '🧣 Seguro viagem: não é obrigatório mas altamente recomendável. Custo hospitalar nos EUA é absurdo (caso real: membro quebrou o pé!)',
+  '💳 Seguro viagem via cartão de crédito: emita a apólice ANTES e compre algo da viagem com o cartão para ativar',
+  '🧳 Leve mala extra vazia para despacho na volta — tem MUITO brinde (camisetas, mochilas, itens de parceiros)',
 ] : [
   '💧 Drink at least 3L of water/day — desert air dehydrates you quickly without noticing',
   '🧴 Use body and face moisturizer 2x/day — your skin will dry out significantly',
@@ -118,6 +122,10 @@ const dicasSaude = computed(() => locale.value === 'pt' ? [
   '🌞 Use SPF 50 sunscreen — even in December the desert sun is strong',
   '🍺 Go easy on alcohol — altitude (600m) + dry air amplifies hangovers',
   '🏨 Hotels have water fountains in the gym and free ice machines — bring a reusable bottle to save money',
+  '🪥 Lip balm is ESSENTIAL — the desert dries your lips badly (community tip)',
+  '🧣 Travel insurance: not required but highly recommended. US hospital costs are insane (real case: member broke their foot!)',
+  '💳 Credit card travel insurance: issue the policy BEFORE and buy something for the trip with the card to activate',
+  '🧳 Bring an empty extra bag for return check-in — there is A LOT of swag (t-shirts, backpacks, partner items)',
 ])
 
 const layersIntro = computed(() => locale.value === 'pt'

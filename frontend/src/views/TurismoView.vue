@@ -176,6 +176,13 @@ const financialTips = computed(() => locale.value === 'pt' ? [
 
     <!-- Tab: Compras -->
     <div v-if="activeTab === 'compras'" class="mb-10">
+      <!-- Dica da Comunidade -->
+      <div class="bg-amber-50 border border-amber-200 rounded-xl p-5 mb-6">
+        <p class="text-sm text-amber-900 font-medium">
+          🛍️ {{ locale === 'pt' ? 'Faça compras ANTES ou DEPOIS do evento (Black Friday é perto!). Durante o re:Invent não dá tempo — dinâmica é das 8h às 22h. Vá de Uber XL rachado até Target/Best Buy, compre tudo de uma vez.' : 'Shop BEFORE or AFTER the event (Black Friday is close!). During re:Invent there is no time — it runs 8am-10pm. Take a shared Uber XL to Target/Best Buy, buy everything at once.' }}
+        </p>
+      </div>
+
       <div class="space-y-3">
         <div
           v-for="s in shoppings"
