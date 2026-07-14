@@ -1,0 +1,12 @@
+{
+  "name": "reinvent-planner",
+  "hooks": {
+    "postToolUse": [
+      {
+        "matcher": "shell",
+        "command": ".kiro/hooks/update-readme-on-feature.sh",
+        "timeout_ms": 5000
+      }
+    ]
+  }
+}
