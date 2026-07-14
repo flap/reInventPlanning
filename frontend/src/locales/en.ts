@@ -89,7 +89,7 @@ export default {
     routesTime: 'Estimated time',
     visaTitle: 'US Visa B1/B2',
     transportTitle: 'Airport to Hotel',
-    chipsTitle: 'Data SIM',
+    chipsTitle: 'International SIM / eSIM',
     searchFlights: 'Search flights',
     airlineWebsite: 'Airline website',
   },

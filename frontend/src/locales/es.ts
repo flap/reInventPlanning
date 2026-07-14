@@ -89,7 +89,7 @@ export default {
     routesTime: 'Tiempo estimado',
     visaTitle: 'Visa Americana B1/B2',
     transportTitle: 'Del Aeropuerto al Hotel',
-    chipsTitle: 'Chip de Datos',
+    chipsTitle: 'Chip Internacional / eSIM',
     searchFlights: 'Buscar pasajes',
     airlineWebsite: 'Sitio de la aerolínea',
   },
