@@ -33,6 +33,8 @@ export const useBudgetStore = defineStore('budget', {
     totalUSD(state): number {
       const i = state.inputs
       return (
+        i.passaporte +
+        i.visto +
         i.passagem +
         i.hotelDiaria * i.noites +
         i.resortFee * i.noites +
@@ -55,6 +57,8 @@ export const useBudgetStore = defineStore('budget', {
     breakdown(state): BudgetBreakdownItem[] {
       const i = state.inputs
       const items: { categoria: string; label: string; valorUSD: number }[] = [
+        { categoria: 'passaporte', label: 'Passaporte', valorUSD: i.passaporte },
+        { categoria: 'visto', label: 'Visto', valorUSD: i.visto },
         { categoria: 'passagem', label: 'Passagem Aérea', valorUSD: i.passagem },
         { categoria: 'hospedagem', label: 'Hotel + Resort Fee', valorUSD: i.hotelDiaria * i.noites + i.resortFee * i.noites },
         { categoria: 'ingresso', label: 'Ingresso re:Invent', valorUSD: i.ingresso },

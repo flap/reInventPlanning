@@ -59,6 +59,8 @@ export interface TimelineMilestone {
 }
 
 export interface BudgetInputs {
+  passaporte: number
+  visto: number
   passagem: number
   hotelDiaria: number
   noites: number

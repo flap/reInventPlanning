@@ -37,7 +37,7 @@ const resortFeeSubtotal = computed(() => store.inputs.resortFee * store.inputs.n
 const alimentacaoSubtotal = computed(() => store.inputs.alimentacaoDia * store.inputs.dias)
 
 const breakdownColors = [
-  'bg-blue-500', 'bg-purple-500', 'bg-aws-orange', 'bg-green-500',
+  'bg-rose-500', 'bg-red-500', 'bg-blue-500', 'bg-purple-500', 'bg-aws-orange', 'bg-green-500',
   'bg-sky-500', 'bg-pink-500', 'bg-teal-500', 'bg-indigo-500', 'bg-amber-500',
 ]
 
@@ -217,10 +217,29 @@ onMounted(() => {
         </div>
       </div>
 
-      <!-- Formulário de Inputs -->
+      <!-- 🗓️ PRÉ-EVENTO -->
       <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
-        <h2 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-6">{{ t('orcamento.totalUSD') }}</h2>
+        <div class="flex items-center gap-2 mb-6 pb-3 border-b border-gray-200">
+          <span class="text-xl">🗓️</span>
+          <h2 class="text-sm font-semibold text-gray-700 uppercase tracking-wide">{{ t('orcamento.preEvent') }}</h2>
+        </div>
         <div class="space-y-5">
+          <!-- Passaporte -->
+          <div class="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-2 items-center">
+            <label class="text-sm font-medium text-gray-700">🛂 {{ t('orcamento.passport') }}</label>
+            <div class="flex items-center gap-2">
+              <span class="text-gray-400 text-sm">$</span>
+              <input type="number" :value="store.inputs.passaporte" @input="handleInput('passaporte', $event)" class="w-32 px-3 py-2 border border-gray-300 rounded-lg text-right text-sm focus:ring-2 focus:ring-aws-orange/20 focus:border-aws-orange" />
+            </div>
+          </div>
+          <!-- Visto -->
+          <div class="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-2 items-center">
+            <label class="text-sm font-medium text-gray-700">🛂 {{ t('orcamento.visa') }}</label>
+            <div class="flex items-center gap-2">
+              <span class="text-gray-400 text-sm">$</span>
+              <input type="number" :value="store.inputs.visto" @input="handleInput('visto', $event)" class="w-32 px-3 py-2 border border-gray-300 rounded-lg text-right text-sm focus:ring-2 focus:ring-aws-orange/20 focus:border-aws-orange" />
+            </div>
+          </div>
           <!-- Passagem -->
           <div class="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-2 items-center">
             <label class="text-sm font-medium text-gray-700">✈️ {{ t('orcamento.flight') }}</label>
@@ -246,6 +265,40 @@ onMounted(() => {
               Subtotal: <span class="font-semibold text-gray-700">{{ formatUSD(hotelSubtotal) }}</span>
             </div>
           </div>
+          <!-- Ingresso -->
+          <div class="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-2 items-center">
+            <label class="text-sm font-medium text-gray-700">🎟️ {{ t('orcamento.ticket') }}</label>
+            <div class="flex items-center gap-2">
+              <span class="text-gray-400 text-sm">$</span>
+              <input type="number" :value="store.inputs.ingresso" @input="handleInput('ingresso', $event)" class="w-32 px-3 py-2 border border-gray-300 rounded-lg text-right text-sm focus:ring-2 focus:ring-aws-orange/20 focus:border-aws-orange" />
+            </div>
+          </div>
+          <!-- Seguro -->
+          <div class="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-2 items-center">
+            <label class="text-sm font-medium text-gray-700">🛡️ {{ t('orcamento.insurance') }}</label>
+            <div class="flex items-center gap-2">
+              <span class="text-gray-400 text-sm">$</span>
+              <input type="number" :value="store.inputs.seguro" @input="handleInput('seguro', $event)" class="w-32 px-3 py-2 border border-gray-300 rounded-lg text-right text-sm focus:ring-2 focus:ring-aws-orange/20 focus:border-aws-orange" />
+            </div>
+          </div>
+          <!-- Chip -->
+          <div class="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-2 items-center">
+            <label class="text-sm font-medium text-gray-700">📱 {{ t('orcamento.chip') }}</label>
+            <div class="flex items-center gap-2">
+              <span class="text-gray-400 text-sm">$</span>
+              <input type="number" :value="store.inputs.chip" @input="handleInput('chip', $event)" class="w-32 px-3 py-2 border border-gray-300 rounded-lg text-right text-sm focus:ring-2 focus:ring-aws-orange/20 focus:border-aws-orange" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 🎪 DURANTE O EVENTO -->
+      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
+        <div class="flex items-center gap-2 mb-6 pb-3 border-b border-gray-200">
+          <span class="text-xl">🎪</span>
+          <h2 class="text-sm font-semibold text-gray-700 uppercase tracking-wide">{{ t('orcamento.duringEvent') }}</h2>
+        </div>
+        <div class="space-y-5">
           <!-- Resort Fee -->
           <div class="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-2 items-center">
             <label class="text-sm font-medium text-gray-700">🏷️ {{ t('orcamento.resortFee') }}</label>
@@ -253,14 +306,6 @@ onMounted(() => {
               <span class="text-gray-400 text-sm">$</span>
               <input type="number" :value="store.inputs.resortFee" @input="handleInput('resortFee', $event)" class="w-32 px-3 py-2 border border-gray-300 rounded-lg text-right text-sm focus:ring-2 focus:ring-aws-orange/20 focus:border-aws-orange" />
               <span class="text-xs text-gray-400">({{ formatUSD(resortFeeSubtotal) }})</span>
-            </div>
-          </div>
-          <!-- Ingresso -->
-          <div class="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-2 items-center">
-            <label class="text-sm font-medium text-gray-700">🎟️ {{ t('orcamento.ticket') }}</label>
-            <div class="flex items-center gap-2">
-              <span class="text-gray-400 text-sm">$</span>
-              <input type="number" :value="store.inputs.ingresso" @input="handleInput('ingresso', $event)" class="w-32 px-3 py-2 border border-gray-300 rounded-lg text-right text-sm focus:ring-2 focus:ring-aws-orange/20 focus:border-aws-orange" />
             </div>
           </div>
           <!-- Alimentação -->
@@ -296,22 +341,6 @@ onMounted(() => {
               <input type="number" :value="store.inputs.turismo" @input="handleInput('turismo', $event)" class="w-32 px-3 py-2 border border-gray-300 rounded-lg text-right text-sm focus:ring-2 focus:ring-aws-orange/20 focus:border-aws-orange" />
             </div>
           </div>
-          <!-- Seguro -->
-          <div class="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-2 items-center">
-            <label class="text-sm font-medium text-gray-700">🛡️ {{ t('orcamento.insurance') }}</label>
-            <div class="flex items-center gap-2">
-              <span class="text-gray-400 text-sm">$</span>
-              <input type="number" :value="store.inputs.seguro" @input="handleInput('seguro', $event)" class="w-32 px-3 py-2 border border-gray-300 rounded-lg text-right text-sm focus:ring-2 focus:ring-aws-orange/20 focus:border-aws-orange" />
-            </div>
-          </div>
-          <!-- Chip -->
-          <div class="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-2 items-center">
-            <label class="text-sm font-medium text-gray-700">📱 {{ t('orcamento.chip') }}</label>
-            <div class="flex items-center gap-2">
-              <span class="text-gray-400 text-sm">$</span>
-              <input type="number" :value="store.inputs.chip" @input="handleInput('chip', $event)" class="w-32 px-3 py-2 border border-gray-300 rounded-lg text-right text-sm focus:ring-2 focus:ring-aws-orange/20 focus:border-aws-orange" />
-            </div>
-          </div>
           <!-- Extras -->
           <div class="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-2 items-center">
             <label class="text-sm font-medium text-gray-700">🎁 {{ t('orcamento.extras') }}</label>
@@ -323,10 +352,41 @@ onMounted(() => {
         </div>
       </div>
 
+      <!-- 📋 PÓS-EVENTO -->
+      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
+        <div class="flex items-center gap-2 mb-6 pb-3 border-b border-gray-200">
+          <span class="text-xl">📋</span>
+          <h2 class="text-sm font-semibold text-gray-700 uppercase tracking-wide">{{ t('orcamento.postEvent') }}</h2>
+        </div>
+        <div class="space-y-5">
+          <!-- Fatura do cartão - informativo -->
+          <div class="p-4 bg-gray-50 rounded-lg space-y-4">
+            <p class="text-sm font-medium text-gray-700">💳 {{ t('orcamento.creditCardBill') }}</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="text-xs font-medium text-gray-500 mb-1 block">{{ t('orcamento.exchangeRate') }} (R$/USD)</label>
+                <input type="number" :value="store.taxaUSD" @input="handleTaxaUSD" step="0.01" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-aws-orange/20 focus:border-aws-orange" />
+              </div>
+              <div>
+                <label class="text-xs font-medium text-gray-500 mb-1 block">IOF</label>
+                <div class="flex rounded-lg overflow-hidden border border-gray-200">
+                  <button @click="handleIofMode('cartao')" :class="['flex-1 px-3 py-2 text-xs font-medium transition-all duration-200', store.iofMode === 'cartao' ? 'bg-aws-orange text-white' : 'bg-white text-gray-600 hover:bg-gray-100']">
+                    💳 {{ t('orcamento.iofCard') }}
+                  </button>
+                  <button @click="handleIofMode('compra_internacional')" :class="['flex-1 px-3 py-2 text-xs font-medium transition-all duration-200', store.iofMode === 'compra_internacional' ? 'bg-aws-orange text-white' : 'bg-white text-gray-600 hover:bg-gray-100']">
+                    🌐 {{ t('orcamento.iofPurchase') }}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- Resumo Financeiro -->
       <div class="bg-gradient-to-br from-aws-dark to-aws-dark-lighter rounded-xl shadow-lg p-6 mb-6 text-white">
         <h2 class="text-sm font-semibold text-aws-orange uppercase tracking-wide mb-6">{{ t('orcamento.totalUSD') }}</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <div>
             <p class="text-sm text-gray-300 mb-1">{{ t('orcamento.totalUSD') }}</p>
             <p class="text-3xl font-bold text-white">{{ formatUSD(totalUSD) }}</p>
@@ -334,24 +394,6 @@ onMounted(() => {
           <div>
             <p class="text-sm text-gray-300 mb-1">{{ t('orcamento.totalBRL') }}</p>
             <p class="text-3xl font-bold text-aws-orange">{{ formatBRL(totalBRL) }}</p>
-          </div>
-        </div>
-        <!-- Configurações de câmbio -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 bg-white/5 rounded-lg border border-white/10">
-          <div>
-            <label class="text-xs text-gray-300 mb-1 block">{{ t('orcamento.exchangeRate') }} (R$/USD)</label>
-            <input type="number" :value="store.taxaUSD" @input="handleTaxaUSD" step="0.01" class="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-lg text-white text-sm focus:ring-2 focus:ring-aws-orange/40 focus:border-aws-orange placeholder-gray-400" />
-          </div>
-          <div>
-            <label class="text-xs text-gray-300 mb-1 block">IOF</label>
-            <div class="flex rounded-lg overflow-hidden border border-white/20">
-              <button @click="handleIofMode('cartao')" :class="['flex-1 px-3 py-2 text-xs font-medium transition-all duration-200', store.iofMode === 'cartao' ? 'bg-aws-orange text-white' : 'bg-white/5 text-gray-300 hover:bg-white/10']">
-                💳 {{ t('orcamento.iofCard') }}
-              </button>
-              <button @click="handleIofMode('compra_internacional')" :class="['flex-1 px-3 py-2 text-xs font-medium transition-all duration-200', store.iofMode === 'compra_internacional' ? 'bg-aws-orange text-white' : 'bg-white/5 text-gray-300 hover:bg-white/10']">
-                🌐 {{ t('orcamento.iofPurchase') }}
-              </button>
-            </div>
           </div>
         </div>
       </div>

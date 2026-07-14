@@ -1,6 +1,8 @@
 {
   "cenarios": {
     "economico": {
+      "passaporte": 0,
+      "visto": 0,
       "passagem": 900,
       "hotelDiaria": 50,
       "noites": 7,
@@ -15,6 +17,8 @@
       "extras": 50
     },
     "confortavel": {
+      "passaporte": 250,
+      "visto": 220,
       "passagem": 1200,
       "hotelDiaria": 150,
       "noites": 8,
@@ -29,6 +33,8 @@
       "extras": 150
     },
     "luxo": {
+      "passaporte": 250,
+      "visto": 220,
       "passagem": 2500,
       "hotelDiaria": 350,
       "noites": 9,
