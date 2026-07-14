@@ -269,5 +269,41 @@
     "googleMapsUrl": "https://www.google.com/maps/place/Tru+by+Hilton+Las+Vegas+Airport/@36.0646715,-115.1627653,17z",
     "directionsUrl": "https://www.google.com/maps/dir/The+Venetian+Resort,+S+Las+Vegas+Blvd,+Las+Vegas,+NV/Tru+by+Hilton+Las+Vegas+Airport,+S+Las+Vegas+Blvd,+Las+Vegas,+NV/@36.0930,-115.1660,13z/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0x80c8c43d2aaaed63:0x7dba2569a8daad20!2m2!1d-115.1693!2d36.1212!1m5!1m1!1s0x80c8c58a84513ff9:0x6f99cfe4ac7ccc4e!2m2!1d-115.1627653!2d36.0646715!3e0",
     "bookingUrl": "https://www.booking.com/hotel/us/tru-by-hilton-las-vegas-airport.html?checkin=2026-11-29&checkout=2026-12-05"
+  },
+  {
+    "id": "excalibur",
+    "nome": "Excalibur Hotel & Casino",
+    "endereco": "3850 S Las Vegas Blvd, Las Vegas, NV 89109",
+    "venue": false,
+    "distanciaMinutos": 20,
+    "distanciaCategoria": "vermelho",
+    "distanciaTexto": "20 min (monorail via MGM)",
+    "precoMin": 40,
+    "precoMax": 120,
+    "nivel": 3,
+    "resortFee": 39,
+    "destaques": ["Ao lado do MGM Grand", "Monorail gratuito (badge)", "Um dos mais baratos da Strip", "Conectado ao MGM por passarela"],
+    "dica": "Excelente custo-benefício! Conectado ao MGM Grand por passarela — use o monorail gratuito com badge do re:Invent. Trade-off: após 23h o monorail para.",
+    "googleMapsUrl": "https://www.google.com/maps/place/Excalibur+Hotel+%26+Casino/@36.0988,-115.1741,17z",
+    "directionsUrl": "https://www.google.com/maps/dir/The+Venetian+Resort,+S+Las+Vegas+Blvd,+Las+Vegas,+NV/Excalibur+Hotel+%26+Casino,+Las+Vegas+Boulevard+South,+Las+Vegas,+NV/@36.1100,-115.1720,15z",
+    "bookingUrl": "https://www.booking.com/hotel/us/excalibur-casino.html?checkin=2026-11-29&checkout=2026-12-05"
+  },
+  {
+    "id": "oyo-las-vegas",
+    "nome": "OYO Hotel & Casino Las Vegas",
+    "endereco": "115 E Tropicana Ave, Las Vegas, NV 89109",
+    "venue": false,
+    "distanciaMinutos": 22,
+    "distanciaCategoria": "vermelho",
+    "distanciaTexto": "22 min (monorail via MGM)",
+    "precoMin": 30,
+    "precoMax": 90,
+    "nivel": 2,
+    "resortFee": 35,
+    "destaques": ["Vizinho ao MGM Grand", "Um dos mais baratos de Vegas", "Monorail gratuito (badge)", "Bom para budget apertado"],
+    "dica": "O mais econômico perto do MGM — ideal para quem quer gastar o mínimo com hotel. Qualidade básica mas localização estratégica ao lado do monorail gratuito.",
+    "googleMapsUrl": "https://www.google.com/maps/place/OYO+Hotel+%26+Casino+Las+Vegas/@36.0993,-115.1677,17z",
+    "directionsUrl": "https://www.google.com/maps/dir/The+Venetian+Resort,+S+Las+Vegas+Blvd,+Las+Vegas,+NV/OYO+Hotel+%26+Casino+Las+Vegas,+East+Tropicana+Avenue,+Las+Vegas,+NV/@36.1100,-115.1700,15z",
+    "bookingUrl": "https://www.booking.com/hotel/us/oyo-casino-las-vegas.html?checkin=2026-11-29&checkout=2026-12-05"
   }
 ]
