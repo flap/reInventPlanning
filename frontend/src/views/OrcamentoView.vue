@@ -68,23 +68,67 @@ interface CustomItem {
   value: number
   currency: 'USD' | 'BRL'
   courtesy: boolean
+  phase: 'pre' | 'during' | 'post'
 }
 
 const STORAGE_KEY = 'tripevent:custom-budget'
 
 const defaultItems = computed((): CustomItem[] => {
-  const names: Record<string, string[]> = {
-    pt: ['Passagem aérea', 'Hotel', 'Ingresso re:Invent', 'Alimentação', 'Transporte', 'Seguro viagem'],
-    en: ['Airfare', 'Hotel', 're:Invent ticket', 'Food & dining', 'Transportation', 'Travel insurance'],
-    es: ['Pasaje aéreo', 'Hotel', 'Entrada re:Invent', 'Alimentación', 'Transporte', 'Seguro de viaje'],
+  const items: Record<string, { name: string; phase: 'pre' | 'during' | 'post'; value?: number; courtesy?: boolean }[]> = {
+    pt: [
+      { name: 'Passaporte', phase: 'pre' },
+      { name: 'Visto americano', phase: 'pre' },
+      { name: 'Passagem aérea', phase: 'pre' },
+      { name: 'Hotel (reserva)', phase: 'pre' },
+      { name: 'Ingresso re:Invent', phase: 'pre', value: 1299, courtesy: true },
+      { name: 'Seguro viagem', phase: 'pre' },
+      { name: 'Chip/eSIM', phase: 'pre' },
+      { name: 'Resort fee', phase: 'during' },
+      { name: 'Alimentação', phase: 'during' },
+      { name: 'Transporte', phase: 'during' },
+      { name: 'Turismo e compras', phase: 'during' },
+      { name: 'Extras', phase: 'during' },
+      { name: 'Fatura do cartão (IOF/câmbio)', phase: 'post' },
+    ],
+    en: [
+      { name: 'Passport', phase: 'pre' },
+      { name: 'US Visa', phase: 'pre' },
+      { name: 'Airfare', phase: 'pre' },
+      { name: 'Hotel (reservation)', phase: 'pre' },
+      { name: 're:Invent ticket', phase: 'pre', value: 1299, courtesy: true },
+      { name: 'Travel insurance', phase: 'pre' },
+      { name: 'eSIM / SIM card', phase: 'pre' },
+      { name: 'Resort fee', phase: 'during' },
+      { name: 'Food & dining', phase: 'during' },
+      { name: 'Transportation', phase: 'during' },
+      { name: 'Tourism & shopping', phase: 'during' },
+      { name: 'Extras', phase: 'during' },
+      { name: 'Credit card bill (IOF/exchange)', phase: 'post' },
+    ],
+    es: [
+      { name: 'Pasaporte', phase: 'pre' },
+      { name: 'Visa americana', phase: 'pre' },
+      { name: 'Pasaje aéreo', phase: 'pre' },
+      { name: 'Hotel (reserva)', phase: 'pre' },
+      { name: 'Entrada re:Invent', phase: 'pre', value: 1299, courtesy: true },
+      { name: 'Seguro de viaje', phase: 'pre' },
+      { name: 'Chip/eSIM', phase: 'pre' },
+      { name: 'Resort fee', phase: 'during' },
+      { name: 'Alimentación', phase: 'during' },
+      { name: 'Transporte', phase: 'during' },
+      { name: 'Turismo y compras', phase: 'during' },
+      { name: 'Extras', phase: 'during' },
+      { name: 'Factura de tarjeta (IOF/cambio)', phase: 'post' },
+    ],
   }
-  const labels = names[locale.value] ?? names['en']!
-  return labels.map((name, i) => ({
+  const list = items[locale.value] ?? items['en']!
+  return list.map((item) => ({
     id: crypto.randomUUID(),
-    name,
-    value: i === 2 ? 1299 : 0,
+    name: item.name,
+    value: item.value ?? 0,
     currency: 'USD' as const,
-    courtesy: i === 2, // ingresso como cortesia por default
+    courtesy: item.courtesy ?? false,
+    phase: item.phase,
   }))
 })
 
@@ -95,7 +139,13 @@ function loadCustomItems(): CustomItem[] {
     const saved = localStorage.getItem(STORAGE_KEY)
     if (saved) {
       const parsed = JSON.parse(saved) as CustomItem[]
-      if (Array.isArray(parsed) && parsed.length > 0) return parsed
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        // Migrate legacy items without phase field
+        return parsed.map((item) => ({
+          ...item,
+          phase: item.phase || 'pre',
+        }))
+      }
     }
   } catch {
     // ignore parse errors
@@ -103,13 +153,14 @@ function loadCustomItems(): CustomItem[] {
   return defaultItems.value.map((item) => ({ ...item, id: crypto.randomUUID() }))
 }
 
-function addItem() {
+function addItem(phase: 'pre' | 'during' | 'post' = 'pre') {
   customItems.value.push({
     id: crypto.randomUUID(),
     name: '',
     value: 0,
     currency: 'USD',
     courtesy: false,
+    phase,
   })
 }
 
@@ -146,6 +197,10 @@ const customTotalBRL = computed(() => {
   }
   return total
 })
+
+const preItems = computed(() => customItems.value.filter((i) => i.phase === 'pre'))
+const duringItems = computed(() => customItems.value.filter((i) => i.phase === 'during'))
+const postItems = computed(() => customItems.value.filter((i) => i.phase === 'post'))
 
 watch(customItems, (val) => {
   try {
@@ -425,68 +480,96 @@ onMounted(() => {
 
     <!-- CUSTOM TAB -->
     <div v-show="activeTab === 'custom'">
-      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
-        <h2 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-6">{{ t('orcamento.customTitle') }}</h2>
 
-        <!-- Items list -->
-        <div class="space-y-3 mb-6">
+      <!-- 🗓️ Pré-evento -->
+      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-4">
+        <div class="flex items-center gap-2 mb-4 pb-3 border-b border-blue-100">
+          <span class="text-xl">🗓️</span>
+          <h2 class="text-sm font-semibold text-blue-800 uppercase tracking-wide">{{ t('orcamento.preEvent') }}</h2>
+        </div>
+        <div class="space-y-3 mb-4">
           <div
-            v-for="item in customItems"
+            v-for="item in preItems"
             :key="item.id"
             class="flex flex-wrap items-center gap-2 p-3 rounded-lg border border-gray-100 bg-gray-50"
             :class="{ 'opacity-60': item.courtesy }"
           >
-            <!-- Name -->
-            <input
-              v-model="item.name"
-              type="text"
-              :placeholder="t('orcamento.itemName')"
-              class="flex-1 min-w-[140px] px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-aws-orange/20 focus:border-aws-orange"
-              :class="{ 'line-through': item.courtesy }"
-            />
-            <!-- Value -->
-            <input
-              v-model.number="item.value"
-              type="number"
-              min="0"
-              step="0.01"
-              :placeholder="t('orcamento.itemValue')"
-              class="w-28 px-3 py-2 border border-gray-300 rounded-lg text-right text-sm focus:ring-2 focus:ring-aws-orange/20 focus:border-aws-orange"
-              :class="{ 'line-through': item.courtesy }"
-            />
-            <!-- Currency -->
-            <select
-              v-model="item.currency"
-              class="w-20 px-2 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-aws-orange/20 focus:border-aws-orange"
-            >
+            <input v-model="item.name" type="text" :placeholder="t('orcamento.itemName')" class="flex-1 min-w-[140px] px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-aws-orange/20 focus:border-aws-orange" :class="{ 'line-through': item.courtesy }" />
+            <input v-model.number="item.value" type="number" min="0" step="0.01" :placeholder="t('orcamento.itemValue')" class="w-28 px-3 py-2 border border-gray-300 rounded-lg text-right text-sm focus:ring-2 focus:ring-aws-orange/20 focus:border-aws-orange" :class="{ 'line-through': item.courtesy }" />
+            <select v-model="item.currency" class="w-20 px-2 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-aws-orange/20 focus:border-aws-orange">
               <option value="USD">USD</option>
               <option value="BRL">BRL</option>
             </select>
-            <!-- Courtesy checkbox -->
             <label class="flex items-center gap-1.5 text-xs text-gray-600 cursor-pointer" :title="t('orcamento.courtesyTooltip')">
-              <input
-                v-model="item.courtesy"
-                type="checkbox"
-                class="w-4 h-4 rounded border-gray-300 text-aws-orange focus:ring-aws-orange/20"
-              />
+              <input v-model="item.courtesy" type="checkbox" class="w-4 h-4 rounded border-gray-300 text-aws-orange focus:ring-aws-orange/20" />
               {{ t('orcamento.courtesy') }}
             </label>
-            <!-- Remove -->
-            <button
-              @click="removeItem(item.id)"
-              class="p-2 text-red-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-              :title="t('orcamento.removeItem')"
-            >
-              ✕
-            </button>
+            <button @click="removeItem(item.id)" class="p-2 text-red-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors" :title="t('orcamento.removeItem')">✕</button>
           </div>
         </div>
+        <button @click="addItem('pre')" class="w-full py-2 border-2 border-dashed border-gray-300 rounded-xl text-xs font-medium text-gray-500 hover:border-aws-orange hover:text-aws-orange transition-colors">
+          {{ t('orcamento.addItem') }}
+        </button>
+      </div>
 
-        <!-- Add item button -->
-        <button
-          @click="addItem"
-          class="w-full py-3 border-2 border-dashed border-gray-300 rounded-xl text-sm font-medium text-gray-500 hover:border-aws-orange hover:text-aws-orange transition-colors"
-        >
+      <!-- 🎪 Durante o evento -->
+      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-4">
+        <div class="flex items-center gap-2 mb-4 pb-3 border-b border-orange-100">
+          <span class="text-xl">🎪</span>
+          <h2 class="text-sm font-semibold text-orange-800 uppercase tracking-wide">{{ t('orcamento.duringEvent') }}</h2>
+        </div>
+        <div class="space-y-3 mb-4">
+          <div
+            v-for="item in duringItems"
+            :key="item.id"
+            class="flex flex-wrap items-center gap-2 p-3 rounded-lg border border-gray-100 bg-gray-50"
+            :class="{ 'opacity-60': item.courtesy }"
+          >
+            <input v-model="item.name" type="text" :placeholder="t('orcamento.itemName')" class="flex-1 min-w-[140px] px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-aws-orange/20 focus:border-aws-orange" :class="{ 'line-through': item.courtesy }" />
+            <input v-model.number="item.value" type="number" min="0" step="0.01" :placeholder="t('orcamento.itemValue')" class="w-28 px-3 py-2 border border-gray-300 rounded-lg text-right text-sm focus:ring-2 focus:ring-aws-orange/20 focus:border-aws-orange" :class="{ 'line-through': item.courtesy }" />
+            <select v-model="item.currency" class="w-20 px-2 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-aws-orange/20 focus:border-aws-orange">
+              <option value="USD">USD</option>
+              <option value="BRL">BRL</option>
+            </select>
+            <label class="flex items-center gap-1.5 text-xs text-gray-600 cursor-pointer" :title="t('orcamento.courtesyTooltip')">
+              <input v-model="item.courtesy" type="checkbox" class="w-4 h-4 rounded border-gray-300 text-aws-orange focus:ring-aws-orange/20" />
+              {{ t('orcamento.courtesy') }}
+            </label>
+            <button @click="removeItem(item.id)" class="p-2 text-red-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors" :title="t('orcamento.removeItem')">✕</button>
+          </div>
+        </div>
+        <button @click="addItem('during')" class="w-full py-2 border-2 border-dashed border-gray-300 rounded-xl text-xs font-medium text-gray-500 hover:border-aws-orange hover:text-aws-orange transition-colors">
+          {{ t('orcamento.addItem') }}
+        </button>
+      </div>
+
+      <!-- 📋 Pós-evento -->
+      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
+        <div class="flex items-center gap-2 mb-4 pb-3 border-b border-green-100">
+          <span class="text-xl">📋</span>
+          <h2 class="text-sm font-semibold text-green-800 uppercase tracking-wide">{{ t('orcamento.postEvent') }}</h2>
+        </div>
+        <div class="space-y-3 mb-4">
+          <div
+            v-for="item in postItems"
+            :key="item.id"
+            class="flex flex-wrap items-center gap-2 p-3 rounded-lg border border-gray-100 bg-gray-50"
+            :class="{ 'opacity-60': item.courtesy }"
+          >
+            <input v-model="item.name" type="text" :placeholder="t('orcamento.itemName')" class="flex-1 min-w-[140px] px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-aws-orange/20 focus:border-aws-orange" :class="{ 'line-through': item.courtesy }" />
+            <input v-model.number="item.value" type="number" min="0" step="0.01" :placeholder="t('orcamento.itemValue')" class="w-28 px-3 py-2 border border-gray-300 rounded-lg text-right text-sm focus:ring-2 focus:ring-aws-orange/20 focus:border-aws-orange" :class="{ 'line-through': item.courtesy }" />
+            <select v-model="item.currency" class="w-20 px-2 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-aws-orange/20 focus:border-aws-orange">
+              <option value="USD">USD</option>
+              <option value="BRL">BRL</option>
+            </select>
+            <label class="flex items-center gap-1.5 text-xs text-gray-600 cursor-pointer" :title="t('orcamento.courtesyTooltip')">
+              <input v-model="item.courtesy" type="checkbox" class="w-4 h-4 rounded border-gray-300 text-aws-orange focus:ring-aws-orange/20" />
+              {{ t('orcamento.courtesy') }}
+            </label>
+            <button @click="removeItem(item.id)" class="p-2 text-red-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors" :title="t('orcamento.removeItem')">✕</button>
+          </div>
+        </div>
+        <button @click="addItem('post')" class="w-full py-2 border-2 border-dashed border-gray-300 rounded-xl text-xs font-medium text-gray-500 hover:border-aws-orange hover:text-aws-orange transition-colors">
           {{ t('orcamento.addItem') }}
         </button>
       </div>
