@@ -14,6 +14,7 @@ const navItems = [
   { name: 'checklist', key: 'nav.checklist', icon: '✅' },
   { name: 'timeline', key: 'nav.timeline', icon: '📅' },
   { name: 'orcamento', key: 'nav.orcamento', icon: '💰' },
+  { name: 'dicas', key: 'nav.dicas', icon: '💡' },
 ]
 </script>
 

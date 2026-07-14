@@ -48,6 +48,11 @@ const router = createRouter({
       name: 'orcamento',
       component: () => import('@/views/OrcamentoView.vue'),
     },
+    {
+      path: '/dicas',
+      name: 'dicas',
+      component: () => import('@/views/DicasView.vue'),
+    },
   ],
   scrollBehavior() {
     return { top: 0 }

@@ -20,6 +20,7 @@ const moreItems = [
   { name: 'clima', key: 'nav.clima', icon: '🌡️' },
   { name: 'turismo', key: 'nav.turismo', icon: '🎰' },
   { name: 'timeline', key: 'nav.timeline', icon: '📅' },
+  { name: 'dicas', key: 'nav.dicas', icon: '💡' },
 ]
 
 function navigateTo(name: string) {

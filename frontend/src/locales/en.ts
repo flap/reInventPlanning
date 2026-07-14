@@ -9,6 +9,7 @@ export default {
     checklist: 'Checklist',
     timeline: 'Timeline',
     orcamento: 'Budget',
+    dicas: 'Tips',
     more: 'More',
   },
   header: {
@@ -89,7 +90,6 @@ export default {
     routesTime: 'Estimated time',
     visaTitle: 'US Visa B1/B2',
     transportTitle: 'Airport to Hotel',
-    chipsTitle: 'International SIM / eSIM',
     searchFlights: 'Search flights',
     airlineWebsite: 'Airline website',
   },
@@ -173,6 +173,10 @@ export default {
     courtesyTooltip: 'Company pays or complimentary (zeroed value)',
     removeItem: 'Remove',
     customTotal: 'Custom total',
+  },
+  dicas: {
+    title: 'General Tips',
+    chipsTitle: 'International SIM / eSIM',
   },
   common: {
     openNewTab: 'Opens in new tab',
