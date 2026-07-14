@@ -489,15 +489,24 @@ ChecklistView
 ```
 OrcamentoView
 ├── ScenarioSelector     → Toggle: Econômico / Confortável / Luxo
-├── BudgetCalculator     → Formulário interativo de inputs
-│   ├── FlightSection    → Custo de passagem
-│   ├── HotelSection     → Diárias × noites + resort fee
-│   ├── EventSection     → Ingresso do evento
-│   ├── FoodSection      → Alimentação × dias
-│   ├── TransportSection → Uber, shuttle, monorail
-│   ├── TourismSection   → Atrações e compras
-│   └── ExtrasSection    → Seguro, chip, extras
-├── BudgetBreakdown      → Gráfico de pizza / barras por categoria
+├── BudgetCalculator     → Formulário interativo de inputs (3 seções temporais)
+│   ├── PreEventSection  → 🗓️ Pré-evento
+│   │   ├── Passaporte   → Custo de emissão/renovação
+│   │   ├── Visto        → Custo de solicitação/renovação
+│   │   ├── Flight       → Custo de passagem
+│   │   ├── Hotel        → Diárias × noites (reserva antecipada)
+│   │   ├── Ticket       → Ingresso do evento
+│   │   ├── Insurance    → Seguro viagem
+│   │   └── Chip/eSIM    → Chip internacional
+│   ├── DuringEventSection → 🎪 Durante o evento
+│   │   ├── ResortFee    → Resort fee × noites
+│   │   ├── Food         → Alimentação × dias
+│   │   ├── Transport    → Uber, shuttle, monorail
+│   │   ├── Tourism      → Atrações e compras
+│   │   └── Extras       → Diversos
+│   └── PostEventSection → 📋 Pós-evento
+│       └── CreditCard   → Fatura (IOF, câmbio, parcelas)
+├── BudgetBreakdown      → Gráfico de barras por categoria
 ├── CurrencyConverter    → BRL ↔ USD com taxa + IOF
 ├── TaxInfo              → Sales tax + resort fee info
 └── SavingTips           → Dicas de economia por categoria

@@ -324,7 +324,15 @@ Cada feature é derivada do conteúdo existente nos guias do projeto, expandida 
 
 > Fonte: Distribuída em vários guias (hotéis, voos, turismo, compras)
 
-**Objetivo:** Consolidar todos os custos em um planejador financeiro da viagem.
+**Objetivo:** Consolidar todos os custos em um planejador financeiro da viagem, organizados por fase temporal.
+
+**Organização por Fase:**
+
+| Fase | Itens | Descrição |
+|------|-------|-----------|
+| 🗓️ Pré-evento | Passaporte, visto, passagem, hotel, ingresso, seguro, chip | Gastos meses antes da viagem |
+| 🎪 Durante o evento | Resort fee, alimentação, transporte, turismo, extras | Gastos em Las Vegas |
+| 📋 Pós-evento | Fatura cartão (IOF, câmbio) | Gastos na volta ao Brasil |
 
 **Funcionalidades:**
 
@@ -337,13 +345,16 @@ Cada feature é derivada do conteúdo existente nos guias do projeto, expandida 
 | F8.5 | Inclusão de IOF, resort fees, sales tax | Alta |
 | F8.6 | Dicas de economia por categoria | Média |
 | F8.7 | Tracker de gastos durante a viagem | Baixa |
+| F8.8 | Categorização temporal (pré/durante/pós-evento) | Alta |
+| F8.9 | Custos de documentação (passaporte, visto) | Média |
 
 **Dados de referência disponíveis:**
-- Faixas de preço de 8 hotéis
+- Faixas de preço de 16 hotéis
 - Custo de transporte (4 opções com preços)
 - Tabela de preços médios (alimentação, bebidas, transporte)
 - Sales tax Nevada (8,375%)
 - Resort fees ($30–55/noite)
+- Custos de passaporte (~R$257) e visto americano (~US$185+)
 
 ---
 
