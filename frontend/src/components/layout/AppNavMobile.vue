@@ -21,6 +21,7 @@ const moreItems = [
   { name: 'turismo', key: 'nav.turismo', icon: '🎰' },
   { name: 'timeline', key: 'nav.timeline', icon: '📅' },
   { name: 'dicas', key: 'nav.dicas', icon: '💡' },
+  { name: 'releases', key: 'nav.releases', icon: '📋' },
 ]
 
 function navigateTo(name: string) {

@@ -53,6 +53,11 @@ const router = createRouter({
       name: 'dicas',
       component: () => import('@/views/DicasView.vue'),
     },
+    {
+      path: '/releases',
+      name: 'releases',
+      component: () => import('@/views/ReleaseNotesView.vue'),
+    },
   ],
   scrollBehavior() {
     return { top: 0 }

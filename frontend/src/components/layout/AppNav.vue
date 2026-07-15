@@ -15,6 +15,7 @@ const navItems = [
   { name: 'timeline', key: 'nav.timeline', icon: '📅' },
   { name: 'orcamento', key: 'nav.orcamento', icon: '💰' },
   { name: 'dicas', key: 'nav.dicas', icon: '💡' },
+  { name: 'releases', key: 'nav.releases', icon: '📋' },
 ]
 </script>
 

@@ -10,6 +10,7 @@ export default {
     timeline: 'Timeline',
     orcamento: 'Budget',
     dicas: 'Tips',
+    releases: 'Releases',
     more: 'More',
   },
   header: {
@@ -202,6 +203,10 @@ export default {
   dicas: {
     title: 'General Tips',
     chipsTitle: 'International SIM / eSIM',
+  },
+  releases: {
+    title: 'Release Notes',
+    subtitle: 'History of updates, features and tips added to the app',
   },
   common: {
     openNewTab: 'Opens in new tab',

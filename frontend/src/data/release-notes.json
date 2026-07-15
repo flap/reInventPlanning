@@ -1,0 +1,273 @@
+[
+  {
+    "version": "1.5.0",
+    "date": "2026-07-14",
+    "title": {
+      "pt": "Orçamento por fases + Passaporte/Visto",
+      "en": "Budget by phases + Passport/Visa",
+      "es": "Presupuesto por fases + Pasaporte/Visa"
+    },
+    "items": [
+      {
+        "type": "feature",
+        "issue": 65,
+        "text": {
+          "pt": "Orçamento customizado categorizado em 3 fases (pré/durante/pós-evento)",
+          "en": "Custom budget categorized in 3 phases (pre/during/post-event)",
+          "es": "Presupuesto personalizado categorizado en 3 fases (pre/durante/post-evento)"
+        }
+      },
+      {
+        "type": "feature",
+        "issue": 64,
+        "text": {
+          "pt": "Cenários de orçamento reorganizados por fase temporal com campos de passaporte e visto",
+          "en": "Budget scenarios reorganized by time phase with passport and visa fields",
+          "es": "Escenarios de presupuesto reorganizados por fase temporal con campos de pasaporte y visa"
+        }
+      },
+      {
+        "type": "feature",
+        "issue": 65,
+        "text": {
+          "pt": "Disclaimer na Home sobre pré-requisitos (passaporte + visto) com guias oficiais",
+          "en": "Home disclaimer about prerequisites (passport + visa) with official guides",
+          "es": "Disclaimer en Home sobre prerrequisitos (pasaporte + visa) con guías oficiales"
+        }
+      }
+    ]
+  },
+  {
+    "version": "1.4.0",
+    "date": "2026-07-13",
+    "title": {
+      "pt": "Hotéis + Chip Internacional + Dicas Gerais",
+      "en": "Hotels + International SIM + General Tips",
+      "es": "Hoteles + Chip Internacional + Consejos Generales"
+    },
+    "items": [
+      {
+        "type": "feature",
+        "issue": 63,
+        "text": {
+          "pt": "Adicionar Excalibur e OYO na lista de hotéis (dica da comunidade)",
+          "en": "Add Excalibur and OYO to hotel list (community tip)",
+          "es": "Agregar Excalibur y OYO a la lista de hoteles (tip de la comunidad)"
+        }
+      },
+      {
+        "type": "feature",
+        "issue": 62,
+        "text": {
+          "pt": "Nova view 'Dicas Gerais' com guia completo de eSIM e 4 recomendações (Nomad, Airalo, Nubank UV, PicPay Epic)",
+          "en": "New 'General Tips' view with complete eSIM guide and 4 recommendations (Nomad, Airalo, Nubank UV, PicPay Epic)",
+          "es": "Nueva vista 'Consejos Generales' con guía completa de eSIM y 4 recomendaciones (Nomad, Airalo, Nubank UV, PicPay Epic)"
+        }
+      },
+      {
+        "type": "fix",
+        "text": {
+          "pt": "Corrigir link Nomad Chip (URL correta: nomadglobal.com/nomad-chip)",
+          "en": "Fix Nomad Chip link (correct URL: nomadglobal.com/nomad-chip)",
+          "es": "Corregir enlace Nomad Chip (URL correcta: nomadglobal.com/nomad-chip)"
+        }
+      }
+    ]
+  },
+  {
+    "version": "1.3.0",
+    "date": "2026-07-13",
+    "title": {
+      "pt": "Medicamentos + Kiro Hooks + i18n",
+      "en": "Medications + Kiro Hooks + i18n",
+      "es": "Medicamentos + Kiro Hooks + i18n"
+    },
+    "items": [
+      {
+        "type": "feature",
+        "text": {
+          "pt": "Guia completo de medicamentos (FDA/CBP/DEA) na seção Clima e Vestuário",
+          "en": "Complete medication guide (FDA/CBP/DEA) in Weather & Clothing section",
+          "es": "Guía completa de medicamentos (FDA/CBP/DEA) en sección Clima y Vestimenta"
+        }
+      },
+      {
+        "type": "feature",
+        "text": {
+          "pt": "Kiro hook para lembrar de atualizar README após push de features",
+          "en": "Kiro hook to remind updating README after feature pushes",
+          "es": "Kiro hook para recordar actualizar README después de push de features"
+        }
+      },
+      {
+        "type": "fix",
+        "text": {
+          "pt": "Traduzir todos os textos restantes para EN e ES",
+          "en": "Translate all remaining texts to EN and ES",
+          "es": "Traducir todos los textos restantes a EN y ES"
+        }
+      },
+      {
+        "type": "fix",
+        "text": {
+          "pt": "Cenário econômico como default + ingresso como cortesia",
+          "en": "Economic scenario as default + ticket as courtesy",
+          "es": "Escenario económico como default + entrada como cortesía"
+        }
+      }
+    ]
+  },
+  {
+    "version": "1.2.0",
+    "date": "2026-07-13",
+    "title": {
+      "pt": "Espanhol + TurismoView + 16 dicas da comunidade",
+      "en": "Spanish + TourismView + 16 community tips",
+      "es": "Español + TurismoView + 16 tips de la comunidad"
+    },
+    "items": [
+      {
+        "type": "feature",
+        "text": {
+          "pt": "Adicionar Espanhol LATAM como terceiro idioma",
+          "en": "Add LATAM Spanish as third language",
+          "es": "Agregar Español LATAM como tercer idioma"
+        }
+      },
+      {
+        "type": "feature",
+        "text": {
+          "pt": "TurismoView completa com atrações, compras, gastronomia e passeios",
+          "en": "Complete TourismView with attractions, shopping, food and trips",
+          "es": "TurismoView completa con atracciones, compras, gastronomía y paseos"
+        }
+      },
+      {
+        "type": "community",
+        "text": {
+          "pt": "16 dicas da comunidade aplicadas (grupo WhatsApp re:Invent)",
+          "en": "16 community tips applied (WhatsApp re:Invent group)",
+          "es": "16 tips de la comunidad aplicados (grupo WhatsApp re:Invent)"
+        }
+      },
+      {
+        "type": "community",
+        "text": {
+          "pt": "Template de issues para contribuição de dicas da comunidade",
+          "en": "Issue template for community tip contributions",
+          "es": "Template de issues para contribución de tips de la comunidad"
+        }
+      },
+      {
+        "type": "fix",
+        "text": {
+          "pt": "Corrigir links Google Maps e expandir lista para 14 hotéis",
+          "en": "Fix Google Maps links and expand list to 14 hotels",
+          "es": "Corregir enlaces Google Maps y expandir lista a 14 hoteles"
+        }
+      }
+    ]
+  },
+  {
+    "version": "1.1.0",
+    "date": "2026-07-12",
+    "title": {
+      "pt": "i18n + Links + Orçamento customizado",
+      "en": "i18n + Links + Custom budget",
+      "es": "i18n + Links + Presupuesto personalizado"
+    },
+    "items": [
+      {
+        "type": "feature",
+        "text": {
+          "pt": "Internacionalização PT/EN com troca de idioma no app",
+          "en": "PT/EN internationalization with in-app language switch",
+          "es": "Internacionalización PT/EN con cambio de idioma en la app"
+        }
+      },
+      {
+        "type": "feature",
+        "text": {
+          "pt": "Links diretos Google Maps e Booking.com para todos os hotéis",
+          "en": "Direct Google Maps and Booking.com links for all hotels",
+          "es": "Enlaces directos Google Maps y Booking.com para todos los hoteles"
+        }
+      },
+      {
+        "type": "feature",
+        "text": {
+          "pt": "Orçamento customizado com itens livres e marcação de cortesia",
+          "en": "Custom budget with free items and courtesy marking",
+          "es": "Presupuesto personalizado con ítems libres y marcación de cortesía"
+        }
+      },
+      {
+        "type": "feature",
+        "text": {
+          "pt": "Companhias aéreas com links diretos para sites oficiais",
+          "en": "Airlines with direct links to official websites",
+          "es": "Aerolíneas con enlaces directos a sitios oficiales"
+        }
+      }
+    ]
+  },
+  {
+    "version": "1.0.0",
+    "date": "2026-07-12",
+    "title": {
+      "pt": "Lançamento — Frontend Vue.js (Fase 1)",
+      "en": "Launch — Vue.js Frontend (Phase 1)",
+      "es": "Lanzamiento — Frontend Vue.js (Fase 1)"
+    },
+    "items": [
+      {
+        "type": "feature",
+        "text": {
+          "pt": "9 views: Home, Evento, Hotéis, Voos, Clima, Turismo, Checklist, Timeline, Orçamento",
+          "en": "9 views: Home, Event, Hotels, Flights, Weather, Tourism, Checklist, Timeline, Budget",
+          "es": "9 vistas: Home, Evento, Hoteles, Vuelos, Clima, Turismo, Checklist, Timeline, Presupuesto"
+        }
+      },
+      {
+        "type": "feature",
+        "text": {
+          "pt": "PWA com suporte offline e instalação no celular",
+          "en": "PWA with offline support and mobile installation",
+          "es": "PWA con soporte offline e instalación en el celular"
+        }
+      },
+      {
+        "type": "feature",
+        "text": {
+          "pt": "Checklist interativo com persistência em localStorage",
+          "en": "Interactive checklist with localStorage persistence",
+          "es": "Checklist interactivo con persistencia en localStorage"
+        }
+      },
+      {
+        "type": "feature",
+        "text": {
+          "pt": "Deploy automático via GitHub Pages (CI/CD)",
+          "en": "Automatic deploy via GitHub Pages (CI/CD)",
+          "es": "Deploy automático via GitHub Pages (CI/CD)"
+        }
+      },
+      {
+        "type": "feature",
+        "text": {
+          "pt": "Comparador de hotéis com filtros de preço e distância",
+          "en": "Hotel comparator with price and distance filters",
+          "es": "Comparador de hoteles con filtros de precio y distancia"
+        }
+      },
+      {
+        "type": "feature",
+        "text": {
+          "pt": "Calculadora de orçamento com 3 cenários (econômico, confortável, luxo)",
+          "en": "Budget calculator with 3 scenarios (economic, comfortable, luxury)",
+          "es": "Calculadora de presupuesto con 3 escenarios (económico, confortable, lujo)"
+        }
+      }
+    ]
+  }
+]
