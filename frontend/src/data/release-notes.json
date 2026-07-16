@@ -1,5 +1,42 @@
 [
   {
+    "version": "1.6.0",
+    "date": "2026-07-16",
+    "title": {
+      "pt": "Guia de Cartões de Crédito",
+      "en": "Credit Cards Guide",
+      "es": "Guía de Tarjetas de Crédito"
+    },
+    "items": [
+      {
+        "type": "feature",
+        "issue": 66,
+        "text": {
+          "pt": "Guia completo de cartões para viagem: 3 categorias (crédito BR, pré-pago, crypto)",
+          "en": "Complete travel card guide: 3 categories (BR credit, prepaid, crypto)",
+          "es": "Guía completa de tarjetas para viaje: 3 categorías (crédito BR, prepago, crypto)"
+        }
+      },
+      {
+        "type": "feature",
+        "issue": 66,
+        "text": {
+          "pt": "Simulação comparativa para USD 1.000 com cotação atual",
+          "en": "Comparative simulation for USD 1,000 at current rate",
+          "es": "Simulación comparativa para USD 1.000 con cotización actual"
+        }
+      },
+      {
+        "type": "community",
+        "text": {
+          "pt": "Recomendação ARQ e OKX (dica do Pimenta)",
+          "en": "ARQ and OKX recommendation (Pimenta's tip)",
+          "es": "Recomendación ARQ y OKX (tip de Pimenta)"
+        }
+      }
+    ]
+  },
+  {
     "version": "1.5.0",
     "date": "2026-07-14",
     "title": {

@@ -358,6 +358,31 @@ Cada feature é derivada do conteúdo existente nos guias do projeto, expandida 
 
 ---
 
+### Feature 9: Dicas Financeiras e Cartões
+
+> Fonte: Contribuição da comunidade + issue #66
+
+**Objetivo:** Guiar o viajante brasileiro na escolha do melhor meio de pagamento internacional, comparando IOF, câmbio e custos reais entre cartões de crédito, pré-pagos e soluções crypto.
+
+**Funcionalidades:**
+
+| ID | Funcionalidade | Prioridade |
+|----|---------------|------------|
+| F9.1 | Guia de cartões de crédito internacionais emitidos no Brasil (IOF, cotação, alertas) | Alta |
+| F9.2 | Guia de cartões pré-pagos internacionais com links (Wise, Nomad, C6, Inter, Nubank) | Alta |
+| F9.3 | Guia de dólar digital / crypto-backed (ARQ, OKX) com IOF zero | Alta |
+| F9.4 | Tabela comparativa de custo para USD 1.000 entre os 3 tipos | Alta |
+| F9.5 | Dicas de DCA (compra antecipada de dólar) e segurança (clonagem) | Média |
+
+**Conteúdo base:**
+- IOF por tipo: 3,5% (crédito), 1,1% (pré-pago), 0% (crypto)
+- Cotação: dólar turismo vs comercial vs spread crypto
+- Recomendações com links: Wise, Nomad, Nubank Global, C6, Inter, ARQ, OKX
+- Simulação comparativa com cotação de referência
+- Dicas de segurança: clonagem, backup, notificações
+
+---
+
 ## 6. Extensibilidade — Novos Destinos e Eventos
 
 O sistema é projetado para suportar múltiplos destinos e eventos. O re:Invent é a **implementação de referência** que define o template para futuros destinos.

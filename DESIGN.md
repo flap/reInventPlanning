@@ -474,6 +474,21 @@ HoteisView
 └── BookingTips          → Dicas de reserva em accordion
 ```
 
+#### Dicas Gerais
+```
+DicasView
+├── eSIM Section
+│   ├── eSIM Explanation Box       → O que é eSIM, como funciona
+│   ├── Chip Recommendations Grid  → 4 recomendações (Nomad, Airalo, Nubank UV, PicPay Epic)
+│   └── Other Options (details)    → Tabela de chips físicos/pré-pago
+├── Cards Section (💳 Cartões para Viagem Internacional)
+│   ├── Category Card: Crédito BR  → IOF 3,5%, dólar turismo, alertas de clonagem
+│   ├── Category Card: Pré-pago    → IOF 1,1%, Wise/Nomad/C6/Inter com links
+│   ├── Category Card: Crypto      → IOF 0%, ARQ/OKX com links
+│   ├── Comparative Table          → Simulação USD 1.000 (3 tipos lado a lado)
+│   └── Tips Box                   → DCA, backup, depósito hotel, notificações
+```
+
 #### Checklist
 ```
 ChecklistView

@@ -203,6 +203,8 @@ export default {
   dicas: {
     title: 'Dicas Gerais',
     chipsTitle: 'Chip Internacional / eSIM',
+    cardsTitle: 'Cartões para Viagem Internacional',
+    cardsSimDate: 'Simulação com cotação de 15/07/2026 (R$5,15/USD)',
   },
   releases: {
     title: 'Novidades',

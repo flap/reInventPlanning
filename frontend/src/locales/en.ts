@@ -203,6 +203,8 @@ export default {
   dicas: {
     title: 'General Tips',
     chipsTitle: 'International SIM / eSIM',
+    cardsTitle: 'Credit Cards for International Travel',
+    cardsSimDate: 'Simulation at 07/15/2026 rate (R$5.15/USD)',
   },
   releases: {
     title: 'Release Notes',

@@ -170,6 +170,210 @@ const chips = [
   { operadora: 'AT&T', tipo: 'Pré-pago', dados: '16-75GB', preco: '$30–65/mês', nota: { pt: 'Boa cobertura indoor', en: 'Good indoor coverage', es: 'Buena cobertura indoor' } },
   { operadora: 'Google Fi', tipo: 'eSIM', dados: { pt: 'Ilimitado', en: 'Unlimited', es: 'Ilimitado' }, preco: '$65/mês', nota: { pt: 'Ativa do Brasil, sem chip físico', en: 'Activate from Brazil, no physical SIM', es: 'Activa desde Brasil, sin chip físico' } },
 ]
+
+const cardCategories = {
+  pt: [
+    {
+      icon: '🏦',
+      title: 'Cartões de Crédito Internacionais (emitidos no Brasil)',
+      iof: 'IOF: 3,5% (Decreto 12.499/2025, confirmado pelo STF)',
+      cotacao: 'Cotação: dólar turismo do dia do fechamento da fatura (geralmente 2-3% acima do comercial)',
+      exemplos: 'Exemplos: Amex Platinum, Visa Infinite, Mastercard Black',
+      comoFunciona: 'Como funciona: ativar para uso internacional no app do banco, a compra é convertida na data do fechamento da fatura.',
+      dica: '✅ Bom para depósitos em hotéis (seguros) e reservas que exigem cartão de crédito.',
+      alerta: '⚠️ Risco de clonagem (especialmente Amex). Dica do Pimenta: já teve Amex clonado mas continua usando por ser muito bom.',
+      cor: 'border-yellow-300 bg-yellow-50',
+      links: [],
+    },
+    {
+      icon: '💳',
+      title: 'Cartões Pré-pago Internacionais',
+      iof: 'IOF: 1,1% (remessa para conta no exterior)',
+      cotacao: 'Cotação: dólar comercial no momento da conversão (você escolhe quando comprar!)',
+      exemplos: '',
+      comoFunciona: '',
+      dica: '✅ Vantagem: Controle total do câmbio, compra antecipada.',
+      alerta: '⚠️ Cuidado: Investimentos atrelados podem ter tributação (IR sobre ganhos).',
+      cor: 'border-blue-300 bg-blue-50',
+      links: [
+        { nome: 'Wise', url: 'https://wise.com/br', desc: 'taxa a partir de 0,78%, cartão Visa' },
+        { nome: 'Nomad', url: 'https://www.nomadglobal.com', desc: 'taxa até 2%, dólar comercial, sala VIP Guarulhos' },
+        { nome: 'Nubank Global', url: '', desc: 'usa Wise por trás — integrado ao app Nu' },
+        { nome: 'C6 Global', url: 'https://www.c6bank.com.br', desc: 'conta em dólar' },
+        { nome: 'Inter Global', url: 'https://www.bancointer.com.br', desc: 'conta internacional' },
+      ],
+    },
+    {
+      icon: '₿',
+      title: 'Dólar Digital (Crypto-backed) — IOF Zero',
+      iof: 'IOF: 0% (operação com criptomoeda/stablecoin, sem câmbio formal)',
+      cotacao: 'Cotação: spread mínimo (~0,5-1%)',
+      exemplos: '',
+      comoFunciona: 'Como funciona: Você compra USDT/USDc (stablecoin = 1 dólar), gasta com o cartão sem IOF.',
+      dica: '',
+      alerta: '',
+      cor: 'border-green-300 bg-green-50',
+      links: [
+        { nome: 'ARQ (ex-DolarApp)', url: 'https://www.dolarapp.com', desc: 'cartão físico Mastercard + virtual, até 4% cashback, dólar digital (USDc)' },
+        { nome: 'OKX', url: 'https://www.okx.com/en-br/pay', desc: 'cartão virtual (sem físico no Brasil ainda), 10% APY em USDT, até 5% cashback' },
+      ],
+      diferenciais: [
+        'Diferencial ARQ: cartão físico (aceito em qualquer maquininha)',
+        'Diferencial OKX: rendimento automático 10% ao ano em dólar digital',
+      ],
+    },
+  ],
+  en: [
+    {
+      icon: '🏦',
+      title: 'International Credit Cards (issued in Brazil)',
+      iof: 'IOF: 3.5% (Decree 12,499/2025, confirmed by STF)',
+      cotacao: 'Exchange rate: tourism dollar at billing statement date (usually 2-3% above commercial rate)',
+      exemplos: 'Examples: Amex Platinum, Visa Infinite, Mastercard Black',
+      comoFunciona: 'How it works: enable international use in your bank app, purchase is converted at billing statement date.',
+      dica: '✅ Good for hotel deposits (insured) and reservations requiring a credit card.',
+      alerta: '⚠️ Cloning risk (especially Amex). Pimenta\'s tip: had Amex cloned but keeps using it because it\'s really good.',
+      cor: 'border-yellow-300 bg-yellow-50',
+      links: [],
+    },
+    {
+      icon: '💳',
+      title: 'International Prepaid Cards',
+      iof: 'IOF: 1.1% (remittance to foreign account)',
+      cotacao: 'Exchange rate: commercial dollar at conversion time (you choose when to buy!)',
+      exemplos: '',
+      comoFunciona: '',
+      dica: '✅ Advantage: Full control over exchange rate, buy in advance.',
+      alerta: '⚠️ Caution: Linked investments may have taxation (income tax on gains).',
+      cor: 'border-blue-300 bg-blue-50',
+      links: [
+        { nome: 'Wise', url: 'https://wise.com/br', desc: 'fee from 0.78%, Visa card' },
+        { nome: 'Nomad', url: 'https://www.nomadglobal.com', desc: 'fee up to 2%, commercial dollar, Guarulhos VIP lounge' },
+        { nome: 'Nubank Global', url: '', desc: 'uses Wise behind the scenes — integrated with Nu app' },
+        { nome: 'C6 Global', url: 'https://www.c6bank.com.br', desc: 'dollar account' },
+        { nome: 'Inter Global', url: 'https://www.bancointer.com.br', desc: 'international account' },
+      ],
+    },
+    {
+      icon: '₿',
+      title: 'Digital Dollar (Crypto-backed) — Zero IOF',
+      iof: 'IOF: 0% (crypto/stablecoin operation, no formal exchange)',
+      cotacao: 'Exchange rate: minimal spread (~0.5-1%)',
+      exemplos: '',
+      comoFunciona: 'How it works: You buy USDT/USDc (stablecoin = 1 dollar), spend with the card without IOF.',
+      dica: '',
+      alerta: '',
+      cor: 'border-green-300 bg-green-50',
+      links: [
+        { nome: 'ARQ (ex-DolarApp)', url: 'https://www.dolarapp.com', desc: 'physical Mastercard + virtual, up to 4% cashback, digital dollar (USDc)' },
+        { nome: 'OKX', url: 'https://www.okx.com/en-br/pay', desc: 'virtual card (no physical in Brazil yet), 10% APY on USDT, up to 5% cashback' },
+      ],
+      diferenciais: [
+        'ARQ advantage: physical card (accepted at any POS terminal)',
+        'OKX advantage: automatic 10% annual yield on digital dollars',
+      ],
+    },
+  ],
+  es: [
+    {
+      icon: '🏦',
+      title: 'Tarjetas de Crédito Internacionales (emitidas en Brasil)',
+      iof: 'IOF: 3,5% (Decreto 12.499/2025, confirmado por el STF)',
+      cotacao: 'Cotización: dólar turismo del día de cierre de factura (generalmente 2-3% sobre el comercial)',
+      exemplos: 'Ejemplos: Amex Platinum, Visa Infinite, Mastercard Black',
+      comoFunciona: 'Cómo funciona: activar para uso internacional en la app del banco, la compra se convierte en la fecha de cierre de factura.',
+      dica: '✅ Bueno para depósitos en hoteles (seguros) y reservas que exigen tarjeta de crédito.',
+      alerta: '⚠️ Riesgo de clonación (especialmente Amex). Tip de Pimenta: ya tuvo Amex clonada pero sigue usándola porque es muy buena.',
+      cor: 'border-yellow-300 bg-yellow-50',
+      links: [],
+    },
+    {
+      icon: '💳',
+      title: 'Tarjetas Prepago Internacionales',
+      iof: 'IOF: 1,1% (remesa a cuenta en el exterior)',
+      cotacao: 'Cotización: dólar comercial al momento de la conversión (¡tú eliges cuándo comprar!)',
+      exemplos: '',
+      comoFunciona: '',
+      dica: '✅ Ventaja: Control total del cambio, compra anticipada.',
+      alerta: '⚠️ Cuidado: Inversiones vinculadas pueden tener tributación (IR sobre ganancias).',
+      cor: 'border-blue-300 bg-blue-50',
+      links: [
+        { nome: 'Wise', url: 'https://wise.com/br', desc: 'tasa desde 0,78%, tarjeta Visa' },
+        { nome: 'Nomad', url: 'https://www.nomadglobal.com', desc: 'tasa hasta 2%, dólar comercial, sala VIP Guarulhos' },
+        { nome: 'Nubank Global', url: '', desc: 'usa Wise por detrás — integrado a la app Nu' },
+        { nome: 'C6 Global', url: 'https://www.c6bank.com.br', desc: 'cuenta en dólares' },
+        { nome: 'Inter Global', url: 'https://www.bancointer.com.br', desc: 'cuenta internacional' },
+      ],
+    },
+    {
+      icon: '₿',
+      title: 'Dólar Digital (Crypto-backed) — IOF Cero',
+      iof: 'IOF: 0% (operación con criptomoneda/stablecoin, sin cambio formal)',
+      cotacao: 'Cotización: spread mínimo (~0,5-1%)',
+      exemplos: '',
+      comoFunciona: 'Cómo funciona: Compras USDT/USDc (stablecoin = 1 dólar), gastas con la tarjeta sin IOF.',
+      dica: '',
+      alerta: '',
+      cor: 'border-green-300 bg-green-50',
+      links: [
+        { nome: 'ARQ (ex-DolarApp)', url: 'https://www.dolarapp.com', desc: 'tarjeta física Mastercard + virtual, hasta 4% cashback, dólar digital (USDc)' },
+        { nome: 'OKX', url: 'https://www.okx.com/en-br/pay', desc: 'tarjeta virtual (sin física en Brasil aún), 10% APY en USDT, hasta 5% cashback' },
+      ],
+      diferenciais: [
+        'Diferencial ARQ: tarjeta física (aceptada en cualquier terminal)',
+        'Diferencial OKX: rendimiento automático 10% anual en dólar digital',
+      ],
+    },
+  ],
+}
+
+const cardComparison = {
+  pt: {
+    headers: ['Tipo', 'IOF', 'Spread/Taxa', 'Custo p/ USD 1.000', 'Economia vs Crédito'],
+    rows: [
+      ['Cartão crédito BR', '3,5%', '~3% turismo', 'R$5.484', '—'],
+      ['Wise/Nomad', '1,1%', '~1-2%', 'R$5.262', 'R$222'],
+      ['ARQ/OKX', '0%', '~0,5%', 'R$5.176', 'R$308'],
+    ],
+  },
+  en: {
+    headers: ['Type', 'IOF', 'Spread/Fee', 'Cost for USD 1,000', 'Savings vs Credit'],
+    rows: [
+      ['BR credit card', '3.5%', '~3% tourism', 'R$5,484', '—'],
+      ['Wise/Nomad', '1.1%', '~1-2%', 'R$5,262', 'R$222'],
+      ['ARQ/OKX', '0%', '~0.5%', 'R$5,176', 'R$308'],
+    ],
+  },
+  es: {
+    headers: ['Tipo', 'IOF', 'Spread/Tasa', 'Costo p/ USD 1.000', 'Ahorro vs Crédito'],
+    rows: [
+      ['Tarjeta crédito BR', '3,5%', '~3% turismo', 'R$5.484', '—'],
+      ['Wise/Nomad', '1,1%', '~1-2%', 'R$5.262', 'R$222'],
+      ['ARQ/OKX', '0%', '~0,5%', 'R$5.176', 'R$308'],
+    ],
+  },
+}
+
+const cardTips = {
+  pt: [
+    '💡 Compre dólar aos poucos (DCA): vá convertendo R$ para USD ao longo dos meses antes da viagem',
+    '💡 Tenha pelo menos 2 cartões diferentes (um crédito BR + um pré-pago ou crypto) como backup',
+    '💡 Para depósito no hotel: use cartão de crédito (eles bloqueiam ~$100/dia, liberado no checkout)',
+    '💡 Ative notificações de transação em todos os cartões para detectar clonagem',
+  ],
+  en: [
+    '💡 Buy dollars gradually (DCA): convert R$ to USD over the months before your trip',
+    '💡 Have at least 2 different cards (one BR credit + one prepaid or crypto) as backup',
+    '💡 For hotel deposit: use credit card (they block ~$100/day, released at checkout)',
+    '💡 Enable transaction notifications on all cards to detect cloning',
+  ],
+  es: [
+    '💡 Compra dólares de a poco (DCA): ve convirtiendo R$ a USD a lo largo de los meses antes del viaje',
+    '💡 Ten al menos 2 tarjetas diferentes (una crédito BR + una prepago o crypto) como backup',
+    '💡 Para depósito en el hotel: usa tarjeta de crédito (bloquean ~$100/día, liberado en el checkout)',
+    '💡 Activa notificaciones de transacción en todas las tarjetas para detectar clonación',
+  ],
+}
 </script>
 
 <template>
@@ -255,6 +459,92 @@ const chips = [
           </table>
         </div>
       </details>
+    </section>
+
+    <!-- Cartões para Viagem Internacional -->
+    <section class="mb-10">
+      <h2 class="text-2xl font-bold text-aws-dark mb-4">💳 {{ t('dicas.cardsTitle') }}</h2>
+
+      <!-- 3 Category Cards -->
+      <div class="space-y-4 mb-6">
+        <div
+          v-for="(card, idx) in (cardCategories[locale] || cardCategories.en)"
+          :key="idx"
+          :class="['border-2 rounded-xl p-5', card.cor]"
+        >
+          <h3 class="text-lg font-bold text-aws-dark mb-3">{{ card.icon }} {{ card.title }}</h3>
+          <div class="space-y-2 text-sm text-gray-800">
+            <p class="font-semibold">{{ card.iof }}</p>
+            <p>{{ card.cotacao }}</p>
+            <p v-if="card.exemplos">{{ card.exemplos }}</p>
+            <p v-if="card.comoFunciona">{{ card.comoFunciona }}</p>
+
+            <!-- Links list -->
+            <div v-if="card.links && card.links.length > 0" class="mt-2">
+              <ul class="space-y-1">
+                <li v-for="link in card.links" :key="link.nome" class="flex items-start gap-1">
+                  <span class="text-gray-500">•</span>
+                  <span>
+                    <a
+                      v-if="link.url"
+                      :href="link.url"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="font-semibold text-aws-orange hover:underline"
+                    >{{ link.nome }}</a>
+                    <span v-else class="font-semibold">{{ link.nome }}</span>
+                    <span class="text-gray-600"> — {{ link.desc }}</span>
+                  </span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Diferenciais (crypto card) -->
+            <div v-if="card.diferenciais" class="mt-2 space-y-1">
+              <p v-for="dif in card.diferenciais" :key="dif" class="font-medium text-green-800">{{ dif }}</p>
+            </div>
+
+            <p v-if="card.dica" class="mt-2 font-medium text-green-800">{{ card.dica }}</p>
+            <p v-if="card.alerta" class="mt-1 font-medium text-amber-700">{{ card.alerta }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Comparative Table -->
+      <div class="mb-6">
+        <h3 class="text-lg font-bold text-aws-dark mb-2">📊 {{ {pt: 'Comparativo de Custos', en: 'Cost Comparison', es: 'Comparativo de Costos'}[locale] }}</h3>
+        <p class="text-xs text-gray-500 mb-3">{{ t('dicas.cardsSimDate') }}</p>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm border border-gray-200 rounded-xl overflow-hidden">
+            <thead class="bg-aws-dark text-white">
+              <tr>
+                <th v-for="h in (cardComparison[locale] || cardComparison.en).headers" :key="h" class="px-3 py-2 text-left">{{ h }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                v-for="(row, i) in (cardComparison[locale] || cardComparison.en).rows"
+                :key="i"
+                :class="i % 2 === 0 ? 'bg-white' : 'bg-gray-50'"
+              >
+                <td class="px-3 py-2 font-medium text-aws-dark">{{ row[0] }}</td>
+                <td class="px-3 py-2">{{ row[1] }}</td>
+                <td class="px-3 py-2">{{ row[2] }}</td>
+                <td class="px-3 py-2 font-mono font-semibold">{{ row[3] }}</td>
+                <td class="px-3 py-2 font-semibold" :class="row[4] !== '—' ? 'text-green-700' : 'text-gray-400'">{{ row[4] }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Final Tips Box -->
+      <div class="bg-green-50 border border-green-200 rounded-xl p-5">
+        <h3 class="text-lg font-bold text-green-900 mb-3">🎯 {{ {pt: 'Dicas da Comunidade', en: 'Community Tips', es: 'Tips de la Comunidad'}[locale] }}</h3>
+        <ul class="space-y-2">
+          <li v-for="tip in (cardTips[locale] || cardTips.en)" :key="tip" class="text-sm text-green-800 leading-relaxed">{{ tip }}</li>
+        </ul>
+      </div>
     </section>
   </div>
 </template>
