@@ -5,6 +5,7 @@ const fs = require('fs');
 const SIZES = [
   { name: 'instagram', width: 1080, height: 1080 },
   { name: 'linkedin', width: 1200, height: 627 },
+  { name: 'reels', width: 1080, height: 1920 },
 ];
 
 (async () => {
@@ -20,20 +21,37 @@ const SIZES = [
       const page = await browser.newPage();
       await page.setViewportSize({ width: size.width, height: size.height });
 
-      // Read HTML content and adjust body dimensions for this size
       let html = fs.readFileSync(path.join(socialDir, file), 'utf-8');
       html = html.replace(/width:\s*1080px/g, `width: ${size.width}px`);
       html = html.replace(/height:\s*1080px/g, `height: ${size.height}px`);
       
-      // For LinkedIn (shorter), reduce padding and font sizes
+      // LinkedIn: compact layout
       if (size.name === 'linkedin') {
-        html = html.replace(/padding:\s*56px/g, 'padding: 36px 48px');
-        html = html.replace(/font-size:\s*28px/g, 'font-size: 22px');
-        html = html.replace(/font-size:\s*64px/g, 'font-size: 48px');
-        html = html.replace(/margin-bottom:\s*20px/g, 'margin-bottom: 12px');
-        html = html.replace(/margin-bottom:\s*28px/g, 'margin-bottom: 16px');
-        html = html.replace(/padding:\s*20px 24px/g, 'padding: 12px 18px');
-        html = html.replace(/margin-bottom:\s*20px;/g, 'margin-bottom: 10px;');
+        html = html.replace(/padding:\s*56px/g, 'padding: 32px 44px');
+        html = html.replace(/font-size:\s*28px/g, 'font-size: 20px');
+        html = html.replace(/font-size:\s*26px/g, 'font-size: 19px');
+        html = html.replace(/font-size:\s*64px/g, 'font-size: 40px');
+        html = html.replace(/margin-bottom:\s*20px/g, 'margin-bottom: 10px');
+        html = html.replace(/margin-bottom:\s*28px/g, 'margin-bottom: 12px');
+        html = html.replace(/margin-bottom:\s*18px/g, 'margin-bottom: 8px');
+        html = html.replace(/padding:\s*20px 24px/g, 'padding: 10px 16px');
+        html = html.replace(/font-size:\s*17px/g, 'font-size: 14px');
+        html = html.replace(/font-size:\s*16px/g, 'font-size: 13px');
+      }
+
+      // Reels: more vertical space, bigger fonts, more breathing room
+      if (size.name === 'reels') {
+        html = html.replace(/padding:\s*56px/g, 'padding: 72px 56px');
+        html = html.replace(/font-size:\s*28px/g, 'font-size: 34px');
+        html = html.replace(/font-size:\s*26px/g, 'font-size: 32px');
+        html = html.replace(/font-size:\s*64px/g, 'font-size: 90px');
+        html = html.replace(/margin-bottom:\s*20px/g, 'margin-bottom: 32px');
+        html = html.replace(/margin-bottom:\s*28px/g, 'margin-bottom: 40px');
+        html = html.replace(/margin-bottom:\s*18px/g, 'margin-bottom: 28px');
+        html = html.replace(/padding:\s*20px 24px/g, 'padding: 28px 30px');
+        html = html.replace(/font-size:\s*17px/g, 'font-size: 21px');
+        html = html.replace(/font-size:\s*16px/g, 'font-size: 20px');
+        html = html.replace(/font-size:\s*24px/g, 'font-size: 28px');
       }
 
       await page.setContent(html, { waitUntil: 'load' });
@@ -44,9 +62,9 @@ const SIZES = [
       await page.close();
       console.log(`  ✅ ${size.name}/${pngName}`);
     }
-    console.log(`📁 ${size.name}/ — ${files.length} cards (${size.width}×${size.height})`);
+    console.log(`📁 ${size.name}/ — ${files.length} cards (${size.width}×${size.height})\n`);
   }
   
   await browser.close();
-  console.log(`\n🎉 Done! ${files.length * SIZES.length} images generated.`);
+  console.log(`🎉 Done! ${files.length * SIZES.length} images generated.`);
 })();

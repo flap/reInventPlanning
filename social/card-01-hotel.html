@@ -7,39 +7,41 @@
 body {
   width: 1080px; height: 1080px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
   color: white;
   display: flex; flex-direction: column;
   padding: 56px;
   position: relative;
   overflow: hidden;
+  background: linear-gradient(160deg, #0a0015 0%, #1a0033 25%, #0d1b3e 50%, #0a2a1a 75%, #1a0033 100%);
 }
-.bg-shape { position: absolute; width: 400px; height: 400px; border-radius: 50%; background: rgba(255,153,0,0.07); filter: blur(80px); }
-.bg1 { top: -100px; right: -100px; }
-.bg2 { bottom: -150px; left: -100px; }
-.header { display: flex; align-items: center; gap: 14px; margin-bottom: 28px; z-index: 1; position: relative; }
-.logo { font-size: 24px; font-weight: 800; color: #FF9900; }
-.badge { background: #FF9900; color: #1a1a2e; font-size: 13px; font-weight: 700; padding: 5px 12px; border-radius: 20px; }
-.emoji-big { font-size: 64px; margin-bottom: 20px; z-index: 1; position: relative; }
-.langs { z-index: 1; position: relative; flex: 1; }
-.lang-block { margin-bottom: 20px; padding: 20px 24px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; }
+/* Vegas neon glow effects */
+.vegas-glow { position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.4; }
+.glow1 { width: 500px; height: 500px; top: -150px; right: -100px; background: radial-gradient(circle, #ff00ff55, transparent); }
+.glow2 { width: 400px; height: 400px; bottom: -100px; left: -80px; background: radial-gradient(circle, #ff990055, transparent); }
+.glow3 { width: 300px; height: 300px; top: 40%; left: 50%; transform: translate(-50%,-50%); background: radial-gradient(circle, #00ffff22, transparent); }
+.vegas-dots { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-image: radial-gradient(circle, rgba(255,200,50,0.15) 1px, transparent 1px); background-size: 40px 40px; z-index: 0; }
+.header { display: flex; align-items: center; gap: 14px; margin-bottom: 28px; z-index: 2; position: relative; }
+.logo { font-size: 24px; font-weight: 800; background: linear-gradient(90deg, #FF9900, #ffcc00); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.emoji-big { font-size: 64px; margin-bottom: 20px; z-index: 2; position: relative; }
+.langs { z-index: 2; position: relative; flex: 1; }
+.lang-block { margin-bottom: 18px; padding: 20px 24px; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,153,0,0.2); border-radius: 14px; backdrop-filter: blur(10px); }
 .lang-block:last-child { margin-bottom: 0; }
-.lang-flag { font-size: 16px; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; color: #888; font-weight: 600; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; }
+.lang-flag { font-size: 13px; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; color: #aaa; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
 .lang-title { font-size: 28px; font-weight: 800; line-height: 1.2; margin-bottom: 8px; }
 .lang-title span { color: #FF9900; }
-.lang-tips { font-size: 17px; color: #ccc; line-height: 1.5; }
+.lang-tips { font-size: 17px; color: #ddd; line-height: 1.5; }
 .lang-tips strong { color: white; }
-.footer { margin-top: auto; display: flex; justify-content: space-between; align-items: center; z-index: 1; position: relative; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; }
-.footer-left { font-size: 18px; color: #777; }
-.footer-right { font-size: 16px; color: #FF9900; font-weight: 600; }
+.footer { margin-top: auto; text-align: center; z-index: 2; position: relative; padding-top: 20px; }
+.footer a { font-size: 20px; color: #FF9900; font-weight: 700; text-decoration: none; letter-spacing: 0.5px; }
 </style>
 </head>
 <body>
-  <div class="bg-shape bg1"></div>
-  <div class="bg-shape bg2"></div>
+  <div class="vegas-glow glow1"></div>
+  <div class="vegas-glow glow2"></div>
+  <div class="vegas-glow glow3"></div>
+  <div class="vegas-dots"></div>
   <div class="header">
     <div class="logo">re:Invent Community Planner</div>
-    <div class="badge">DICA #1</div>
   </div>
   <div class="emoji-big">🏨</div>
   <div class="langs">
@@ -60,8 +62,7 @@ body {
     </div>
   </div>
   <div class="footer">
-    <div class="footer-left">🌎 AWS Community</div>
-    <div class="footer-right">flap.github.io/reInventPlanning</div>
+    <a href="http://short.im/planner">short.im/planner</a>
   </div>
 </body>
 </html>
