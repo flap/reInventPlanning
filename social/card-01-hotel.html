@@ -12,10 +12,10 @@ body {
   padding: 56px;
   position: relative;
   overflow: hidden;
-  background: linear-gradient(160deg, #0a0015 0%, #1a0033 25%, #0d1b3e 50%, #0a2a1a 75%, #1a0033 100%);
+  background: #000; background-image: url("https://images.unsplash.com/photo-1581351721010-8cf859cb14a4?w=1200&q=80"); background-size: cover; background-position: center;
 }
 /* Vegas neon glow effects */
-.vegas-glow { position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.4; }
+.vegas-glow { position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.25; }
 .glow1 { width: 500px; height: 500px; top: -150px; right: -100px; background: radial-gradient(circle, #ff00ff55, transparent); }
 .glow2 { width: 400px; height: 400px; bottom: -100px; left: -80px; background: radial-gradient(circle, #ff990055, transparent); }
 .glow3 { width: 300px; height: 300px; top: 40%; left: 50%; transform: translate(-50%,-50%); background: radial-gradient(circle, #00ffff22, transparent); }
@@ -39,7 +39,7 @@ body {
   <div class="vegas-glow glow1"></div>
   <div class="vegas-glow glow2"></div>
   <div class="vegas-glow glow3"></div>
-  <div class="vegas-dots"></div>
+  <div class="photo-overlay"></div><div class="vegas-dots"></div>
   <div class="header">
     <div class="logo">re:Invent Community Planner</div>
   </div>

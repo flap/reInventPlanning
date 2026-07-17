@@ -12,13 +12,13 @@ body {
   padding: 56px;
   position: relative;
   overflow: hidden;
-  background: linear-gradient(160deg, #0a0015 0%, #1a0033 25%, #0d1b3e 50%, #0a2a1a 75%, #1a0033 100%);
+  background: #000; background-image: url("https://images.unsplash.com/photo-1668895659175-e4e5f1ebbc94?w=1200&q=80"); background-size: cover; background-position: center;
 }
-.vegas-glow { position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.4; }
+.vegas-glow { position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.25; }
 .glow1 { width: 500px; height: 500px; top: -150px; right: -100px; background: radial-gradient(circle, #00ffff44, transparent); }
 .glow2 { width: 400px; height: 400px; bottom: -100px; left: -80px; background: radial-gradient(circle, #ff009944, transparent); }
 .glow3 { width: 300px; height: 300px; top: 50%; right: 10%; background: radial-gradient(circle, #ffcc0022, transparent); }
-.vegas-dots { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-image: radial-gradient(circle, rgba(255,200,50,0.12) 1px, transparent 1px); background-size: 40px 40px; z-index: 0; }
+.vegas-dots { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-image: radial-gradient(circle, rgba(255,200,50,0.08) 1px, transparent 1px); background-size: 40px 40px; z-index: 0; } .photo-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(180deg, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.7) 50%, rgba(0,0,0,0.85) 100%); z-index: 0; }
 .header { display: flex; align-items: center; gap: 14px; margin-bottom: 28px; z-index: 2; position: relative; }
 .logo { font-size: 24px; font-weight: 800; background: linear-gradient(90deg, #FF9900, #ffcc00); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 .emoji-big { font-size: 64px; margin-bottom: 20px; z-index: 2; position: relative; }
@@ -38,7 +38,7 @@ body {
   <div class="vegas-glow glow1"></div>
   <div class="vegas-glow glow2"></div>
   <div class="vegas-glow glow3"></div>
-  <div class="vegas-dots"></div>
+  <div class="photo-overlay"></div><div class="vegas-dots"></div>
   <div class="header">
     <div class="logo">re:Invent Community Planner</div>
   </div>
