@@ -21,42 +21,59 @@ const SIZES = [
       const page = await browser.newPage();
       await page.setViewportSize({ width: size.width, height: size.height });
 
-      let html = fs.readFileSync(path.join(socialDir, file), 'utf-8');
-      html = html.replace(/width:\s*1080px/g, `width: ${size.width}px`);
-      html = html.replace(/height:\s*1080px/g, `height: ${size.height}px`);
+      // For non-square formats, create a modified temp file
+      const filePath = path.join(socialDir, file);
       
-      // LinkedIn: compact layout
-      if (size.name === 'linkedin') {
-        html = html.replace(/padding:\s*56px/g, 'padding: 32px 44px');
-        html = html.replace(/font-size:\s*28px/g, 'font-size: 20px');
-        html = html.replace(/font-size:\s*26px/g, 'font-size: 19px');
-        html = html.replace(/font-size:\s*64px/g, 'font-size: 40px');
-        html = html.replace(/margin-bottom:\s*20px/g, 'margin-bottom: 10px');
-        html = html.replace(/margin-bottom:\s*28px/g, 'margin-bottom: 12px');
-        html = html.replace(/margin-bottom:\s*18px/g, 'margin-bottom: 8px');
-        html = html.replace(/padding:\s*20px 24px/g, 'padding: 10px 16px');
-        html = html.replace(/font-size:\s*17px/g, 'font-size: 14px');
-        html = html.replace(/font-size:\s*16px/g, 'font-size: 13px');
+      if (size.name === 'instagram') {
+        // Use the file directly via goto (photos resolve relative to HTML)
+        await page.goto(`file://${filePath}`);
+      } else {
+        // Modify dimensions for other formats
+        let html = fs.readFileSync(filePath, 'utf-8');
+        html = html.replace(/width:\s*1080px/g, `width: ${size.width}px`);
+        html = html.replace(/height:\s*1080px/g, `height: ${size.height}px`);
+        
+        if (size.name === 'linkedin') {
+          html = html.replace(/padding:\s*56px/g, 'padding: 32px 44px');
+          html = html.replace(/font-size:\s*28px/g, 'font-size: 20px');
+          html = html.replace(/font-size:\s*26px/g, 'font-size: 19px');
+          html = html.replace(/font-size:\s*64px/g, 'font-size: 40px');
+          html = html.replace(/margin-bottom:\s*20px/g, 'margin-bottom: 10px');
+          html = html.replace(/margin-bottom:\s*28px/g, 'margin-bottom: 12px');
+          html = html.replace(/margin-bottom:\s*18px/g, 'margin-bottom: 8px');
+          html = html.replace(/padding:\s*20px 24px/g, 'padding: 10px 16px');
+          html = html.replace(/font-size:\s*17px/g, 'font-size: 14px');
+          html = html.replace(/font-size:\s*16px/g, 'font-size: 13px');
+        }
+
+        if (size.name === 'reels') {
+          html = html.replace(/padding:\s*56px/g, 'padding: 72px 56px');
+          html = html.replace(/font-size:\s*28px/g, 'font-size: 34px');
+          html = html.replace(/font-size:\s*26px/g, 'font-size: 32px');
+          html = html.replace(/font-size:\s*64px/g, 'font-size: 90px');
+          html = html.replace(/margin-bottom:\s*20px/g, 'margin-bottom: 32px');
+          html = html.replace(/margin-bottom:\s*28px/g, 'margin-bottom: 40px');
+          html = html.replace(/margin-bottom:\s*18px/g, 'margin-bottom: 28px');
+          html = html.replace(/padding:\s*20px 24px/g, 'padding: 28px 30px');
+          html = html.replace(/font-size:\s*17px/g, 'font-size: 21px');
+          html = html.replace(/font-size:\s*16px/g, 'font-size: 20px');
+        }
+
+        // Write temp file so relative paths work
+        const tmpFile = path.join(socialDir, `_tmp_${size.name}_${file}`);
+        fs.writeFileSync(tmpFile, html);
+        await page.goto(`file://${tmpFile}`);
+        // Cleanup after screenshot
+        await page.waitForTimeout(500);
+        const pngName = file.replace('.html', '.png');
+        await page.screenshot({ path: path.join(outDir, pngName), type: 'png' });
+        await page.close();
+        fs.unlinkSync(tmpFile);
+        console.log(`  ✅ ${size.name}/${pngName}`);
+        continue;
       }
 
-      // Reels: more vertical space, bigger fonts, more breathing room
-      if (size.name === 'reels') {
-        html = html.replace(/padding:\s*56px/g, 'padding: 72px 56px');
-        html = html.replace(/font-size:\s*28px/g, 'font-size: 34px');
-        html = html.replace(/font-size:\s*26px/g, 'font-size: 32px');
-        html = html.replace(/font-size:\s*64px/g, 'font-size: 90px');
-        html = html.replace(/margin-bottom:\s*20px/g, 'margin-bottom: 32px');
-        html = html.replace(/margin-bottom:\s*28px/g, 'margin-bottom: 40px');
-        html = html.replace(/margin-bottom:\s*18px/g, 'margin-bottom: 28px');
-        html = html.replace(/padding:\s*20px 24px/g, 'padding: 28px 30px');
-        html = html.replace(/font-size:\s*17px/g, 'font-size: 21px');
-        html = html.replace(/font-size:\s*16px/g, 'font-size: 20px');
-        html = html.replace(/font-size:\s*24px/g, 'font-size: 28px');
-      }
-
-      await page.setContent(html, { waitUntil: 'load' });
-      await page.waitForTimeout(300);
-      
+      await page.waitForTimeout(500);
       const pngName = file.replace('.html', '.png');
       await page.screenshot({ path: path.join(outDir, pngName), type: 'png' });
       await page.close();
