@@ -1,5 +1,32 @@
 {
   "name": "reinvent-planner",
+  "description": "Agent para o projeto re:Invent Community Planner — frontend Vue.js, i18n, dados e issues",
+  "tools": [
+    "read",
+    "write",
+    "shell",
+    "grep",
+    "glob",
+    "code",
+    "web_fetch",
+    "web_search",
+    "subagent",
+    "knowledge",
+    "todo_list",
+    "goal",
+    "introspect",
+    "use_aws",
+    "@*"
+  ],
+  "allowedTools": [
+    "read",
+    "grep",
+    "glob",
+    "code",
+    "knowledge",
+    "introspect",
+    "@seats-aero"
+  ],
   "hooks": {
     "postToolUse": [
       {
@@ -8,5 +35,14 @@
         "timeout_ms": 5000
       }
     ]
+  },
+  "mcpServers": {
+    "seats-aero": {
+      "command": "npx",
+      "args": ["-y", "seats.aero-mcp-server"],
+      "env": {
+        "SEATS_API_KEY": "$SEATS_AERO_API_KEY"
+      }
+    }
   }
 }
