@@ -35,14 +35,5 @@
         "timeout_ms": 5000
       }
     ]
-  },
-  "mcpServers": {
-    "seats-aero": {
-      "command": "npx",
-      "args": ["-y", "seats.aero-mcp-server"],
-      "env": {
-        "SEATS_API_KEY": "$SEATS_AERO_API_KEY"
-      }
-    }
   }
 }
