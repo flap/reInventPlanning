@@ -37,6 +37,9 @@ jobs:
         run: npm run type-check
         working-directory: frontend
 
+      # Vite automatically loads frontend/.env.production during `npm run build`,
+      # injecting VITE_API_URL + VITE_COGNITO_* (non-secret public client IDs).
+      # No GitHub Secrets needed for these — they are safe to ship in a SPA bundle.
       - name: Build
         run: npm run build
         working-directory: frontend

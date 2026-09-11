@@ -62,6 +62,11 @@ export default defineConfig({
     }),
   ],
   base: '/reInventPlanning/',
+  // amazon-cognito-identity-js references Node's `global`; map it to globalThis
+  // so it works in the browser bundle.
+  define: {
+    global: 'globalThis',
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),

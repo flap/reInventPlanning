@@ -1,4 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
+import { useAuth } from '@/composables/useAuth'
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -58,10 +59,38 @@ const router = createRouter({
       name: 'releases',
       component: () => import('@/views/ReleaseNotesView.vue'),
     },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('@/views/LoginView.vue'),
+    },
+    {
+      path: '/perfil',
+      name: 'perfil',
+      component: () => import('@/views/PerfilView.vue'),
+      meta: { requiresAuth: true },
+    },
+    {
+      path: '/findpepper',
+      name: 'findpepper',
+      component: () => import('@/views/FindPepperView.vue'),
+      meta: { requiresAuth: true },
+    },
   ],
   scrollBehavior() {
     return { top: 0 }
   },
+})
+
+// Route guard: protected routes (Features 11–13) require authentication.
+router.beforeEach((to) => {
+  if (to.meta.requiresAuth) {
+    const { isAuthenticated } = useAuth()
+    if (!isAuthenticated.value) {
+      return { name: 'login', query: { redirect: to.fullPath } }
+    }
+  }
+  return true
 })
 
 export default router

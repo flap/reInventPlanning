@@ -1,5 +1,48 @@
 [
   {
+    "version": "1.7.0",
+    "date": "2026-09-11",
+    "title": {
+      "pt": "Área logada, plano na nuvem e findPepper",
+      "en": "Logged area, cloud plan and findPepper",
+      "es": "Área con sesión, plan en la nube y findPepper"
+    },
+    "items": [
+      {
+        "type": "feature",
+        "text": {
+          "pt": "Conta de usuário e área logada — salve seu plano (checklist, orçamento, viagem) na nuvem, sincronizado entre dispositivos. Uso anônimo continua funcionando.",
+          "en": "User accounts and logged area — save your plan (checklist, budget, trip) to the cloud, synced across devices. Anonymous use still works.",
+          "es": "Cuentas de usuario y área con sesión — guarda tu plan (checklist, presupuesto, viaje) en la nube, sincronizado entre dispositivos. El uso anónimo sigue funcionando."
+        }
+      },
+      {
+        "type": "feature",
+        "text": {
+          "pt": "Compartilhamento de localização opt-in: escolha um local do re:Invent (padrão) ou GPS preciso, com expiração automática e revogação a qualquer momento.",
+          "en": "Opt-in location sharing: pick a re:Invent place (default) or precise GPS, with auto-expiry and revoke anytime.",
+          "es": "Compartir ubicación opt-in: elige un lugar del re:Invent (predeterminado) o GPS preciso, con expiración automática y revocación en cualquier momento."
+        }
+      },
+      {
+        "type": "feature",
+        "text": {
+          "pt": "findPepper — encontre outros participantes para happy hours e talks. Visibilidade recíproca: você só vê quem também está compartilhando.",
+          "en": "findPepper — find other attendees for happy hours and talks. Reciprocal visibility: you only see people who are also sharing.",
+          "es": "findPepper — encuentra a otros participantes para happy hours y charlas. Visibilidad recíproca: solo ves a quienes también comparten."
+        }
+      },
+      {
+        "type": "feature",
+        "text": {
+          "pt": "Backend serverless AWS (Cognito, API Gateway, Lambda/FastAPI, DynamoDB com TTL) definido como código (SAM) e coberto por testes.",
+          "en": "AWS serverless backend (Cognito, API Gateway, Lambda/FastAPI, DynamoDB with TTL) defined as code (SAM) and covered by tests.",
+          "es": "Backend serverless AWS (Cognito, API Gateway, Lambda/FastAPI, DynamoDB con TTL) definido como código (SAM) y cubierto por pruebas."
+        }
+      }
+    ]
+  },
+  {
     "version": "1.6.0",
     "date": "2026-07-16",
     "title": {

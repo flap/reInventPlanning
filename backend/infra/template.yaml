@@ -1,0 +1,150 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  re:Invent Community Planner backend — Cognito (auth), DynamoDB (single-table + TTL),
+  API Gateway HTTP API (JWT authorizer), Lambda (FastAPI via Mangum).
+  Features 11 (accounts + cloud plan), 12 (opt-in location sharing), 13 (findPepper).
+
+Parameters:
+  CorsOrigin:
+    Type: String
+    Default: https://flap.github.io
+    Description: Allowed CORS origin (GitHub Pages front-end).
+
+Globals:
+  Function:
+    Timeout: 15
+    MemorySize: 256
+    Runtime: python3.12
+
+Resources:
+
+  # ---- DynamoDB single-table (ADR-010) ----------------------------------
+  AppTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: tripevent-app
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: PK
+          AttributeType: S
+        - AttributeName: SK
+          AttributeType: S
+      KeySchema:
+        - AttributeName: PK
+          KeyType: HASH
+        - AttributeName: SK
+          KeyType: RANGE
+      # TTL drives automatic expiry of ephemeral location items (F12.7 / ADR-011).
+      TimeToLiveSpecification:
+        AttributeName: expiresAt
+        Enabled: true
+      PointInTimeRecoverySpecification:
+        PointInTimeRecoveryEnabled: true
+
+  # ---- Cognito (ADR-008) ------------------------------------------------
+  UserPool:
+    Type: AWS::Cognito::UserPool
+    Properties:
+      UserPoolName: tripevent-users
+      UsernameAttributes:
+        - email
+      AutoVerifiedAttributes:
+        - email
+      Policies:
+        PasswordPolicy:
+          MinimumLength: 8
+          RequireLowercase: true
+          RequireNumbers: true
+          RequireUppercase: true
+          RequireSymbols: false
+      AccountRecoverySetting:
+        RecoveryMechanisms:
+          - Name: verified_email
+            Priority: 1
+
+  UserPoolClient:
+    Type: AWS::Cognito::UserPoolClient
+    Properties:
+      UserPoolId: !Ref UserPool
+      ClientName: tripevent-web
+      GenerateSecret: false
+      ExplicitAuthFlows:
+        - ALLOW_USER_SRP_AUTH
+        - ALLOW_REFRESH_TOKEN_AUTH
+      SupportedIdentityProviders:
+        - COGNITO
+
+  # ---- HTTP API + JWT authorizer (ADR-009) ------------------------------
+  HttpApi:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      CorsConfiguration:
+        AllowOrigins:
+          - !Ref CorsOrigin
+          - http://localhost:5173
+        AllowHeaders:
+          - authorization
+          - content-type
+        AllowMethods:
+          - GET
+          - PUT
+          - POST
+          - DELETE
+          - OPTIONS
+      Auth:
+        Authorizers:
+          CognitoJwt:
+            IdentitySource: "$request.header.Authorization"
+            JwtConfiguration:
+              audience:
+                - !Ref UserPoolClient
+              issuer: !Sub "https://cognito-idp.${AWS::Region}.amazonaws.com/${UserPool}"
+        # Protected by default; the app opens /api/health explicitly.
+        DefaultAuthorizer: CognitoJwt
+
+  # ---- Lambda (FastAPI via Mangum) --------------------------------------
+  ApiFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: tripevent-api
+      CodeUri: ../
+      Handler: app.main.handler
+      Environment:
+        Variables:
+          TRIPEVENT_TABLE_NAME: !Ref AppTable
+          TRIPEVENT_AWS_REGION: !Ref AWS::Region
+          TRIPEVENT_COGNITO_USER_POOL_ID: !Ref UserPool
+          TRIPEVENT_COGNITO_APP_CLIENT_ID: !Ref UserPoolClient
+          TRIPEVENT_CORS_ORIGINS: !Sub '["${CorsOrigin}","http://localhost:5173"]'
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref AppTable
+      Events:
+        # Public health check (no auth).
+        Health:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref HttpApi
+            Method: GET
+            Path: /api/health
+            Auth:
+              Authorizer: NONE
+        # Everything else under /api/v1 requires a valid Cognito JWT.
+        ApiV1:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref HttpApi
+            Method: ANY
+            Path: /api/v1/{proxy+}
+
+Outputs:
+  ApiUrl:
+    Description: Base URL for the HTTP API (set as VITE_API_URL in the frontend).
+    Value: !Sub "https://${HttpApi}.execute-api.${AWS::Region}.amazonaws.com"
+  UserPoolId:
+    Value: !Ref UserPool
+  UserPoolClientId:
+    Value: !Ref UserPoolClient
+  TableName:
+    Value: !Ref AppTable

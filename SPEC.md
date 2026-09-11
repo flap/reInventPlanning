@@ -383,7 +383,142 @@ Cada feature é derivada do conteúdo existente nos guias do projeto, expandida 
 
 ---
 
-## 6. Extensibilidade — Novos Destinos e Eventos
+---
+
+### Feature 10: Tema Claro/Escuro (Dark Mode)
+
+> Fonte: Solicitação de melhoria (UX / acessibilidade / conforto visual)
+
+**Objetivo:** Permitir que o usuário alterne entre tema claro e escuro, com preferência persistida entre sessões, respeitando a preferência do sistema operacional como padrão inicial. Melhora o conforto visual em ambientes de baixa luminosidade (comum durante o evento e no voo) e reduz o consumo de bateria em telas OLED.
+
+**Funcionalidades:**
+
+| ID | Funcionalidade | Prioridade |
+|----|---------------|------------|
+| F10.1 | Toggle de tema (claro ↔ escuro) acessível no header, ao lado do seletor de idioma | Alta |
+| F10.2 | Persistência da preferência em `localStorage` (`tripevent:theme`) | Alta |
+| F10.3 | Detecção automática de `prefers-color-scheme` como padrão inicial | Alta |
+| F10.4 | Aplicação do tema em toda a estrutura (shell + views), sem "flash" de tema errado | Alta |
+| F10.5 | Ícones/labels do toggle traduzidos nos 3 idiomas (☀️ Claro / 🌙 Escuro) | Alta |
+| F10.6 | Transições suaves de cor ao alternar o tema | Média |
+| F10.7 | Contraste adequado (WCAG AA) em ambos os temas | Média |
+
+**Critérios de aceite:**
+
+- Ao clicar no toggle, o app alterna imediatamente entre claro e escuro.
+- A escolha persiste após recarregar a página e reabrir o navegador.
+- Se o usuário nunca escolheu, o tema segue a preferência do sistema.
+- O toggle exibe rótulo/ícone correto e traduzido nos 3 idiomas.
+- Todas as superfícies principais (header, navegação, cards, footer) têm cor legível em ambos os temas.
+
+**Decisão técnica:**
+
+- Dark mode **controlado por classe** (`.dark` no elemento `<html>`), não por `prefers-color-scheme` puro — permite toggle manual sobrepondo o sistema.
+- No Tailwind CSS v4 (CSS-first), habilitado via `@custom-variant dark`.
+- Estado reativo compartilhado via composable `useTheme` (mesmo padrão do `useI18n`), com persistência em `localStorage`.
+
+---
+
+### Feature 11: Área Logada e Plano Salvo na Nuvem
+
+> Fonte: Solicitação de evolução — introduz contas de usuário (Fase 3)
+
+**Objetivo:** Permitir que o usuário crie uma conta, faça login e salve seu planejamento (checklist, orçamento, viagem, preferências) na nuvem, sincronizado entre dispositivos. Habilita as Features 12 e 13, que dependem de identidade autenticada.
+
+**Funcionalidades:**
+
+| ID | Funcionalidade | Prioridade |
+|----|---------------|------------|
+| F11.1 | Cadastro e login de usuário (email + senha) via Amazon Cognito | Alta |
+| F11.2 | Área logada (rotas protegidas) acessível apenas após autenticação | Alta |
+| F11.3 | Salvar plano do usuário na nuvem (checklist, orçamento, viagem) | Alta |
+| F11.4 | Sincronização localStorage ↔ nuvem com resolução de conflito (last-write-wins por timestamp) | Alta |
+| F11.5 | Perfil do usuário (nome de exibição, avatar/emoji, idioma preferido) | Média |
+| F11.6 | Logout e sessão persistente (token JWT com expiração) | Alta |
+| F11.7 | Recuperação de senha (fluxo Cognito) | Média |
+| F11.8 | Exclusão de conta e de todos os dados associados (LGPD/GDPR — direito ao esquecimento) | Alta |
+| F11.9 | Uso anônimo continua funcionando (login é opcional; sem login, dados só locais) | Alta |
+
+**Critérios de aceite:**
+
+- Um visitante sem conta continua usando o app 100% com dados locais (nenhuma regressão da Fase 1).
+- Após login, o plano local é migrado/sincronizado para a nuvem na primeira sessão.
+- Ao reabrir em outro dispositivo e logar, o plano salvo é recuperado.
+- Em conflito entre local e nuvem, prevalece a versão com timestamp mais recente.
+- Rotas da área logada (Features 12 e 13) redirecionam para login se não autenticado.
+- A exclusão de conta remove o perfil e todos os registros de plano e localização do usuário.
+
+---
+
+### Feature 12: Compartilhamento de Localização (Opt-in, Revogável, Expirável)
+
+> Fonte: Solicitação de evolução — recurso social da área logada (Fase 3). Depende da Feature 11.
+
+**Objetivo:** Permitir que usuários **logados** compartilhem, de forma **voluntária e reversível**, onde estão — seja por **local do re:Invent selecionado em um combo box** (padrão) ou por **localização GPS precisa** (opt-in adicional, com expiração automática). Visível apenas dentro da área logada e apenas para outros usuários que também estão compartilhando (modelo recíproco).
+
+**Modelo de privacidade (regras invioláveis):**
+
+- **Opt-in por padrão desligado:** o usuário é **invisível** até escolher explicitamente compartilhar.
+- **Local por combo box é o modo padrão** (coarse): ex. "Venetian – Expo Hall". Não expõe coordenadas.
+- **GPS preciso é opt-in adicional e expira automaticamente** (ex.: compartilhar por 1h/2h/4h), voltando a "desligado".
+- **Revogável instantaneamente:** um toque para parar de compartilhar / ficar invisível.
+- **Visibilidade recíproca:** para ver os outros no mapa/lista, o usuário precisa estar compartilhando também. Quem não compartilha não vê ninguém e não é visto.
+- **Sem rastreamento silencioso:** nenhum usuário que não optou por compartilhar pode ser visualizado por outros.
+- **Retenção mínima:** registros de localização expiram no servidor via TTL; GPS preciso tem expiração curta.
+
+**Funcionalidades:**
+
+| ID | Funcionalidade | Prioridade |
+|----|---------------|------------|
+| F12.1 | Toggle "Compartilhar minha localização" (padrão: desligado) | Alta |
+| F12.2 | Seleção de local via combo box com locais oficiais do re:Invent (venues/salas) | Alta |
+| F12.3 | Opção adicional de GPS preciso com seletor de duração (1h/2h/4h) e expiração automática | Alta |
+| F12.4 | Botão "Parar de compartilhar" (revogação imediata) | Alta |
+| F12.5 | Consentimento explícito antes do primeiro compartilhamento (modal com política) | Alta |
+| F12.6 | Visualização recíproca: mapa/lista de quem está compartilhando (só se você também está) | Alta |
+| F12.7 | Expiração automática do registro de localização (TTL no servidor) | Alta |
+| F12.8 | Indicador visível de "você está compartilhando agora" persistente na UI | Alta |
+| F12.9 | Textos de consentimento e rótulos traduzidos nos 3 idiomas (PT/EN/ES) | Alta |
+
+**Critérios de aceite:**
+
+- Ao entrar na área logada pela primeira vez, o usuário **não** está compartilhando.
+- Compartilhar exige aceite explícito de consentimento na primeira vez.
+- Compartilhar por combo box nunca envia coordenadas GPS.
+- Ao escolher GPS preciso, o registro expira sozinho ao fim da duração escolhida.
+- Ao desligar o toggle, o usuário deixa de aparecer para os demais imediatamente.
+- Um usuário que não está compartilhando não vê a localização de ninguém (reciprocidade).
+- Enquanto compartilha, há um indicador claro e sempre visível de que o compartilhamento está ativo.
+
+---
+
+### Feature 13: findPepper — Encontrar Peers para Meetups (Happy Hours e Talks)
+
+> Fonte: Solicitação de evolução — recurso social da área logada (Fase 3). Depende das Features 11 e 12.
+
+**Objetivo:** Ajudar usuários **logados** a se encontrarem para happy hours e talks, mostrando quem está compartilhando localização (via combo box ou GPS opt-in) e onde. Reaproveita o modelo recíproco e opt-in da Feature 12.
+
+**Funcionalidades:**
+
+| ID | Funcionalidade | Prioridade |
+|----|---------------|------------|
+| F13.1 | Lista/mapa de peers que estão compartilhando localização no momento | Alta |
+| F13.2 | Filtro por local (venue/sala do re:Invent) | Média |
+| F13.3 | Agrupamento por local ("5 pessoas no Expo Hall agora") | Média |
+| F13.4 | Códigos de "crew" opcionais: compartilhar um código com um grupo para se ver mutuamente | Média |
+| F13.5 | Status/intenção opcional ("indo ao happy hour X", "na talk Y") — texto curto opt-in | Baixa |
+| F13.6 | Atualização quase em tempo real da lista (polling ou WebSocket) | Média |
+| F13.7 | Respeito total ao modelo recíproco/opt-in da Feature 12 | Alta |
+
+**Critérios de aceite:**
+
+- findPepper só é acessível na área logada.
+- Só aparecem peers que estão ativamente compartilhando; quem parou some da lista.
+- Um usuário só vê peers se ele mesmo estiver compartilhando (reciprocidade).
+- Crew codes (quando usados) restringem a visibilidade ao grupo com o código, mantendo opt-in.
+- Nenhum dado de localização de não-participantes é exibido em nenhuma circunstância.
+
+---
 
 O sistema é projetado para suportar múltiplos destinos e eventos. O re:Invent é a **implementação de referência** que define o template para futuros destinos.
 
@@ -467,6 +602,7 @@ Quando múltiplos eventos ocorrem na mesma cidade, os dados de destino são reut
 | Filtro/comparador de hotéis | Média | 1 semana |
 | PWA com suporte offline | Média | 1 semana |
 | Montador de agenda de sessões | Alta | 2 semanas |
+| Tema claro/escuro (Dark Mode) — Feature 10 | Alta | 3 dias |
 
 **Stack sugerida:** HTML/CSS/JS (vanilla ou framework leve), Service Worker para offline
 
@@ -480,7 +616,9 @@ Quando múltiplos eventos ocorrem na mesma cidade, os dados de destino são reut
 |---------|-----------|------------|
 | Sistema de templates para novos eventos | Alta | 3 semanas |
 | Segundo evento implementado (ex: KubeCon) | Alta | 2 semanas |
-| Conta de usuário (progresso sincronizado) | Média | 3 semanas |
+| Conta de usuário + área logada + plano na nuvem (Feature 11) | Alta | 3 semanas |
+| Compartilhamento de localização opt-in (Feature 12) | Alta | 2 semanas |
+| findPepper — meetup finder (Feature 13) | Média | 2 semanas |
 | Notificações de prazo (email/push) | Média | 2 semanas |
 | Compartilhamento de planejamento | Baixa | 1 semana |
 | Modo colaborativo (viagem em grupo) | Baixa | 3 semanas |

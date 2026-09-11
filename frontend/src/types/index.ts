@@ -85,3 +85,52 @@ export interface BudgetScenario {
     iofCompraInternacional: number
   }
 }
+
+// ---- Feature 11/12/13: accounts, cloud plan, location sharing ----------
+
+export interface ReinventPlace {
+  id: string
+  venue: string
+  area: string
+  emoji: string
+}
+
+export interface AuthUser {
+  sub: string
+  email: string
+  displayName: string
+  avatar: string
+}
+
+export type ShareMode = 'venue' | 'gps'
+
+export interface ShareStatus {
+  sharing: boolean
+  scope?: string | null
+  mode?: ShareMode | null
+  venueId?: string | null
+  expiresAt?: number | null
+}
+
+export interface Peer {
+  sub: string
+  displayName: string
+  avatar: string
+  mode: ShareMode
+  venueId?: string | null
+  lat?: number | null
+  lng?: number | null
+  statusText?: string | null
+  sharedAt: number
+  expiresAt: number
+}
+
+export interface ShareRequest {
+  mode: ShareMode
+  venueId?: string | null
+  lat?: number | null
+  lng?: number | null
+  durationMin: number
+  crewCode?: string | null
+  statusText?: string | null
+}

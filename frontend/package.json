@@ -11,6 +11,7 @@
     "type-check": "vue-tsc --build"
   },
   "dependencies": {
+    "amazon-cognito-identity-js": "^6.3.20",
     "marked": "^18.0.6",
     "pinia": "^3.0.4",
     "pinia-plugin-persistedstate": "^4.7.1",
