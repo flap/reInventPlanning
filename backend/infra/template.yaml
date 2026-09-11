@@ -137,6 +137,18 @@ Resources:
             ApiId: !Ref HttpApi
             Method: ANY
             Path: /api/v1/{proxy+}
+        # CORS preflight: browsers send OPTIONS WITHOUT an Authorization header,
+        # so it must bypass the JWT authorizer (otherwise preflight -> 401 and
+        # the browser reports "Failed to fetch"). This route is unauthenticated
+        # by design; it only serves CORS preflight responses.
+        ApiV1Options:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref HttpApi
+            Method: OPTIONS
+            Path: /api/v1/{proxy+}
+            Auth:
+              Authorizer: NONE
 
 Outputs:
   ApiUrl:
