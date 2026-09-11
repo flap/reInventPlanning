@@ -45,6 +45,12 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,json,svg,png,ico}'],
+        // Prevent serving stale/mismatched chunks after a new deploy (which
+        // caused untranslated i18n keys to render): drop old precache entries
+        // and let the new service worker take control immediately.
+        cleanupOutdatedCaches: true,
+        skipWaiting: true,
+        clientsClaim: true,
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
