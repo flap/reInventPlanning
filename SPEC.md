@@ -492,7 +492,7 @@ Cada feature é derivada do conteúdo existente nos guias do projeto, expandida 
 
 ---
 
-### Feature 13: findPepper — Encontrar Peers para Meetups (Happy Hours e Talks)
+### Feature 13: findPeople — Encontrar Peers para Meetups (Happy Hours e Talks)
 
 > Fonte: Solicitação de evolução — recurso social da área logada (Fase 3). Depende das Features 11 e 12.
 
@@ -509,14 +509,16 @@ Cada feature é derivada do conteúdo existente nos guias do projeto, expandida 
 | F13.5 | Status/intenção opcional ("indo ao happy hour X", "na talk Y") — texto curto opt-in | Baixa |
 | F13.6 | Atualização quase em tempo real da lista (polling ou WebSocket) | Média |
 | F13.7 | Respeito total ao modelo recíproco/opt-in da Feature 12 | Alta |
+| F13.8 | Destaque especial (ícone de pimenta 🌶️) para um usuário específico, ordenado no topo da lista | Baixa |
 
 **Critérios de aceite:**
 
-- findPepper só é acessível na área logada.
+- findPeople só é acessível na área logada.
 - Só aparecem peers que estão ativamente compartilhando; quem parou some da lista.
 - Um usuário só vê peers se ele mesmo estiver compartilhando (reciprocidade).
 - Crew codes (quando usados) restringem a visibilidade ao grupo com o código, mantendo opt-in.
 - Nenhum dado de localização de não-participantes é exibido em nenhuma circunstância.
+- O destaque 🌶️ é derivado **no servidor** (flag `isPepper`) comparando o email do perfil com o email-alvo configurado; o **email nunca é exposto** na listagem de peers (minimização de dados — ADR-011).
 
 ---
 
@@ -618,7 +620,7 @@ Quando múltiplos eventos ocorrem na mesma cidade, os dados de destino são reut
 | Segundo evento implementado (ex: KubeCon) | Alta | 2 semanas |
 | Conta de usuário + área logada + plano na nuvem (Feature 11) | Alta | 3 semanas |
 | Compartilhamento de localização opt-in (Feature 12) | Alta | 2 semanas |
-| findPepper — meetup finder (Feature 13) | Média | 2 semanas |
+| findPeople — meetup finder (Feature 13) | Média | 2 semanas |
 | Notificações de prazo (email/push) | Média | 2 semanas |
 | Compartilhamento de planejamento | Baixa | 1 semana |
 | Modo colaborativo (viagem em grupo) | Baixa | 3 semanas |

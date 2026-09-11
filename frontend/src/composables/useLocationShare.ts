@@ -62,8 +62,10 @@ async function refreshPeers(crewCode?: string | null): Promise<void> {
   } catch (e) {
     peers.value = []
     if (e instanceof ApiError && e.status === 403) {
-      // Reciprocity: not sharing → cannot view. Not an error to shout about.
-      status.value = { sharing: false }
+      // Reciprocity: server says we can't view because we're not sharing.
+      // Re-verify the authoritative status instead of assuming — avoids a
+      // transient race wrongly flipping the UI out of "sharing".
+      await refreshStatus(crewCode)
       return
     }
     error.value = e instanceof Error ? e.message : 'Failed to load peers'

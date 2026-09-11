@@ -19,7 +19,7 @@ const navItems = computed(() => {
     { name: 'timeline', key: 'nav.timeline', icon: '📅' },
     { name: 'orcamento', key: 'nav.orcamento', icon: '💰' },
     { name: 'dicas', key: 'nav.dicas', icon: '💡' },
-    { name: 'findpepper', key: 'nav.findpepper', icon: '🌶️' },
+    { name: 'findpeople', key: 'nav.findpeople', icon: '👥' },
     { name: 'releases', key: 'nav.releases', icon: '📋' },
   ]
   base.push(

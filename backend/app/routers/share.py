@@ -38,6 +38,10 @@ def start_or_update_share(
     profile = repo.get_profile(sub) or {}
     ttl = _ttl_for(body.mode, body.durationMin)
 
+    # Derive the pepper highlight server-side from the stored profile email.
+    # The email is compared here and never returned to other users.
+    is_pepper = (profile.get("email") or "").strip().lower() == settings.pepper_email.strip().lower()
+
     item = repo.put_share(
         sub,
         scope=scope,
@@ -49,6 +53,7 @@ def start_or_update_share(
         lng=body.lng,
         status_text=body.statusText,
         ttl_seconds=ttl,
+        is_pepper=is_pepper,
     )
     return ShareStatus(
         sharing=True,
@@ -96,6 +101,7 @@ def list_peers(
                 sub=item["sub"],
                 displayName=item.get("displayName", "re:Invent peer"),
                 avatar=item.get("avatar", "🙂"),
+                isPepper=bool(item.get("isPepper", False)),
                 mode=item["mode"],
                 venueId=item.get("venueId"),
                 lat=float(item["lat"]) if item.get("lat") is not None else None,

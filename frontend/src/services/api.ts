@@ -122,7 +122,7 @@ export const api = {
     return http('/api/v1/profile')
   },
 
-  async putProfile(data: { displayName: string; avatar: string; locale: string }): Promise<void> {
+  async putProfile(data: { displayName: string; avatar: string; locale: string; email?: string }): Promise<void> {
     if (isMock) {
       const u = mockCurrentUser()
       if (u) {
@@ -186,6 +186,7 @@ export const api = {
         sub: u.sub,
         displayName: u.displayName,
         avatar: u.avatar,
+        isPepper: (u.email || '').trim().toLowerCase() === 'flaviopimenta@gmail.com',
         mode: req.mode,
         venueId: req.mode === 'venue' ? req.venueId ?? null : null,
         lat: req.mode === 'gps' ? req.lat ?? null : null,

@@ -21,7 +21,16 @@ export function useCloudSync() {
 
   async function pullFromCloud(): Promise<void> {
     if (!isAuthenticated.value) return
-    const plan = await api.getPlan()
+    // Resilient: a failed/empty cloud plan must never break the login/redirect
+    // flow (e.g. right after first sign-up the user has no plan yet).
+    let plan: Record<string, unknown>
+    try {
+      plan = await api.getPlan()
+    } catch (e) {
+      // Log and continue with local data — cloud sync is best-effort here.
+      console.warn('pullFromCloud: could not fetch cloud plan, using local data', e)
+      return
+    }
     const checklist = useChecklistStore()
     const budget = useBudgetStore()
 

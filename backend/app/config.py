@@ -25,6 +25,11 @@ class Settings(BaseSettings):
     gps_max_ttl_seconds: int = 4 * 60 * 60  # precise GPS: max 4h
     venue_max_ttl_seconds: int = 8 * 60 * 60  # coarse venue: max 8h
 
+    # Special "pepper" highlight: this user is flagged (isPepper) in peer lists.
+    # Compared server-side against the profile email so the email itself is never
+    # exposed to other users (privacy: ADR-011 minimization).
+    pepper_email: str = "flaviopimenta@gmail.com"
+
     model_config = {"env_file": ".env", "env_prefix": "TRIPEVENT_"}
 
 

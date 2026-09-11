@@ -51,6 +51,11 @@ class Repository:
             "locale": data.get("locale", "pt"),
             "updatedAt": data.get("updatedAt") or _iso_now(),
         }
+        # Email is stored ONLY to derive the isPepper highlight server-side.
+        # It is never returned in peer listings (privacy: ADR-011 minimization).
+        email = (data.get("email") or "").strip().lower()
+        if email:
+            item["email"] = email
         self._table.put_item(Item=item)
         return item
 
@@ -100,6 +105,7 @@ class Repository:
         lng: float | None,
         status_text: str | None,
         ttl_seconds: int,
+        is_pepper: bool = False,
     ) -> dict[str, Any]:
         now = _now()
         item: dict[str, Any] = {
@@ -110,6 +116,7 @@ class Repository:
             "mode": mode,
             "displayName": display_name,
             "avatar": avatar,
+            "isPepper": is_pepper,
             "sharedAt": now,
             "expiresAt": now + ttl_seconds,
         }
