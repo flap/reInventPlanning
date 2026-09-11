@@ -120,18 +120,36 @@ O **AWS re:Invent** é a maior conferência de cloud e IA do mundo, organizada p
 ```
 reInventPlanning/
 ├── README.md              ← You are here / Estás aquí
-├── SPEC.md                ← System specification
-├── DESIGN.md              ← Technical design document
-├── frontend/              ← Vue.js 3 app (TypeScript + Tailwind)
-│   ├── src/views/         ← 9 views (Home, Event, Hotels, Flights...)
-│   ├── src/data/          ← JSON data (hotels, checklist, budget...)
-│   ├── src/locales/       ← i18n (PT, EN, ES)
-│   └── src/stores/        ← Pinia state management
+├── SPEC.md                ← System specification (features 1–13)
+├── DESIGN.md              ← Technical design document (ADR-001…011)
+├── ARCHITECTURE.md        ← Full solution architecture (English)
+├── frontend/              ← Vue.js 3 app (TypeScript + Tailwind), hosted on GitHub Pages
+│   ├── src/views/         ← Views (Home, Event, Hotels, Flights, Weather, Tourism,
+│   │                        Tips, Checklist, Timeline, Budget, Login, Profile, findPeople)
+│   ├── src/components/     ← Layout + shared components (ConsentModal, nav…)
+│   ├── src/composables/    ← useAuth, useTheme, useI18n, useLocationShare, useCloudSync…
+│   ├── src/services/       ← api.ts (REST + mock fallback), cognito.ts (SRP auth)
+│   ├── src/data/           ← JSON data (hotels, checklist, budget, places, release-notes)
+│   ├── src/locales/        ← i18n (PT, EN, ES)
+│   └── src/stores/         ← Pinia state management
+├── backend/               ← FastAPI + Mangum on AWS Lambda (accounts, plan, location)
+│   ├── app/               ← main, config, dependencies, db (DynamoDB), routers, schemas
+│   ├── infra/             ← AWS SAM template (Cognito, DynamoDB, API Gateway, Lambda)
+│   └── tests/             ← pytest (moto) — 15 tests
 ├── docs/                  ← Original guides (Markdown)
 └── .github/workflows/     ← CI/CD (GitHub Pages auto-deploy)
 ```
 
-**Tech Stack:** Vue.js 3 · TypeScript · Tailwind CSS · Pinia · Vite · PWA · GitHub Pages
+**Frontend:** Vue.js 3 · TypeScript · Tailwind CSS v4 · Pinia · Vue Router · Vite · PWA · GitHub Pages
+**Backend (Phase 3):** Python · FastAPI · Mangum · AWS Lambda · API Gateway (HTTP API) · Amazon Cognito · DynamoDB (TTL) · AWS SAM
+
+> 📐 **Architecture:** see [`ARCHITECTURE.md`](./ARCHITECTURE.md) for the complete solution architecture (components, data model, security, deployment, cost).
+
+### 🔐 Logged area / Área logada / Área con sesión
+
+- 🇧🇷 Crie uma conta para **salvar seu plano na nuvem** e usar o **findPeople** — encontre outros participantes que optaram por compartilhar sua localização (por local do re:Invent ou GPS), de forma recíproca e revogável. Uso anônimo continua 100% funcional.
+- 🇺🇸 Create an account to **save your plan to the cloud** and use **findPeople** — find other attendees who opted in to share their location (by re:Invent venue or GPS), reciprocally and revocably. Anonymous use still works 100%.
+- 🇪🇸 Crea una cuenta para **guardar tu plan en la nube** y usar **findPeople** — encuentra a otros participantes que optaron por compartir su ubicación (por lugar del re:Invent o GPS), de forma recíproca y revocable. El uso anónimo sigue funcionando al 100%.
 
 ---
 
