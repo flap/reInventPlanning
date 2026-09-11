@@ -1,28 +1,39 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { RouterLink, useRouter } from 'vue-router'
 import { useI18n } from '@/composables/useI18n'
+import { useAuth } from '@/composables/useAuth'
 
 const router = useRouter()
 const { t } = useI18n()
+const { isAuthenticated } = useAuth()
 const showMore = ref(false)
 
 const mainItems = [
   { name: 'home', key: 'nav.home', icon: '🏠' },
   { name: 'evento', key: 'nav.evento', icon: '🎯' },
   { name: 'checklist', key: 'nav.checklist', icon: '✅' },
-  { name: 'orcamento', key: 'nav.orcamento', icon: '💰' },
+  { name: 'findpepper', key: 'nav.findpepper', icon: '🌶️' },
 ]
 
-const moreItems = [
-  { name: 'hoteis', key: 'nav.hoteis', icon: '🏨' },
-  { name: 'voos', key: 'nav.voos', icon: '✈️' },
-  { name: 'clima', key: 'nav.clima', icon: '🌡️' },
-  { name: 'turismo', key: 'nav.turismo', icon: '🎰' },
-  { name: 'timeline', key: 'nav.timeline', icon: '📅' },
-  { name: 'dicas', key: 'nav.dicas', icon: '💡' },
-  { name: 'releases', key: 'nav.releases', icon: '📋' },
-]
+const moreItems = computed(() => {
+  const items = [
+    { name: 'hoteis', key: 'nav.hoteis', icon: '🏨' },
+    { name: 'voos', key: 'nav.voos', icon: '✈️' },
+    { name: 'clima', key: 'nav.clima', icon: '🌡️' },
+    { name: 'turismo', key: 'nav.turismo', icon: '🎰' },
+    { name: 'orcamento', key: 'nav.orcamento', icon: '💰' },
+    { name: 'timeline', key: 'nav.timeline', icon: '📅' },
+    { name: 'dicas', key: 'nav.dicas', icon: '💡' },
+    { name: 'releases', key: 'nav.releases', icon: '📋' },
+  ]
+  items.push(
+    isAuthenticated.value
+      ? { name: 'perfil', key: 'nav.perfil', icon: '👤' }
+      : { name: 'login', key: 'nav.login', icon: '🔐' },
+  )
+  return items
+})
 
 function navigateTo(name: string) {
   router.push({ name })
@@ -45,30 +56,30 @@ function navigateTo(name: string) {
     <Transition name="slide-up">
       <div
         v-if="showMore"
-        class="fixed bottom-16 left-0 right-0 bg-white border-t border-gray-200 rounded-t-2xl shadow-2xl z-50 p-4"
+        class="fixed bottom-16 left-0 right-0 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 rounded-t-2xl shadow-2xl z-50 p-4"
       >
         <div class="grid grid-cols-5 gap-2">
           <button
             v-for="item in moreItems"
             :key="item.name"
-            class="flex flex-col items-center gap-1 p-2 rounded-lg hover:bg-gray-100 transition-colors"
+            class="flex flex-col items-center gap-1 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
             @click="navigateTo(item.name)"
           >
             <span class="text-xl">{{ item.icon }}</span>
-            <span class="text-xs text-gray-600">{{ t(item.key) }}</span>
+            <span class="text-xs text-gray-600 dark:text-gray-400 dark:text-gray-300">{{ t(item.key) }}</span>
           </button>
         </div>
       </div>
     </Transition>
 
     <!-- Bottom Navigation Bar -->
-    <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-[0_-2px_10px_rgba(0,0,0,0.1)] z-50">
+    <nav class="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 shadow-[0_-2px_10px_rgba(0,0,0,0.1)] z-50">
       <div class="flex items-center justify-around py-2">
         <RouterLink
           v-for="item in mainItems"
           :key="item.name"
           :to="{ name: item.name }"
-          class="flex flex-col items-center gap-0.5 px-3 py-1 rounded-lg text-gray-500 transition-colors"
+          class="flex flex-col items-center gap-0.5 px-3 py-1 rounded-lg text-gray-500 dark:text-gray-400 transition-colors"
           active-class="!text-aws-orange"
         >
           <span class="text-xl">{{ item.icon }}</span>
@@ -77,7 +88,7 @@ function navigateTo(name: string) {
 
         <!-- More Button -->
         <button
-          class="flex flex-col items-center gap-0.5 px-3 py-1 rounded-lg text-gray-500 transition-colors"
+          class="flex flex-col items-center gap-0.5 px-3 py-1 rounded-lg text-gray-500 dark:text-gray-400 transition-colors"
           :class="{ '!text-aws-orange': showMore }"
           @click="showMore = !showMore"
         >

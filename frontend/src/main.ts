@@ -6,6 +6,7 @@ import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 
 import App from './App.vue'
 import router from './router'
+import { useAuth } from './composables/useAuth'
 
 const app = createApp(App)
 
@@ -14,5 +15,8 @@ pinia.use(piniaPluginPersistedstate)
 
 app.use(pinia)
 app.use(router)
+
+// Restore a live Cognito session (if any) before/while mounting.
+void useAuth().hydrateFromCognito()
 
 app.mount('#app')

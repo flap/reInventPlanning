@@ -304,6 +304,7 @@ reInventPlanning/
 │   │   │   ├── useLocalStorage.ts
 │   │   │   ├── useCurrency.ts
 │   │   │   ├── useMarkdown.ts
+│   │   │   ├── useTheme.ts          ← Tema claro/escuro (Feature 10)
 │   │   │   └── useOffline.ts
 │   │   ├── data/
 │   │   │   ├── eventos/
@@ -1583,6 +1584,206 @@ O conteúdo textual permanece como markdown renderizado. Apenas os **dados compa
 - Headless CMS (Contentful, Strapi): overhead e custo para conteúdo que muda raramente
 - API de conteúdo: latência desnecessária, complexidade adicional
 - SSG (Astro/Nuxt): adicionaria complexidade sem ganho claro (SEO não é prioridade #1)
+
+---
+
+### ADR-007: Dark Mode por Classe (`.dark`) com Composable `useTheme`
+
+**Status:** Aceito
+
+**Contexto:** A Feature 10 (SPEC) pede um tema claro/escuro com toggle manual, persistência e detecção da preferência do sistema. O projeto usa Tailwind CSS v4 (CSS-first, sem `tailwind.config.js`).
+
+**Decisão:** Dark mode **controlado por classe** — a classe `.dark` é aplicada/removida no elemento `<html>` (`document.documentElement`). No Tailwind v4 isso exige declarar `@custom-variant dark (&:where(.dark, .dark *))` no `main.css`. O estado é gerenciado por um composable `useTheme`, que espelha o padrão já consolidado do `useI18n` (estado reativo em module-scope + persistência em `localStorage`).
+
+**Justificativa:**
+- **Toggle manual sobrepõe o sistema:** o modo padrão do Tailwind v4 (`prefers-color-scheme`) não permite ao usuário escolher um tema diferente do SO. Class-based resolve isso.
+- **Consistência:** reaproveita o mesmo padrão de estado do `useI18n` (module-scope `ref` + `localStorage`), reduzindo a curva para contribuidores.
+- **Sem flash de tema errado (FOUC):** um script inline no `index.html` aplica a classe `.dark` antes do Vue montar, lendo `localStorage`/`prefers-color-scheme`.
+- **Zero dependências novas:** usa apenas o que já existe (Tailwind + composables).
+
+**Detalhes de implementação:**
+
+```
+localStorage key: 'tripevent:theme'  → 'light' | 'dark'
+Padrão inicial: valor salvo → senão prefers-color-scheme → senão 'light'
+```
+
+```typescript
+// composables/useTheme.ts
+import { ref, watch } from 'vue'
+type Theme = 'light' | 'dark'
+const STORAGE_KEY = 'tripevent:theme'
+
+function detectTheme(): Theme {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY)
+    if (saved === 'light' || saved === 'dark') return saved
+  } catch { /* privacy mode */ }
+  if (typeof window !== 'undefined' && window.matchMedia) {
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+  }
+  return 'light'
+}
+
+const theme = ref<Theme>(detectTheme())
+
+function apply(t: Theme) {
+  document.documentElement.classList.toggle('dark', t === 'dark')
+}
+apply(theme.value)
+watch(theme, apply)
+
+export function useTheme() {
+  function setTheme(t: Theme) {
+    theme.value = t
+    try { localStorage.setItem(STORAGE_KEY, t) } catch { /* noop */ }
+  }
+  function toggle() { setTheme(theme.value === 'dark' ? 'light' : 'dark') }
+  return { theme, setTheme, toggle }
+}
+```
+
+```css
+/* main.css — habilita dark mode por classe no Tailwind v4 */
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+```
+
+```html
+<!-- index.html — evita FOUC aplicando o tema antes do Vue montar -->
+<script>
+  (function () {
+    try {
+      var t = localStorage.getItem('tripevent:theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      if (t === 'dark') document.documentElement.classList.add('dark');
+    } catch (e) {}
+  })();
+</script>
+```
+
+**Aplicação nas superfícies:** as classes claras existentes ganham par `dark:` — ex.: `bg-white dark:bg-aws-dark`, `text-gray-700 dark:text-gray-200`, `border-gray-200 dark:border-gray-700`, `bg-aws-light dark:bg-gray-900`. A paleta escura reutiliza os tokens `aws-dark` / `aws-dark-lighter` já definidos no `@theme`.
+
+**Alternativas descartadas:**
+- `prefers-color-scheme` puro (sem classe): simples, mas não permite toggle manual — reprovado pela F10.1.
+- Biblioteca externa (ex.: VueUse `useDark`): adiciona dependência para algo que o padrão interno já resolve.
+- Reescrever todas as cores como CSS variables semânticas: mais "correto" a longo prazo, porém refatoração massiva (206 ocorrências) e alto risco na primeira entrega — fica como evolução futura.
+
+---
+
+### ADR-008: Amazon Cognito para Autenticação (Área Logada — Feature 11)
+
+**Status:** Aceito
+
+**Contexto:** As Features 11–13 exigem identidade de usuário: cadastro, login, sessão e rotas protegidas. O projeto seguirá 100% AWS (decisão do stakeholder).
+
+**Decisão:** Usar **Amazon Cognito User Pools** para autenticação (email + senha), com tokens JWT validados no API Gateway.
+
+**Justificativa:**
+- Serverless e gerenciado — sem servidor de auth para operar; free tier generoso (50k MAUs).
+- Fluxos prontos: cadastro, verificação de email, recuperação de senha, refresh token.
+- Integra nativamente com API Gateway (Cognito Authorizer) — Lambdas recebem `sub` (user id) já verificado.
+- Frontend usa a lib oficial (`amazon-cognito-identity-js` ou Amplify Auth) sem gerenciar hashing de senha.
+
+**Consequências / requisitos:**
+- Login é **opcional** — o app anônimo da Fase 1 continua funcionando (F11.9). Rotas protegidas só as Features 11–13.
+- O `sub` do Cognito é a chave de identidade em todos os registros do DynamoDB.
+- Exclusão de conta (F11.8) apaga o usuário no Cognito **e** todos os itens no DynamoDB.
+
+**Alternativas descartadas:**
+- Auth caseiro (JWT + bcrypt no FastAPI): reinventa fluxos sensíveis (reset de senha, verificação), maior superfície de risco.
+- Auth0/Clerk: ótimos, mas fogem da diretriz "full AWS".
+
+---
+
+### ADR-009: API Serverless (API Gateway + Lambda/FastAPI+Mangum)
+
+**Status:** Aceito
+
+**Contexto:** As novas features precisam de backend para persistir plano e mediar o compartilhamento de localização. DESIGN já previa FastAPI (ADR-004).
+
+**Decisão:** FastAPI empacotado com **Mangum** rodando em **AWS Lambda**, exposto por **API Gateway (HTTP API)** com **Cognito Authorizer**. Frontend permanece no GitHub Pages (hash mode), chamando a API por HTTPS/CORS.
+
+**Justificativa:**
+- Pay-per-request, escala a zero — adequado a tráfego concentrado na semana do evento.
+- Reaproveita ADR-004 (FastAPI) sem servidor 24/7.
+- CORS restrito à origem do GitHub Pages; Authorizer garante que Lambdas só recebem requisições autenticadas nas rotas protegidas.
+
+**Consequências:**
+- Endpoints públicos (câmbio/clima da Fase 2) e protegidos (plano, localização) coexistem no mesmo API.
+- `VITE_API_URL` aponta para o API Gateway; sem ela, o frontend opera em modo anônimo/local (Fase 1).
+
+---
+
+### ADR-010: Modelo de Dados de Localização com TTL e Consentimento (Features 12–13)
+
+**Status:** Aceito
+
+**Contexto:** Compartilhamento de localização entre usuários é o dado mais sensível do sistema. O modelo aprovado é **recíproco, opt-in, revogável e expirável** (ver SPEC F12). Precisamos de um modelo de dados que torne essas garantias estruturais, não apenas de UI.
+
+**Decisão:** Single-table DynamoDB (`tripevent-app`) com um item de localização **efêmero por usuário**, protegido por **TTL nativo do DynamoDB**. GPS preciso tem TTL curto; local por combo box também expira. Parar de compartilhar **deleta** o item imediatamente.
+
+**Modelo (single-table design):**
+
+| PK | SK | Atributos | TTL |
+|----|-----|-----------|-----|
+| `USER#{sub}` | `PROFILE` | displayName, avatar, locale, createdAt | — |
+| `USER#{sub}` | `PLAN#checklist` | items{}, updatedAt | — |
+| `USER#{sub}` | `PLAN#budget` | scenario, inputs{}, updatedAt | — |
+| `USER#{sub}` | `PLAN#trip` | eventoId, datas, hotelId, status, updatedAt | — |
+| `SHARE#{crewCode\|GLOBAL}` | `USER#{sub}` | mode(`venue`\|`gps`), venueId?, lat?, lng?, status?, displayName, avatar, sharedAt, **expiresAt** | ✅ `expiresAt` |
+
+**Regras estruturais:**
+- Um usuário só tem item em `SHARE#...` **enquanto está compartilhando** (opt-in). Toggle off = `DeleteItem`.
+- **TTL** (`expiresAt`) garante expiração automática mesmo se o cliente sumir (F12.7). GPS preciso: TTL curto (duração escolhida). Venue: TTL moderado.
+- **Reciprocidade aplicada no servidor:** o endpoint de leitura (`GET /share`) só retorna a lista se o próprio requisitante possui um item `SHARE#...` ativo. Sem isso → `403`/lista vazia. A regra não fica só na UI.
+- **Crew codes (F13.4):** a partição `SHARE#{crewCode}` restringe a visibilidade ao grupo; `SHARE#GLOBAL` é o pool recíproco aberto.
+- GPS preciso nunca é gravado no modo `venue`.
+
+**Endpoints (protegidos por Cognito):**
+
+```
+# Plano na nuvem (Feature 11)
+GET    /api/v1/plan                 → plano consolidado do usuário
+PUT    /api/v1/plan/checklist       → upsert checklist (last-write-wins por updatedAt)
+PUT    /api/v1/plan/budget          → upsert orçamento
+PUT    /api/v1/plan/trip            → upsert viagem
+DELETE /api/v1/account              → apaga conta (Cognito) + todos os itens (F11.8)
+
+# Localização (Features 12–13) — todos exigem sharing ativo do requisitante
+POST   /api/v1/share                → iniciar/atualizar compartilhamento
+                                       body: { mode, venueId? | lat?,lng?, durationMin, crewCode? }
+                                       grava expiresAt = now + durationMin
+DELETE /api/v1/share                → parar de compartilhar (DeleteItem imediato)
+GET    /api/v1/share?crewCode=...   → lista de peers ativos (só se requisitante compartilha)
+```
+
+**Alternativas descartadas:**
+- "Todos os logados veem todos" (pedido inicial): rejeitado por ser rastreamento em massa de pessoas identificáveis, risco de stalking e problema de consentimento LGPD/GDPR.
+- Persistir histórico de localização: desnecessário e perigoso — só o estado atual efêmero é mantido.
+- Location broadcasting sem TTL: risco de "localização fantasma" se o cliente cair; TTL do DynamoDB elimina isso.
+
+---
+
+### ADR-011: Segurança e Privacidade de Localização (Zero Trust + LGPD/GDPR)
+
+**Status:** Aceito
+
+**Contexto:** A Feature 12/13 lida com dado pessoal sensível (localização de pessoas identificáveis). Precisamos de garantias além da UI.
+
+**Decisão / controles obrigatórios:**
+
+1. **Opt-in explícito + consentimento registrado:** primeiro compartilhamento exige aceite de modal de política (F12.5). Default sempre "não compartilhando".
+2. **Reciprocidade no backend:** leitura de peers negada a quem não compartilha (não confiar no cliente).
+3. **Expiração via TTL:** todo item de localização tem `expiresAt`; GPS preciso com janela curta. Sem renovação = some.
+4. **Revogação imediata:** `DELETE /share` remove o item na hora; UI reflete estado "invisível".
+5. **Coarse por padrão:** venue combo box é o modo primário; GPS preciso é exceção consciente.
+6. **Minimização:** só o estado atual é armazenado; sem histórico, sem trilha de movimento.
+7. **Direito ao esquecimento (F11.8):** exclusão de conta remove Cognito + todos os itens (plano e localização).
+8. **Transporte:** HTTPS only; CORS restrito à origem do GitHub Pages; JWT verificado no Authorizer.
+9. **Indicador persistente:** enquanto compartilha, a UI mostra sinal sempre visível (F12.8) — sem compartilhamento oculto.
+
+**Consequência para o frontend:** novo composable `useAuth` (padrão `useI18n`/`useTheme`), store `location`/`share`, guard de rota `requiresAuth`, e componente de consentimento. Nenhuma dessas telas expõe localização de quem não optou.
 
 ---
 

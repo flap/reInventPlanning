@@ -1,0 +1,20 @@
+[
+  { "id": "venetian-expo", "venue": "The Venetian", "area": "Expo Hall", "emoji": "🏛️" },
+  { "id": "venetian-hall-a", "venue": "The Venetian", "area": "Hall A (Sessions)", "emoji": "🎤" },
+  { "id": "venetian-hall-b", "venue": "The Venetian", "area": "Hall B (Sessions)", "emoji": "🎤" },
+  { "id": "venetian-lounge", "venue": "The Venetian", "area": "Attendee Lounge", "emoji": "🛋️" },
+  { "id": "caesars-forum-main", "venue": "Caesars Forum", "area": "Main Hall", "emoji": "🏟️" },
+  { "id": "caesars-forum-chalk", "venue": "Caesars Forum", "area": "Chalk Talks", "emoji": "📝" },
+  { "id": "caesars-palace-keynote", "venue": "Caesars Palace", "area": "Keynote Hall", "emoji": "🎫" },
+  { "id": "caesars-palace-workshops", "venue": "Caesars Palace", "area": "Workshops", "emoji": "🛠️" },
+  { "id": "mgm-grand-sessions", "venue": "MGM Grand", "area": "Sessions", "emoji": "🎤" },
+  { "id": "mgm-grand-bootcamp", "venue": "MGM Grand", "area": "Bootcamps", "emoji": "🥾" },
+  { "id": "wynn-sessions", "venue": "Wynn", "area": "Sessions", "emoji": "🎤" },
+  { "id": "encore-sessions", "venue": "Encore", "area": "Sessions", "emoji": "🎤" },
+  { "id": "shuttle-stop", "venue": "Between venues", "area": "Shuttle Stop", "emoji": "🚌" },
+  { "id": "monorail", "venue": "Between venues", "area": "Las Vegas Monorail", "emoji": "🚇" },
+  { "id": "expo-happy-hour", "venue": "The Venetian", "area": "Expo Happy Hour", "emoji": "🍻" },
+  { "id": "replay-party", "venue": "Event Venue", "area": "re:Play Party", "emoji": "🎉" },
+  { "id": "strip-restaurants", "venue": "Las Vegas Strip", "area": "Restaurants", "emoji": "🍽️" },
+  { "id": "hotel-lobby", "venue": "My Hotel", "area": "Lobby", "emoji": "🏨" }
+]
