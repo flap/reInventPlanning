@@ -86,6 +86,11 @@ async function login(email: string, passwordOrName = ''): Promise<AuthUser> {
     }
     user.value = u
     persist(u)
+    // Ensure the backend profile row carries the email (needed for the isPepper
+    // highlight) and the current display name/avatar. Idempotent, best-effort.
+    api.putProfile({ displayName: u.displayName, avatar: u.avatar, locale: 'pt', email: u.email }).catch(
+      (e) => console.warn('login: profile upsert failed (non-blocking)', e),
+    )
     return u
   }
   // Mock path (no Cognito configured)
@@ -103,7 +108,8 @@ function logout(): void {
 }
 
 async function updateProfile(displayName: string, avatar: string, locale: string): Promise<void> {
-  await api.putProfile({ displayName, avatar, locale })
+  const email = user.value?.email
+  await api.putProfile({ displayName, avatar, locale, email })
   if (user.value) {
     user.value = { ...user.value, displayName, avatar }
     persist(user.value)

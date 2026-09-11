@@ -1,5 +1,48 @@
 [
   {
+    "version": "1.7.1",
+    "date": "2026-09-11",
+    "title": {
+      "pt": "findPeople + correções",
+      "en": "findPeople + fixes",
+      "es": "findPeople + correcciones"
+    },
+    "items": [
+      {
+        "type": "refactor",
+        "text": {
+          "pt": "findPepper renomeado para findPeople (rota /findpepper redireciona para /findpeople).",
+          "en": "findPepper renamed to findPeople (/findpepper redirects to /findpeople).",
+          "es": "findPepper renombrado a findPeople (/findpepper redirige a /findpeople)."
+        }
+      },
+      {
+        "type": "feature",
+        "text": {
+          "pt": "Destaque especial com ícone de pimenta 🌶️ para um participante, no topo da lista (derivado no servidor, sem expor email).",
+          "en": "Special pepper 🌶️ highlight for a featured attendee, pinned to the top (derived server-side, no email exposed).",
+          "es": "Destaque especial con ícono de pimienta 🌶️ para un participante, arriba de la lista (derivado en el servidor, sin exponer email)."
+        }
+      },
+      {
+        "type": "fix",
+        "text": {
+          "pt": "Corrigido erro de fetch após a confirmação de código no cadastro — a sincronização do plano agora é tolerante a falhas e não bloqueia o login.",
+          "en": "Fixed fetch error after sign-up code confirmation — cloud plan sync is now fault-tolerant and no longer blocks login.",
+          "es": "Corregido el error de fetch tras confirmar el código de registro — la sincronización del plan ahora tolera fallos y no bloquea el inicio de sesión."
+        }
+      },
+      {
+        "type": "fix",
+        "text": {
+          "pt": "Perfil (nome de exibição e ícone) agora é gravado corretamente, incluindo o email para o destaque.",
+          "en": "Profile (display name and icon) now saves correctly, including the email used for the highlight.",
+          "es": "El perfil (nombre e ícono) ahora se guarda correctamente, incluido el email para el destaque."
+        }
+      }
+    ]
+  },
+  {
     "version": "1.7.0",
     "date": "2026-09-11",
     "title": {

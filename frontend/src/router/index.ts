@@ -71,10 +71,15 @@ const router = createRouter({
       meta: { requiresAuth: true },
     },
     {
-      path: '/findpepper',
-      name: 'findpepper',
-      component: () => import('@/views/FindPepperView.vue'),
+      path: '/findpeople',
+      name: 'findpeople',
+      component: () => import('@/views/FindPeopleView.vue'),
       meta: { requiresAuth: true },
+    },
+    {
+      // Backwards-compat: old findPepper link redirects to the renamed route.
+      path: '/findpepper',
+      redirect: { name: 'findpeople' },
     },
   ],
   scrollBehavior() {

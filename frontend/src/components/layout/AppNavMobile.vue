@@ -13,7 +13,7 @@ const mainItems = [
   { name: 'home', key: 'nav.home', icon: '🏠' },
   { name: 'evento', key: 'nav.evento', icon: '🎯' },
   { name: 'checklist', key: 'nav.checklist', icon: '✅' },
-  { name: 'findpepper', key: 'nav.findpepper', icon: '🌶️' },
+  { name: 'findpeople', key: 'nav.findpeople', icon: '👥' },
 ]
 
 const moreItems = computed(() => {

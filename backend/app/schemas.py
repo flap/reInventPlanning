@@ -10,11 +10,15 @@ class ProfileIn(BaseModel):
     displayName: str = Field(default="", max_length=60)
     avatar: str = Field(default="🙂", max_length=8)
     locale: Literal["pt", "en", "es"] = "pt"
+    email: str | None = Field(default=None, max_length=120)
     updatedAt: str | None = None
 
 
-class ProfileOut(ProfileIn):
-    pass
+class ProfileOut(BaseModel):
+    displayName: str = ""
+    avatar: str = "🙂"
+    locale: Literal["pt", "en", "es"] = "pt"
+    updatedAt: str | None = None
 
 
 # ---- Plan --------------------------------------------------------------
@@ -58,6 +62,7 @@ class Peer(BaseModel):
     sub: str
     displayName: str
     avatar: str
+    isPepper: bool = False
     mode: Literal["venue", "gps"]
     venueId: str | None = None
     lat: float | None = None

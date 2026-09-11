@@ -116,6 +116,7 @@ export interface Peer {
   sub: string
   displayName: string
   avatar: string
+  isPepper?: boolean
   mode: ShareMode
   venueId?: string | null
   lat?: number | null

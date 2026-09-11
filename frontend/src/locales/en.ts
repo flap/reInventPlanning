@@ -13,7 +13,7 @@ export default {
     releases: 'Releases',
     login: 'Sign in',
     perfil: 'My Profile',
-    findpepper: 'findPepper',
+    findpeople: 'findPeople',
     more: 'More',
   },
   header: {
@@ -256,8 +256,9 @@ export default {
     deleteConfirm: 'This permanently deletes your profile, plan and location. Are you sure?',
     deleted: 'Account deleted.',
   },
-  findpepper: {
-    title: 'findPepper',
+  findpeople: {
+    title: 'findPeople',
+    pepperBadge: 'Pepper',
     subtitle: 'Find other attendees for happy hours and talks',
     consentTitle: 'Share location',
     consentBody: 'To see and be seen, you share your location optionally and reciprocally. Only people who are sharing appear. You can stop anytime and sharing expires on its own.',
@@ -291,6 +292,6 @@ export default {
     noPeers: 'Nobody else is sharing at the moment.',
     refresh: 'Refresh',
     gpsError: 'Could not get your GPS location. Check browser permissions.',
-    loginRequired: 'Sign in to use findPepper.',
+    loginRequired: 'Sign in to use findPeople.',
   },
 }
