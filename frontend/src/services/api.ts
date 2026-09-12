@@ -228,10 +228,8 @@ export const api = {
     if (isMock) {
       const u = mockCurrentUser()
       const scope = (crewCode?.trim().toUpperCase()) || 'GLOBAL'
-      const shares = mockReadShares()
-      const mine = u && shares.find((s) => s.sub === u.sub && s.scope === scope)
-      if (!mine) throw new ApiError(403, 'reciprocal visibility: you must be sharing')
-      return shares.filter((s) => s.scope === scope && s.sub !== u!.sub)
+      // Non-reciprocal: any authenticated (mock) user can view sharers.
+      return mockReadShares().filter((s) => s.scope === scope && s.sub !== u?.sub)
     }
     const q = crewCode ? `?crewCode=${encodeURIComponent(crewCode)}` : ''
     return http(`/api/v1/share${q}`)

@@ -145,7 +145,7 @@ DELETE /api/v1/account             Right to erasure: wipe all user data
 
 POST   /api/v1/share               Start/refresh sharing (venue | gps, duration, crew?)
 DELETE /api/v1/share               Stop sharing (immediate revoke)
-GET    /api/v1/share               List peers (403 unless the caller is sharing)
+GET    /api/v1/share               List peers (any authenticated user; non-reciprocal)
 GET    /api/v1/share/status        My current sharing status
 ```
 
@@ -178,11 +178,12 @@ Location is the most sensitive data in the system, so privacy is enforced
 **server‑side**, not merely in the UI (ADR‑010 / ADR‑011):
 
 - **Anonymous‑first:** the core app requires no account; login unlocks extras only.
-- **Opt‑in by default:** a user is invisible until they explicitly share.
-- **Reciprocity (server‑enforced):** `GET /share` returns **403** unless the caller
-  is currently sharing in that scope — you can only see peers if you are also visible.
+- **Opt‑in by default:** a user is invisible (not listed) until they explicitly share.
+- **Non‑reciprocal viewing (login required):** any *authenticated* user can view who is
+  sharing, even without sharing themselves. Being *listed* remains opt‑in, so
+  non‑consenting users are never exposed.
 - **Coarse by default:** venue selection is the primary mode; precise GPS is an extra
-  opt‑in.
+  opt‑in. GPS peers surface a Google Maps link to the shared position.
 - **Auto‑expiry:** every location item carries `expiresAt` (DynamoDB TTL). GPS is
   capped at 4h, venue at 8h, regardless of the requested duration.
 - **Instant revoke:** stopping sharing deletes the item immediately.

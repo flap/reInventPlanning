@@ -81,16 +81,14 @@ def list_peers(
     sub: str = Depends(get_current_user_sub),
     repo: Repository = Depends(get_repository),
 ) -> list[Peer]:
-    """Reciprocal read (ADR-011): only users who are themselves currently
-    sharing in this scope may see peers. Enforced server-side — never trusted
-    to the client."""
+    """List active peers currently sharing in this scope.
+
+    Visibility is NON-reciprocal (product decision): any *authenticated* user
+    may view who is sharing, even without sharing themselves. Sharing remains
+    opt-in for those who are listed — a user never appears here unless they
+    explicitly chose to share — so this does not expose non-consenting users.
+    """
     scope = _scope(crewCode)
-    mine = repo.get_my_share(sub, scope)
-    if not mine:
-        raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="You must be sharing your location to see peers (reciprocal visibility).",
-        )
 
     peers: list[Peer] = []
     for item in repo.list_shares(scope):

@@ -105,13 +105,17 @@ async function doStart() {
 
 async function doStop() {
   await stop(crewCode.value.trim() || null)
-  stopTimer()
+  // Keep the timer running: user can still view peers after stopping.
 }
 
 function placeLabel(id?: string | null): string {
   if (!id) return '—'
   const p = placeById.value[id]
   return p ? `${p.emoji} ${p.venue} — ${p.area}` : id
+}
+
+function mapsUrl(lat: number, lng: number): string {
+  return `https://www.google.com/maps?q=${lat},${lng}`
 }
 
 function fmtCountdown(s: number): string {
@@ -123,12 +127,15 @@ function fmtCountdown(s: number): string {
 function startTimer() {
   stopTimer()
   timer = window.setInterval(async () => {
-    countdown.value = secondsLeft()
-    if (countdown.value <= 0) {
-      await refreshStatus(crewCode.value.trim() || null)
-      stopTimer()
-      return
+    // If currently sharing, keep the expiry countdown in sync and refresh
+    // status when it lapses (so the UI reflects that sharing ended).
+    if (isSharing.value) {
+      countdown.value = secondsLeft()
+      if (countdown.value <= 0) {
+        await refreshStatus(crewCode.value.trim() || null)
+      }
     }
+    // Always refresh the peer list (non-reciprocal: viewable without sharing).
     await refreshPeers(crewCode.value.trim() || null)
   }, 5000)
   countdown.value = secondsLeft()
@@ -141,10 +148,9 @@ function stopTimer() {
 
 onMounted(async () => {
   await refreshStatus(crewCode.value.trim() || null)
-  if (isSharing.value) {
-    await refreshPeers(crewCode.value.trim() || null)
-    startTimer()
-  }
+  // Non-reciprocal: load and poll peers even when not sharing.
+  await refreshPeers(crewCode.value.trim() || null)
+  startTimer()
 })
 
 onUnmounted(stopTimer)
@@ -251,7 +257,6 @@ onUnmounted(stopTimer)
       <div class="flex items-center justify-between mb-4">
         <h2 class="font-semibold text-aws-dark dark:text-gray-100">👥 {{ t('findpeople.peersTitle') }}</h2>
         <button
-          v-if="isSharing"
           @click="refreshPeers(crewCode.trim() || null)"
           class="text-sm text-aws-orange hover:underline"
         >
@@ -259,54 +264,55 @@ onUnmounted(stopTimer)
         </button>
       </div>
 
-      <!-- not sharing => reciprocity notice -->
-      <div v-if="!isSharing" class="text-center py-8 text-gray-500 dark:text-gray-400">
-        <p class="text-lg mb-1">🔒 {{ t('findpeople.notSharing') }}</p>
-        <p class="text-sm">{{ t('findpeople.notSharingHint') }}</p>
+      <!-- Peers are viewable by any logged-in user (non-reciprocal). -->
+      <div v-if="peers.length === 0" class="text-center py-8 text-gray-400">
+        {{ t('findpeople.noPeers') }}
       </div>
-
-      <template v-else>
-        <div v-if="peers.length === 0" class="text-center py-8 text-gray-400">
-          {{ t('findpeople.noPeers') }}
-        </div>
-        <ul v-else class="space-y-3">
-          <li
-            v-for="peer in sortedPeers"
-            :key="peer.sub"
-            :class="[
-              'flex items-center gap-3 p-3 rounded-lg border transition-all',
-              peer.isPepper
-                ? 'border-aws-orange bg-aws-orange/10 dark:bg-aws-orange/15 ring-2 ring-aws-orange/40 shadow-sm'
-                : 'border-gray-200 dark:border-gray-700',
-            ]"
-          >
-            <span class="relative text-2xl">
-              {{ peer.avatar }}
+      <ul v-else class="space-y-3">
+        <li
+          v-for="peer in sortedPeers"
+          :key="peer.sub"
+          :class="[
+            'flex items-center gap-3 p-3 rounded-lg border transition-all',
+            peer.isPepper
+              ? 'border-aws-orange bg-aws-orange/10 dark:bg-aws-orange/15 ring-2 ring-aws-orange/40 shadow-sm'
+              : 'border-gray-200 dark:border-gray-700',
+          ]"
+        >
+          <span class="relative text-2xl">
+            {{ peer.avatar }}
+            <span
+              v-if="peer.isPepper"
+              class="absolute -bottom-1 -right-1 text-base drop-shadow"
+              aria-hidden="true"
+            >🌶️</span>
+          </span>
+          <div class="flex-1 min-w-0">
+            <p class="font-medium truncate" :class="peer.isPepper ? 'text-aws-orange font-bold' : 'text-gray-800 dark:text-gray-100'">
+              {{ peer.displayName }}
               <span
                 v-if="peer.isPepper"
-                class="absolute -bottom-1 -right-1 text-base drop-shadow"
-                aria-hidden="true"
-              >🌶️</span>
-            </span>
-            <div class="flex-1 min-w-0">
-              <p class="font-medium truncate" :class="peer.isPepper ? 'text-aws-orange font-bold' : 'text-gray-800 dark:text-gray-100'">
-                {{ peer.displayName }}
-                <span
-                  v-if="peer.isPepper"
-                  class="ml-1 inline-flex items-center gap-1 align-middle text-[10px] font-bold uppercase tracking-wide bg-aws-orange text-white px-1.5 py-0.5 rounded-full"
-                >🌶️ {{ t('findpeople.pepperBadge') }}</span>
-              </p>
-              <p class="text-sm text-gray-500 dark:text-gray-400 truncate">
-                <template v-if="peer.mode === 'venue'">{{ placeLabel(peer.venueId) }}</template>
-                <template v-else>📡 GPS · {{ peer.lat?.toFixed(3) }}, {{ peer.lng?.toFixed(3) }}</template>
-              </p>
-              <p v-if="peer.statusText" class="text-xs text-aws-orange truncate">💬 {{ peer.statusText }}</p>
-            </div>
-          </li>
-        </ul>
-      </template>
+                class="ml-1 inline-flex items-center gap-1 align-middle text-[10px] font-bold uppercase tracking-wide bg-aws-orange text-white px-1.5 py-0.5 rounded-full"
+              >🌶️ {{ t('findpeople.pepperBadge') }}</span>
+            </p>
+            <p class="text-sm text-gray-500 dark:text-gray-400 truncate">
+              <template v-if="peer.mode === 'venue'">{{ placeLabel(peer.venueId) }}</template>
+              <template v-else>📡 GPS · {{ peer.lat?.toFixed(4) }}, {{ peer.lng?.toFixed(4) }}</template>
+            </p>
+            <!-- GPS peers get a Google Maps link to their shared position -->
+            <a
+              v-if="peer.mode === 'gps' && peer.lat != null && peer.lng != null"
+              :href="mapsUrl(peer.lat, peer.lng)"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1 text-xs text-aws-orange hover:underline"
+            >🗺️ {{ t('findpeople.openInMaps') }}</a>
+            <p v-if="peer.statusText" class="text-xs text-aws-orange truncate">💬 {{ peer.statusText }}</p>
+          </div>
+        </li>
+      </ul>
 
-      <p v-if="error && isSharing" class="mt-3 text-sm text-red-600 dark:text-red-400">{{ error }}</p>
+      <p v-if="error" class="mt-3 text-sm text-red-600 dark:text-red-400">{{ error }}</p>
     </div>
 
     <ConsentModal :open="showConsent" @agree="grantConsent" @cancel="showConsent = false" />
