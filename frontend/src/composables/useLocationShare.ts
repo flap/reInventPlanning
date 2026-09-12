@@ -1,13 +1,14 @@
 import { computed, ref } from 'vue'
 import type { Peer, ShareRequest, ShareStatus } from '@/types'
-import { api, ApiError } from '@/services/api'
+import { api } from '@/services/api'
 
 /**
  * Location sharing state (Features 12/13), shared module-scope.
  *
- * Privacy invariants mirrored from the backend (ADR-011):
- *  - default is NOT sharing
- *  - to list peers you must be sharing (reciprocity) — a 403 is surfaced, not hidden
+ * Privacy model:
+ *  - default is NOT sharing (opt-in for those who appear in the list)
+ *  - visibility is NON-reciprocal: any logged-in user can view who is sharing,
+ *    even without sharing themselves (they still must be authenticated)
  *  - sharing auto-expires; we track expiresAt and flip to "not sharing" on expiry
  */
 
@@ -49,7 +50,8 @@ async function stop(crewCode?: string | null): Promise<void> {
   loading.value = true
   try {
     status.value = await api.stopShare(crewCode)
-    peers.value = []
+    // Keep viewing peers even after stopping (non-reciprocal): refresh instead of clearing.
+    await refreshPeers(crewCode)
   } finally {
     loading.value = false
   }
@@ -61,13 +63,6 @@ async function refreshPeers(crewCode?: string | null): Promise<void> {
     peers.value = await api.listPeers(crewCode)
   } catch (e) {
     peers.value = []
-    if (e instanceof ApiError && e.status === 403) {
-      // Reciprocity: server says we can't view because we're not sharing.
-      // Re-verify the authoritative status instead of assuming — avoids a
-      // transient race wrongly flipping the UI out of "sharing".
-      await refreshStatus(crewCode)
-      return
-    }
     error.value = e instanceof Error ? e.message : 'Failed to load peers'
   }
 }

@@ -9,13 +9,27 @@ def test_not_sharing_by_default_status(client):
     assert r.json()["sharing"] is False
 
 
-def test_reciprocity_non_sharer_cannot_list(client):
-    # u1 is NOT sharing -> forbidden to list peers
+def test_non_sharer_can_list_peers(client):
+    # u2 is sharing; u1 is NOT sharing but must still be able to view (non-reciprocal).
+    client.post(
+        "/api/v1/share",
+        json={"mode": "venue", "venueId": "venetian-expo", "durationMin": 120},
+        headers=auth("u2"),
+    )
     r = client.get("/api/v1/share", headers=auth("u1"))
-    assert r.status_code == 403
+    assert r.status_code == 200
+    subs = {p["sub"] for p in r.json()}
+    assert "u2" in subs  # non-sharer u1 sees sharer u2
 
 
-def test_share_venue_and_reciprocal_list(client):
+def test_empty_list_when_nobody_sharing(client):
+    # u1 not sharing, nobody else sharing -> empty list, still 200 (no 403).
+    r = client.get("/api/v1/share", headers=auth("u1"))
+    assert r.status_code == 200
+    assert r.json() == []
+
+
+def test_share_venue_and_list(client):
     # u1 shares a venue
     r = client.post(
         "/api/v1/share",

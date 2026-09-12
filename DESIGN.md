@@ -1785,6 +1785,8 @@ GET    /api/v1/share?crewCode=...   → lista de peers ativos (só se requisitan
 
 **Consequência para o frontend:** novo composable `useAuth` (padrão `useI18n`/`useTheme`), store `location`/`share`, guard de rota `requiresAuth`, e componente de consentimento. Nenhuma dessas telas expõe localização de quem não optou.
 
+**Emenda (posterior — visualização não-recíproca):** por decisão de produto, a reciprocidade (item 2) foi **removida**: qualquer usuário **autenticado** pode listar quem está compartilhando, mesmo sem compartilhar. O `GET /share` não retorna mais `403` por não-compartilhamento. As demais garantias permanecem: aparecer na lista continua **opt-in** (ninguém é listado sem escolher compartilhar), então não há exposição de quem não consentiu; login continua obrigatório para a área. Adicionado também um **link para o Google Maps** na posição de peers que compartilham por GPS (`https://www.google.com/maps?q=lat,lng`, aberto com `rel="noopener noreferrer"`).
+
 ---
 
 *Documento criado em: Julho 2026*

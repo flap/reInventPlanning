@@ -454,16 +454,16 @@ Cada feature é derivada do conteúdo existente nos guias do projeto, expandida 
 
 > Fonte: Solicitação de evolução — recurso social da área logada (Fase 3). Depende da Feature 11.
 
-**Objetivo:** Permitir que usuários **logados** compartilhem, de forma **voluntária e reversível**, onde estão — seja por **local do re:Invent selecionado em um combo box** (padrão) ou por **localização GPS precisa** (opt-in adicional, com expiração automática). Visível apenas dentro da área logada e apenas para outros usuários que também estão compartilhando (modelo recíproco).
+**Objetivo:** Permitir que usuários **logados** compartilhem, de forma **voluntária e reversível**, onde estão — seja por **local do re:Invent selecionado em um combo box** (padrão) ou por **localização GPS precisa** (opt-in adicional, com expiração automática). Visível apenas dentro da área logada. A **visualização é não-recíproca**: qualquer usuário logado pode ver quem está compartilhando, mesmo sem compartilhar; porém aparecer na lista continua sendo **opt-in** (ninguém é listado sem ter escolhido compartilhar).
 
 **Modelo de privacidade (regras invioláveis):**
 
-- **Opt-in por padrão desligado:** o usuário é **invisível** até escolher explicitamente compartilhar.
+- **Opt-in por padrão desligado:** o usuário é **invisível** (não aparece na lista) até escolher explicitamente compartilhar.
 - **Local por combo box é o modo padrão** (coarse): ex. "Venetian – Expo Hall". Não expõe coordenadas.
-- **GPS preciso é opt-in adicional e expira automaticamente** (ex.: compartilhar por 1h/2h/4h), voltando a "desligado".
+- **GPS preciso é opt-in adicional e expira automaticamente** (ex.: compartilhar por 1h/2h/4h), voltando a "desligado". Ao compartilhar por GPS, é oferecido um **link para o Google Maps** com a posição.
 - **Revogável instantaneamente:** um toque para parar de compartilhar / ficar invisível.
-- **Visibilidade recíproca:** para ver os outros no mapa/lista, o usuário precisa estar compartilhando também. Quem não compartilha não vê ninguém e não é visto.
-- **Sem rastreamento silencioso:** nenhum usuário que não optou por compartilhar pode ser visualizado por outros.
+- **Visibilidade não-recíproca (requer login):** qualquer usuário autenticado pode ver a lista de quem está compartilhando, mesmo sem compartilhar a própria localização. O requisito de estar na área logada se mantém.
+- **Sem rastreamento silencioso:** nenhum usuário que não optou por compartilhar pode ser visualizado por outros (a mudança é do lado de quem vê, não de quem é visto).
 - **Retenção mínima:** registros de localização expiram no servidor via TTL; GPS preciso tem expiração curta.
 
 **Funcionalidades:**
@@ -475,10 +475,11 @@ Cada feature é derivada do conteúdo existente nos guias do projeto, expandida 
 | F12.3 | Opção adicional de GPS preciso com seletor de duração (1h/2h/4h) e expiração automática | Alta |
 | F12.4 | Botão "Parar de compartilhar" (revogação imediata) | Alta |
 | F12.5 | Consentimento explícito antes do primeiro compartilhamento (modal com política) | Alta |
-| F12.6 | Visualização recíproca: mapa/lista de quem está compartilhando (só se você também está) | Alta |
+| F12.6 | Visualização não-recíproca: qualquer logado vê a lista de quem está compartilhando | Alta |
 | F12.7 | Expiração automática do registro de localização (TTL no servidor) | Alta |
 | F12.8 | Indicador visível de "você está compartilhando agora" persistente na UI | Alta |
 | F12.9 | Textos de consentimento e rótulos traduzidos nos 3 idiomas (PT/EN/ES) | Alta |
+| F12.10 | Link para o Google Maps na posição GPS compartilhada por um peer | Média |
 
 **Critérios de aceite:**
 
@@ -487,7 +488,7 @@ Cada feature é derivada do conteúdo existente nos guias do projeto, expandida 
 - Compartilhar por combo box nunca envia coordenadas GPS.
 - Ao escolher GPS preciso, o registro expira sozinho ao fim da duração escolhida.
 - Ao desligar o toggle, o usuário deixa de aparecer para os demais imediatamente.
-- Um usuário que não está compartilhando não vê a localização de ninguém (reciprocidade).
+- Um usuário logado pode ver a lista de quem está compartilhando mesmo sem compartilhar (não-recíproco); porém ninguém aparece na lista sem ter optado por compartilhar.
 - Enquanto compartilha, há um indicador claro e sempre visível de que o compartilhamento está ativo.
 
 ---
@@ -496,7 +497,7 @@ Cada feature é derivada do conteúdo existente nos guias do projeto, expandida 
 
 > Fonte: Solicitação de evolução — recurso social da área logada (Fase 3). Depende das Features 11 e 12.
 
-**Objetivo:** Ajudar usuários **logados** a se encontrarem para happy hours e talks, mostrando quem está compartilhando localização (via combo box ou GPS opt-in) e onde. Reaproveita o modelo recíproco e opt-in da Feature 12.
+**Objetivo:** Ajudar usuários **logados** a se encontrarem para happy hours e talks, mostrando quem está compartilhando localização (via combo box ou GPS opt-in) e onde. Qualquer usuário logado pode ver a lista (não-recíproco); aparecer nela continua sendo opt-in (Feature 12).
 
 **Funcionalidades:**
 
@@ -508,16 +509,17 @@ Cada feature é derivada do conteúdo existente nos guias do projeto, expandida 
 | F13.4 | Códigos de "crew" opcionais: compartilhar um código com um grupo para se ver mutuamente | Média |
 | F13.5 | Status/intenção opcional ("indo ao happy hour X", "na talk Y") — texto curto opt-in | Baixa |
 | F13.6 | Atualização quase em tempo real da lista (polling ou WebSocket) | Média |
-| F13.7 | Respeito total ao modelo recíproco/opt-in da Feature 12 | Alta |
+| F13.7 | Visualização não-recíproca (qualquer logado vê) + opt-in para quem é listado (Feature 12) | Alta |
 | F13.8 | Destaque especial (ícone de pimenta 🌶️) para um usuário específico, ordenado no topo da lista | Baixa |
 
 **Critérios de aceite:**
 
 - findPeople só é acessível na área logada.
 - Só aparecem peers que estão ativamente compartilhando; quem parou some da lista.
-- Um usuário só vê peers se ele mesmo estiver compartilhando (reciprocidade).
+- Qualquer usuário logado vê os peers, mesmo sem compartilhar a própria localização (não-recíproco).
 - Crew codes (quando usados) restringem a visibilidade ao grupo com o código, mantendo opt-in.
 - Nenhum dado de localização de não-participantes é exibido em nenhuma circunstância.
+- Peers que compartilham por GPS exibem um link para o Google Maps com a posição.
 - O destaque 🌶️ é derivado **no servidor** (flag `isPepper`) comparando o email do perfil com o email-alvo configurado; o **email nunca é exposto** na listagem de peers (minimização de dados — ADR-011).
 
 ---

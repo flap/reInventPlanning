@@ -297,6 +297,7 @@ export default {
     peersTitle: 'Who is sharing right now',
     noPeers: 'Nobody else is sharing at the moment.',
     refresh: 'Refresh',
+    openInMaps: 'Open in Google Maps',
     gpsError: 'Could not get your GPS location. Check browser permissions.',
     loginRequired: 'Sign in to use findPeople.',
   },

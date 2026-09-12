@@ -1,5 +1,32 @@
 [
   {
+    "version": "1.7.2",
+    "date": "2026-09-11",
+    "title": {
+      "pt": "findPeople: ver sem compartilhar + link do mapa",
+      "en": "findPeople: view without sharing + map link",
+      "es": "findPeople: ver sin compartir + enlace del mapa"
+    },
+    "items": [
+      {
+        "type": "feature",
+        "text": {
+          "pt": "Agora qualquer usuário logado pode ver quem está compartilhando, mesmo sem compartilhar a própria localização (login continua obrigatório; aparecer na lista continua opt-in).",
+          "en": "Any logged-in user can now see who is sharing, even without sharing their own location (login still required; being listed stays opt-in).",
+          "es": "Cualquier usuario con sesión puede ver quién está compartiendo, incluso sin compartir su ubicación (el inicio de sesión sigue siendo obligatorio; aparecer en la lista sigue siendo opt-in)."
+        }
+      },
+      {
+        "type": "feature",
+        "text": {
+          "pt": "Peers que compartilham por GPS agora exibem um link 🗺️ para o Google Maps com a posição.",
+          "en": "Peers sharing via GPS now show a 🗺️ Google Maps link to their position.",
+          "es": "Los peers que comparten por GPS ahora muestran un enlace 🗺️ a Google Maps con su posición."
+        }
+      }
+    ]
+  },
+  {
     "version": "1.7.1",
     "date": "2026-09-11",
     "title": {
