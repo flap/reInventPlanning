@@ -41,6 +41,54 @@ const transportes = [
   { nome: 'Ônibus (RTC)', preco: '$6', tempo: '30–45 min', destaque: { pt: 'Econômico, 40-50 min', en: 'Budget, 40-50 min', es: 'Económico, 40-50 min' }, icon: '🚌' },
   { nome: 'Shuttle Hotel', preco: '$8–15', tempo: '20–40 min', destaque: { pt: 'Compartilhado, direto aos hotéis', en: 'Shared, direct to hotels', es: 'Compartido, directo a hoteles' }, icon: '🚐' },
 ]
+
+// --- Transporte público RTC / RideRTC (F3.9) ---
+const rtcAppUrl = 'https://www.rtcsnv.com/ways-to-travel/how-to-ride/ridertc-app/'
+
+interface Tarifa {
+  tipo: { pt: string; en: string; es: string }
+  preco: string
+  reduzido: string
+}
+
+const tarifasRtc: Tarifa[] = [
+  { tipo: { pt: 'Passagem 2 horas', en: '2-hour pass', es: 'Boleto 2 horas' }, preco: '$6.00', reduzido: '$3.00' },
+  { tipo: { pt: 'Passe 24 horas', en: '24-hour pass', es: 'Pase 24 horas' }, preco: '$8.00', reduzido: '$4.00' },
+  { tipo: { pt: 'Passe 3 dias', en: '3-day pass', es: 'Pase 3 días' }, preco: '$20.00', reduzido: '$10.00' },
+]
+
+interface RotaExemplo {
+  de: string
+  para: string
+  passos: { pt: string; en: string; es: string }
+  tempo: string
+  icon: string
+}
+
+const rotasExemplo: RotaExemplo[] = [
+  {
+    de: 'Excalibur',
+    para: 'The Venetian',
+    icon: '🎰',
+    tempo: '~15–20 min',
+    passos: {
+      pt: 'Pegue o Deuce (sentido norte) direto na parada em frente ao Excalibur e desça no The Venetian. Sem baldeação — coberto por qualquer passe.',
+      en: 'Take the Deuce (northbound) straight from the stop in front of Excalibur and get off at The Venetian. No transfer — covered by any pass.',
+      es: 'Toma el Deuce (dirección norte) directo desde la parada frente al Excalibur y baja en The Venetian. Sin transbordo — cubierto por cualquier pase.',
+    },
+  },
+  {
+    de: 'The Venetian',
+    para: 'Las Vegas North Premium Outlets',
+    icon: '🛍️',
+    tempo: '~40–55 min',
+    passos: {
+      pt: 'Pegue o Deuce (sentido norte) até o Bonneville Transit Center (BTC, Downtown). No BTC, transfira para a Route 401 (N. Outlets/Symphony Park) na Bay 19. A transferência é gratuita dentro do mesmo passe.',
+      en: 'Take the Deuce (northbound) to the Bonneville Transit Center (BTC, Downtown). At BTC, transfer to Route 401 (N. Outlets/Symphony Park) at Bay 19. The transfer is free within the same pass.',
+      es: 'Toma el Deuce (dirección norte) hasta el Bonneville Transit Center (BTC, Downtown). En el BTC, transborda a la Route 401 (N. Outlets/Symphony Park) en la Bay 19. El transbordo es gratis dentro del mismo pase.',
+    },
+  },
+]
 </script>
 
 <template>
@@ -145,6 +193,65 @@ const transportes = [
           <p class="text-xs text-gray-600 mt-2">{{ transporte.destaque[locale] }}</p>
         </div>
       </div>
+    </section>
+
+    <!-- Transporte Público — RTC / RideRTC -->
+    <section class="mb-10">
+      <h2 class="text-2xl font-bold text-aws-dark mb-2">🚌 {{ {pt: 'Transporte Público (RTC)', en: 'Public Transport (RTC)', es: 'Transporte Público (RTC)'}[locale] }}</h2>
+      <p class="text-sm text-gray-600 mb-4">
+        {{ {pt: 'O Deuce é o ônibus de dois andares que percorre toda a Strip 24h. Compre e valide bilhetes pelo app', en: 'The Deuce is the double-decker bus running the whole Strip 24/7. Buy and validate tickets with the', es: 'El Deuce es el autobús de dos pisos que recorre toda la Strip 24h. Compra y valida boletos con la app'}[locale] }}
+        <a :href="rtcAppUrl" target="_blank" rel="noopener noreferrer" class="text-aws-orange hover:underline font-medium">RideRTC</a>.
+      </p>
+
+      <!-- Tarifas -->
+      <div class="overflow-x-auto mb-4">
+        <table class="w-full text-sm border border-gray-200 rounded-xl overflow-hidden">
+          <thead class="bg-aws-dark text-white">
+            <tr>
+              <th class="px-3 py-2 text-left">{{ {pt: 'Bilhete', en: 'Ticket', es: 'Boleto'}[locale] }}</th>
+              <th class="px-3 py-2 text-left">{{ {pt: 'Valor', en: 'Price', es: 'Precio'}[locale] }}</th>
+              <th class="px-3 py-2 text-left">{{ {pt: 'Reduzido*', en: 'Reduced*', es: 'Reducido*'}[locale] }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              v-for="(tarifa, i) in tarifasRtc"
+              :key="i"
+              :class="i % 2 === 0 ? 'bg-white' : 'bg-gray-50'"
+            >
+              <td class="px-3 py-2 font-medium text-aws-dark">{{ tarifa.tipo[locale] }}</td>
+              <td class="px-3 py-2 font-semibold text-aws-orange">{{ tarifa.preco }}</td>
+              <td class="px-3 py-2 font-mono text-xs">{{ tarifa.reduzido }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="text-xs text-gray-500 mb-6">
+        {{ {pt: '* Tarifa reduzida: 60+, 6–17 anos, estudantes, veteranos e PcD. Crianças ≤5 não pagam. Tarifa "Strip & All Access" (exigida de visitantes). Passes de 15/30 dias apenas pelo app.', en: '* Reduced fare: 60+, ages 6–17, students, veterans and people with disabilities. Kids ≤5 free. "Strip & All Access" fare (required for visitors). 15/30-day passes via the app only.', es: '* Tarifa reducida: 60+, 6–17 años, estudiantes, veteranos y PcD. Niños ≤5 gratis. Tarifa "Strip & All Access" (exigida a visitantes). Pases de 15/30 días solo por la app.'}[locale] }}
+      </p>
+
+      <!-- Rotas de exemplo -->
+      <h3 class="font-bold text-aws-dark mb-3">{{ {pt: 'Exemplos de trajeto', en: 'Example routes', es: 'Ejemplos de trayecto'}[locale] }}</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div
+          v-for="(rota, i) in rotasExemplo"
+          :key="i"
+          class="bg-white border border-gray-200 rounded-xl p-4"
+        >
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-2xl">{{ rota.icon }}</span>
+            <div class="font-semibold text-aws-dark text-sm">
+              {{ rota.de }} <span class="text-aws-orange">→</span> {{ rota.para }}
+            </div>
+          </div>
+          <p class="text-xs text-gray-600 leading-relaxed">{{ rota.passos[locale] }}</p>
+          <p class="text-xs text-gray-400 mt-2">⏱️ {{ rota.tempo }}</p>
+        </div>
+      </div>
+
+      <p class="text-xs text-gray-500 mt-4">
+        ⚠️ {{ {pt: 'O RTC anunciou (mai/2026) proposta de reajuste de tarifas em consulta pública. Confirme os valores no app RideRTC perto da viagem.', en: 'RTC announced (May/2026) a proposed fare change under public review. Confirm prices in the RideRTC app close to your trip.', es: 'El RTC anunció (may/2026) una propuesta de ajuste de tarifas en consulta pública. Confirma los precios en la app RideRTC cerca del viaje.'}[locale] }}
+      </p>
     </section>
 
     <!-- Dicas da Comunidade — Transporte -->
