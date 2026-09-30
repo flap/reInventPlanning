@@ -197,6 +197,7 @@ Cada feature é derivada do conteúdo existente nos guias do projeto, expandida 
 | F3.6 | Guia de deslocamento durante o evento (shuttle, monorail, Uber) | Média |
 | F3.7 | Comparativo de chips de dados / eSIM para EUA | Média |
 | F3.8 | Checklist de documentação (passaporte, visto, seguro) | Alta |
+| F3.9 | Guia de transporte público RTC (Deuce) com app RideRTC, tarifas e rotas de exemplo | Média |
 
 **Conteúdo base já disponível:**
 - 6 rotas de conexão do Brasil com companhias e tempos
@@ -205,6 +206,18 @@ Cada feature é derivada do conteúdo existente nos guias do projeto, expandida 
 - Comparativo de chips (T-Mobile, AT&T, Google Fi, eSIMs)
 - Programas de milhas recomendados
 - Checklist completo de voo e chegada
+
+**Detalhamento F3.9 — Transporte público RTC / RideRTC:**
+- App **RideRTC** para comprar e validar bilhetes pelo celular ([como usar](https://www.rtcsnv.com/ways-to-travel/how-to-ride/ridertc-app/))
+- Tarifas **Strip & All Access** (exigidas de visitantes em rotas do Strip):
+  - Passagem 2 horas: **US$ 6,00** (reduzida US$ 3,00)
+  - Passe 24 horas: **US$ 8,00** (reduzida US$ 4,00)
+  - Passe 3 dias: **US$ 20,00** (reduzida US$ 10,00)
+  - Passes 15/30 dias disponíveis apenas pelo app RideRTC
+- **Exemplo 1 — Excalibur → The Venetian:** Deuce (direção norte) direto, ~15–20 min de percurso; coberto por qualquer passe
+- **Exemplo 2 — The Venetian → Las Vegas North Premium Outlets:** Deuce (direção norte) até o Bonneville Transit Center (BTC, Downtown), transferir para a **Route 401** (N. Outlets/Symphony Park) na Bay 19; a transferência é gratuita dentro do mesmo passe
+- Observações: pagar em dinheiro no ônibus exige valor exato; o Deuce roda 24h; crianças ≤5 anos não pagam
+- ⚠️ RTC anunciou (mai/2026) proposta de reajuste de tarifas em consulta pública — validar valores próximo à viagem
 
 ---
 

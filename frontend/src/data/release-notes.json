@@ -1,5 +1,25 @@
 [
   {
+    "version": "1.7.3",
+    "date": "2026-09-30",
+    "title": {
+      "pt": "Transporte público (RTC Deuce + RideRTC)",
+      "en": "Public transport (RTC Deuce + RideRTC)",
+      "es": "Transporte público (RTC Deuce + RideRTC)"
+    },
+    "items": [
+      {
+        "type": "feature",
+        "issue": 75,
+        "text": {
+          "pt": "Novo guia de transporte público na aba Voos: app RideRTC, tabela de tarifas (2h $6, 24h $8, 3 dias $20) e 2 rotas de exemplo (Excalibur→Venetian; Venetian→North Premium Outlets via Route 401).",
+          "en": "New public transport guide in the Flights tab: RideRTC app, fare table (2h $6, 24h $8, 3-day $20) and 2 example routes (Excalibur→Venetian; Venetian→North Premium Outlets via Route 401).",
+          "es": "Nueva guía de transporte público en la pestaña Vuelos: app RideRTC, tabla de tarifas (2h $6, 24h $8, 3 días $20) y 2 rutas de ejemplo (Excalibur→Venetian; Venetian→North Premium Outlets vía Route 401)."
+        }
+      }
+    ]
+  },
+  {
     "version": "1.7.2",
     "date": "2026-09-11",
     "title": {
