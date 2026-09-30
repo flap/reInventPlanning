@@ -1,5 +1,24 @@
 [
   {
+    "version": "1.7.4",
+    "date": "2026-09-30",
+    "title": {
+      "pt": "Menu 'Voos' renomeado para 'Deslocamento'",
+      "en": "'Flights' menu renamed to 'Getting Around'",
+      "es": "Menú 'Vuelos' renombrado a 'Transporte'"
+    },
+    "items": [
+      {
+        "type": "refactor",
+        "text": {
+          "pt": "O item de menu 'Voos' agora é 'Deslocamento' (título: 'Voos, Visto e Transporte'), refletindo melhor o conteúdo (voos, visto e transporte local). O link continua o mesmo.",
+          "en": "The 'Flights' menu item is now 'Getting Around' (title: 'Flights, Visa & Transport'), better reflecting its content (flights, visa and local transport). The link stays the same.",
+          "es": "El elemento de menú 'Vuelos' ahora es 'Transporte' (título: 'Vuelos, Visa y Transporte'), reflejando mejor su contenido (vuelos, visa y transporte local). El enlace sigue igual."
+        }
+      }
+    ]
+  },
+  {
     "version": "1.7.3",
     "date": "2026-09-30",
     "title": {

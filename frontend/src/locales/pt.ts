@@ -3,7 +3,7 @@ export default {
     home: 'Início',
     evento: 'Evento',
     hoteis: 'Hotéis',
-    voos: 'Voos',
+    voos: 'Deslocamento',
     clima: 'Clima',
     turismo: 'Turismo',
     checklist: 'Checklist',
@@ -45,7 +45,7 @@ export default {
     guides: {
       evento: { title: 'Evento', desc: 'Sessões, agenda e dicas' },
       hoteis: { title: 'Hotéis', desc: 'Comparador e reservas' },
-      voos: { title: 'Voos', desc: 'Passagens e visto' },
+      voos: { title: 'Deslocamento', desc: 'Voos, visto e transporte' },
       clima: { title: 'Clima', desc: 'Vestuário e bagagem' },
       turismo: { title: 'Turismo', desc: 'Atrações e compras' },
       ferramentas: { title: 'Ferramentas', desc: 'Checklist e orçamento' },
@@ -110,7 +110,7 @@ export default {
     viewMap: 'Ver no mapa',
   },
   voos: {
-    title: 'Voos e Deslocamento',
+    title: 'Voos, Visto e Transporte',
     routesTitle: 'Voos do Brasil',
     routesFrom: 'Origem',
     routesConnection: 'Conexão',

@@ -26,7 +26,7 @@ const orcamentoEstimado = computed(() => formatUSD(budgetStore.totalUSD))
 const guideKeys = [
   { key: 'evento', to: '/evento', emoji: '🎯' },
   { key: 'hoteis', to: '/hoteis', emoji: '🏨' },
-  { key: 'voos', to: '/voos', emoji: '✈️' },
+  { key: 'voos', to: '/voos', emoji: '🚕' },
   { key: 'clima', to: '/clima', emoji: '🌡️' },
   { key: 'turismo', to: '/turismo', emoji: '🎰' },
   { key: 'ferramentas', to: '/checklist', emoji: '📋' },
