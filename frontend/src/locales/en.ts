@@ -3,7 +3,7 @@ export default {
     home: 'Home',
     evento: 'Event',
     hoteis: 'Hotels',
-    voos: 'Flights',
+    voos: 'Getting Around',
     clima: 'Weather',
     turismo: 'Tourism',
     checklist: 'Checklist',
@@ -45,7 +45,7 @@ export default {
     guides: {
       evento: { title: 'Event', desc: 'Sessions, agenda & tips' },
       hoteis: { title: 'Hotels', desc: 'Comparator & bookings' },
-      voos: { title: 'Flights', desc: 'Tickets & visa' },
+      voos: { title: 'Getting Around', desc: 'Flights, visa & transport' },
       clima: { title: 'Weather', desc: 'Clothing & luggage' },
       turismo: { title: 'Tourism', desc: 'Attractions & shopping' },
       ferramentas: { title: 'Tools', desc: 'Checklist & budget' },
@@ -110,7 +110,7 @@ export default {
     viewMap: 'View on map',
   },
   voos: {
-    title: 'Flights & Transportation',
+    title: 'Flights, Visa & Transport',
     routesTitle: 'Flights from Brazil',
     routesFrom: 'Origin',
     routesConnection: 'Connection',

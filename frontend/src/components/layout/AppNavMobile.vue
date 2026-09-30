@@ -19,7 +19,7 @@ const mainItems = [
 const moreItems = computed(() => {
   const items = [
     { name: 'hoteis', key: 'nav.hoteis', icon: '🏨' },
-    { name: 'voos', key: 'nav.voos', icon: '✈️' },
+    { name: 'voos', key: 'nav.voos', icon: '🚕' },
     { name: 'clima', key: 'nav.clima', icon: '🌡️' },
     { name: 'turismo', key: 'nav.turismo', icon: '🎰' },
     { name: 'orcamento', key: 'nav.orcamento', icon: '💰' },

@@ -12,7 +12,7 @@ const navItems = computed(() => {
     { name: 'home', key: 'nav.home', icon: '🏠' },
     { name: 'evento', key: 'nav.evento', icon: '🎯' },
     { name: 'hoteis', key: 'nav.hoteis', icon: '🏨' },
-    { name: 'voos', key: 'nav.voos', icon: '✈️' },
+    { name: 'voos', key: 'nav.voos', icon: '🚕' },
     { name: 'clima', key: 'nav.clima', icon: '🌡️' },
     { name: 'turismo', key: 'nav.turismo', icon: '🎰' },
     { name: 'checklist', key: 'nav.checklist', icon: '✅' },
