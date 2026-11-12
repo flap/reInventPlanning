@@ -5,6 +5,7 @@ from typing import Literal
 
 from fastapi import APIRouter, Depends
 
+from app.config import settings
 from app.db import Repository, get_repository
 from app.dependencies import get_current_user_sub
 from app.schemas import PlanKindIn, PlanOut, ProfileIn, ProfileOut
@@ -26,6 +27,7 @@ def get_profile(
         displayName=item.get("displayName", ""),
         avatar=item.get("avatar", "🙂"),
         locale=item.get("locale", "pt"),
+        community=item.get("community") or settings.default_community,
         updatedAt=item.get("updatedAt"),
     )
 
@@ -39,7 +41,9 @@ def put_profile(
     payload = body.model_dump()
     payload["updatedAt"] = payload.get("updatedAt") or _iso_now()
     saved = repo.put_profile(sub, payload)
-    return ProfileOut(**{k: saved[k] for k in ("displayName", "avatar", "locale", "updatedAt")})
+    return ProfileOut(
+        **{k: saved[k] for k in ("displayName", "avatar", "locale", "community", "updatedAt")}
+    )
 
 
 @router.get("/plan", response_model=PlanOut)

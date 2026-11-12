@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router'
 import { useI18n } from '@/composables/useI18n'
 import { useAuth } from '@/composables/useAuth'
 import { useCloudSync } from '@/composables/useCloudSync'
+import { DEFAULT_COMMUNITY } from '@/types'
 
 const { t, locale } = useI18n()
 const { user, logout, updateProfile, deleteAccount } = useAuth()
@@ -12,6 +13,7 @@ const router = useRouter()
 
 const displayName = ref(user.value?.displayName ?? '')
 const avatar = ref(user.value?.avatar ?? '🙂')
+const community = ref(user.value?.community ?? DEFAULT_COMMUNITY)
 
 // Per-action feedback: { text, ok } shown as a colored banner.
 type Feedback = { text: string; ok: boolean }
@@ -29,9 +31,15 @@ function errText(e: unknown): string {
 
 async function handleSave() {
   profileMsg.value = null
+  const comm = community.value.trim() || DEFAULT_COMMUNITY
+  if (!/^[A-Za-z0-9_-]{3,24}$/.test(comm)) {
+    profileMsg.value = { text: t('perfil.communityInvalid'), ok: false }
+    return
+  }
   saving.value = true
   try {
-    await updateProfile(displayName.value.trim(), avatar.value.trim() || '🙂', locale.value)
+    await updateProfile(displayName.value.trim(), avatar.value.trim() || '🙂', locale.value, comm)
+    community.value = comm
     profileMsg.value = { text: t('perfil.saved'), ok: true }
   } catch (e) {
     profileMsg.value = { text: `${t('perfil.saveError')}: ${errText(e)}`, ok: false }
@@ -98,6 +106,18 @@ function handleLogout() {
             maxlength="4"
             class="w-24 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 text-2xl text-center focus:ring-2 focus:ring-aws-orange outline-none"
           />
+        </div>
+        <div>
+          <label for="community" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">🏷 {{ t('perfil.community') }}</label>
+          <input
+            id="community"
+            v-model="community"
+            type="text"
+            maxlength="24"
+            :placeholder="DEFAULT_COMMUNITY"
+            class="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-aws-orange outline-none"
+          />
+          <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">{{ t('perfil.communityHint') }}</p>
         </div>
         <button
           @click="handleSave"

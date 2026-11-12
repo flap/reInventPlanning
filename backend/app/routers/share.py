@@ -1,19 +1,13 @@
 from __future__ import annotations
 
-from fastapi import APIRouter, Depends, HTTPException, Query, status
+from fastapi import APIRouter, Depends, HTTPException
 
 from app.config import settings
-from app.db import Repository, get_repository
+from app.db import Repository, get_repository, scope_for
 from app.dependencies import get_current_user_sub
 from app.schemas import Peer, ShareIn, ShareStatus
 
 router = APIRouter()
-
-
-def _scope(crew_code: str | None) -> str:
-    if crew_code:
-        return crew_code.strip().upper()
-    return "GLOBAL"
 
 
 def _ttl_for(mode: str, duration_min: int) -> int:
@@ -34,8 +28,8 @@ def start_or_update_share(
     except ValueError as exc:
         raise HTTPException(status_code=422, detail=str(exc)) from exc
 
-    scope = _scope(body.crewCode)
     profile = repo.get_profile(sub) or {}
+    scope = scope_for(profile)  # derived server-side from the profile (ADR-012)
     ttl = _ttl_for(body.mode, body.durationMin)
 
     # Derive the pepper highlight server-side from the stored profile email.
@@ -66,29 +60,28 @@ def start_or_update_share(
 
 @router.delete("", response_model=ShareStatus)
 def stop_share(
-    crewCode: str | None = Query(default=None),
     sub: str = Depends(get_current_user_sub),
     repo: Repository = Depends(get_repository),
 ) -> ShareStatus:
     """Revoke immediately (F12.4). Deletes the location item now."""
-    repo.delete_share(sub, _scope(crewCode))
+    repo.delete_share(sub, scope_for(repo.get_profile(sub)))
     return ShareStatus(sharing=False)
 
 
 @router.get("", response_model=list[Peer])
 def list_peers(
-    crewCode: str | None = Query(default=None),
     sub: str = Depends(get_current_user_sub),
     repo: Repository = Depends(get_repository),
 ) -> list[Peer]:
     """List active peers currently sharing in this scope.
 
+    Only members of the caller's community are listed (ADR-012).
     Visibility is NON-reciprocal (product decision): any *authenticated* user
     may view who is sharing, even without sharing themselves. Sharing remains
     opt-in for those who are listed — a user never appears here unless they
     explicitly chose to share — so this does not expose non-consenting users.
     """
-    scope = _scope(crewCode)
+    scope = scope_for(repo.get_profile(sub))
 
     peers: list[Peer] = []
     for item in repo.list_shares(scope):
@@ -114,11 +107,10 @@ def list_peers(
 
 @router.get("/status", response_model=ShareStatus)
 def my_status(
-    crewCode: str | None = Query(default=None),
     sub: str = Depends(get_current_user_sub),
     repo: Repository = Depends(get_repository),
 ) -> ShareStatus:
-    scope = _scope(crewCode)
+    scope = scope_for(repo.get_profile(sub))
     mine = repo.get_my_share(sub, scope)
     if not mine:
         return ShareStatus(sharing=False)

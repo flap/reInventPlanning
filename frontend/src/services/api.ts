@@ -1,11 +1,12 @@
-import type { AuthUser, Peer, ShareRequest, ShareStatus } from '@/types'
+import type { AuthUser, Flight, FlightInput, Peer, ShareRequest, ShareStatus } from '@/types'
+import { DEFAULT_COMMUNITY } from '@/types'
 
 /**
  * API service layer (DESIGN §9.4). When `VITE_API_URL` is set, calls the real
  * FastAPI backend behind API Gateway + Cognito. When unset (Phase 1 / local dev),
  * falls back to an in-memory mock so the UX is fully usable without a backend.
  *
- * The mock intentionally mirrors the server's privacy rules (opt-in, reciprocity,
+ * The mock intentionally mirrors the server's privacy rules (opt-in, community scope,
  * expiry) so the front-end behaves identically with or without the cloud.
  */
 
@@ -90,6 +91,36 @@ function mockWriteShares(shares: MockShare[]): void {
   }
 }
 
+/** Community scope of the mock user (mirrors server-side `scope_for`). */
+function mockScope(u: AuthUser | null): string {
+  return (u?.community || DEFAULT_COMMUNITY).trim().toUpperCase()
+}
+
+const MOCK_FLIGHTS_KEY = 'tripevent:mock:flights'
+
+interface MockFlight extends Flight {
+  scope: string
+  expiresAt: number
+}
+
+function mockReadFlights(): MockFlight[] {
+  try {
+    const all = JSON.parse(localStorage.getItem(MOCK_FLIGHTS_KEY) || '[]') as MockFlight[]
+    const now = Math.floor(Date.now() / 1000)
+    return all.filter((f) => f.expiresAt > now)
+  } catch {
+    return []
+  }
+}
+
+function mockWriteFlights(f: MockFlight[]): void {
+  try {
+    localStorage.setItem(MOCK_FLIGHTS_KEY, JSON.stringify(f))
+  } catch {
+    /* ignore */
+  }
+}
+
 function mockCurrentUser(): AuthUser | null {
   try {
     const raw = localStorage.getItem('tripevent:mock:user')
@@ -106,7 +137,7 @@ export const api = {
   // ---- auth (mock only signs a fake token; real auth uses Cognito) ------
   async mockLogin(email: string, displayName: string): Promise<AuthUser> {
     const sub = `mock-${btoa(email).replace(/[^a-z0-9]/gi, '').slice(0, 12)}`
-    const user: AuthUser = { sub, email, displayName: displayName || email.split('@')[0] || 'peer', avatar: '🙂' }
+    const user: AuthUser = { sub, email, displayName: displayName || email.split('@')[0] || 'peer', avatar: '🙂', community: DEFAULT_COMMUNITY }
     setToken(sub)
     try {
       localStorage.setItem('tripevent:mock:user', JSON.stringify(user))
@@ -122,12 +153,26 @@ export const api = {
     return http('/api/v1/profile')
   },
 
-  async putProfile(data: { displayName: string; avatar: string; locale: string; email?: string }): Promise<void> {
+  async putProfile(data: {
+    displayName: string
+    avatar: string
+    locale: string
+    email?: string
+    community?: string
+  }): Promise<void> {
     if (isMock) {
       const u = mockCurrentUser()
       if (u) {
+        const before = mockScope(u)
         u.displayName = data.displayName
         u.avatar = data.avatar
+        if (data.community) u.community = data.community.trim()
+        const after = mockScope(u)
+        if (before !== after) {
+          // Mirrors the server: changing community stops sharing and moves flights.
+          mockWriteShares(mockReadShares().filter((s) => s.sub !== u.sub))
+          mockWriteFlights(mockReadFlights().map((f) => (f.sub === u.sub ? { ...f, scope: after } : f)))
+        }
         localStorage.setItem('tripevent:mock:user', JSON.stringify(u))
       }
       return
@@ -162,6 +207,7 @@ export const api = {
       const u = mockCurrentUser()
       if (u) {
         mockWriteShares(mockReadShares().filter((s) => s.sub !== u.sub))
+        mockWriteFlights(mockReadFlights().filter((f) => f.sub !== u.sub))
       }
       localStorage.removeItem('tripevent:mock:user')
       localStorage.removeItem('tripevent:mock:plan')
@@ -176,7 +222,7 @@ export const api = {
     if (isMock) {
       const u = mockCurrentUser()
       if (!u) throw new ApiError(401, 'not authenticated')
-      const scope = (req.crewCode?.trim().toUpperCase()) || 'GLOBAL'
+      const scope = mockScope(u)
       const now = Math.floor(Date.now() / 1000)
       const capSec = req.mode === 'gps' ? 4 * 3600 : 8 * 3600
       const ttl = Math.min(req.durationMin * 60, capSec)
@@ -201,37 +247,84 @@ export const api = {
     return http('/api/v1/share', { method: 'POST', body: JSON.stringify(req) })
   },
 
-  async stopShare(crewCode?: string | null): Promise<ShareStatus> {
+  async stopShare(): Promise<ShareStatus> {
     if (isMock) {
       const u = mockCurrentUser()
-      const scope = (crewCode?.trim().toUpperCase()) || 'GLOBAL'
+      const scope = mockScope(u)
       if (u) mockWriteShares(mockReadShares().filter((s) => !(s.sub === u.sub && s.scope === scope)))
       return { sharing: false }
     }
-    const q = crewCode ? `?crewCode=${encodeURIComponent(crewCode)}` : ''
-    return http(`/api/v1/share${q}`, { method: 'DELETE' })
+    return http('/api/v1/share', { method: 'DELETE' })
   },
 
-  async myStatus(crewCode?: string | null): Promise<ShareStatus> {
+  async myStatus(): Promise<ShareStatus> {
     if (isMock) {
       const u = mockCurrentUser()
-      const scope = (crewCode?.trim().toUpperCase()) || 'GLOBAL'
+      const scope = mockScope(u)
       const mine = u ? mockReadShares().find((s) => s.sub === u.sub && s.scope === scope) : undefined
       if (!mine) return { sharing: false }
       return { sharing: true, scope, mode: mine.mode, venueId: mine.venueId, expiresAt: mine.expiresAt }
     }
-    const q = crewCode ? `?crewCode=${encodeURIComponent(crewCode)}` : ''
-    return http(`/api/v1/share/status${q}`)
+    return http('/api/v1/share/status')
   },
 
-  async listPeers(crewCode?: string | null): Promise<Peer[]> {
+  async listPeers(): Promise<Peer[]> {
     if (isMock) {
       const u = mockCurrentUser()
-      const scope = (crewCode?.trim().toUpperCase()) || 'GLOBAL'
-      // Non-reciprocal: any authenticated (mock) user can view sharers.
+      const scope = mockScope(u)
+      // Same community only; any authenticated (mock) user can view sharers.
       return mockReadShares().filter((s) => s.scope === scope && s.sub !== u?.sub)
     }
-    const q = crewCode ? `?crewCode=${encodeURIComponent(crewCode)}` : ''
-    return http(`/api/v1/share${q}`)
+    return http('/api/v1/share')
+  },
+
+  // ---- flights (Feature 14) --------------------------------------------
+  async listFlights(): Promise<Flight[]> {
+    if (isMock) {
+      const u = mockCurrentUser()
+      const scope = mockScope(u)
+      return mockReadFlights()
+        .filter((f) => f.scope === scope)
+        .map((f) => ({ ...f, mine: f.sub === u?.sub }))
+        .sort((a, b) => a.departAt.localeCompare(b.departAt))
+    }
+    return http('/api/v1/flights')
+  },
+
+  async addFlight(input: FlightInput): Promise<Flight> {
+    if (isMock) {
+      const u = mockCurrentUser()
+      if (!u) throw new ApiError(401, 'not authenticated')
+      const mine = mockReadFlights().filter((f) => f.sub === u.sub)
+      if (mine.length >= 12) throw new ApiError(409, 'limit of 12 flights reached')
+      const flight: MockFlight = {
+        id: Math.random().toString(36).slice(2, 14),
+        sub: u.sub,
+        scope: mockScope(u),
+        displayName: u.displayName,
+        avatar: u.avatar,
+        isPepper: (u.email || '').trim().toLowerCase() === 'flaviopimenta@gmail.com',
+        mine: true,
+        originIata: input.originIata.toUpperCase(),
+        destIata: input.destIata.toUpperCase(),
+        departAt: input.departAt,
+        arriveAt: input.arriveAt,
+        flightNumber: input.flightNumber ?? null,
+        note: input.note ?? null,
+        expiresAt: Math.floor(new Date(input.arriveAt + ':00Z').getTime() / 1000) + 72 * 3600,
+      }
+      mockWriteFlights([...mockReadFlights(), flight])
+      return flight
+    }
+    return http('/api/v1/flights', { method: 'POST', body: JSON.stringify(input) })
+  },
+
+  async deleteFlight(id: string): Promise<void> {
+    if (isMock) {
+      const u = mockCurrentUser()
+      mockWriteFlights(mockReadFlights().filter((f) => !(f.id === id && f.sub === u?.sub)))
+      return
+    }
+    await http(`/api/v1/flights/${encodeURIComponent(id)}`, { method: 'DELETE' })
   },
 }

@@ -100,6 +100,7 @@ export interface AuthUser {
   email: string
   displayName: string
   avatar: string
+  community?: string
 }
 
 export type ShareMode = 'venue' | 'gps'
@@ -132,6 +133,42 @@ export interface ShareRequest {
   lat?: number | null
   lng?: number | null
   durationMin: number
-  crewCode?: string | null
   statusText?: string | null
+}
+
+/** Default community every user belongs to until they change it (Feature 14). */
+export const DEFAULT_COMMUNITY = 'CommunityBR'
+
+export interface FlightInput {
+  originIata: string
+  destIata: string
+  /** Local time at origin, "YYYY-MM-DDTHH:MM". */
+  departAt: string
+  /** Local time at destination, "YYYY-MM-DDTHH:MM". */
+  arriveAt: string
+  flightNumber?: string | null
+  note?: string | null
+}
+
+export interface Flight extends FlightInput {
+  id: string
+  sub: string
+  displayName: string
+  avatar: string
+  isPepper: boolean
+  mine: boolean
+}
+
+export type MeetupKind = 'departure' | 'arrival' | 'layover'
+
+export interface Meetup {
+  kind: MeetupKind
+  airport: string
+  mine: Flight
+  other: Flight
+  /** Local "YYYY-MM-DDTHH:MM" of my event / their event at the airport. */
+  myAt: string
+  theirAt: string
+  myEvent: 'dep' | 'arr'
+  theirEvent: 'dep' | 'arr'
 }

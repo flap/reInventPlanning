@@ -1731,13 +1731,13 @@ export function useTheme() {
 | `USER#{sub}` | `PLAN#checklist` | items{}, updatedAt | — |
 | `USER#{sub}` | `PLAN#budget` | scenario, inputs{}, updatedAt | — |
 | `USER#{sub}` | `PLAN#trip` | eventoId, datas, hotelId, status, updatedAt | — |
-| `SHARE#{crewCode\|GLOBAL}` | `USER#{sub}` | mode(`venue`\|`gps`), venueId?, lat?, lng?, status?, displayName, avatar, sharedAt, **expiresAt** | ✅ `expiresAt` |
+| `SHARE#{community}` | `USER#{sub}` | mode(`venue`\|`gps`), venueId?, lat?, lng?, status?, displayName, avatar, sharedAt, **expiresAt** | ✅ `expiresAt` |
 
 **Regras estruturais:**
 - Um usuário só tem item em `SHARE#...` **enquanto está compartilhando** (opt-in). Toggle off = `DeleteItem`.
 - **TTL** (`expiresAt`) garante expiração automática mesmo se o cliente sumir (F12.7). GPS preciso: TTL curto (duração escolhida). Venue: TTL moderado.
 - **Reciprocidade aplicada no servidor:** o endpoint de leitura (`GET /share`) só retorna a lista se o próprio requisitante possui um item `SHARE#...` ativo. Sem isso → `403`/lista vazia. A regra não fica só na UI.
-- **Crew codes (F13.4):** a partição `SHARE#{crewCode}` restringe a visibilidade ao grupo; `SHARE#GLOBAL` é o pool recíproco aberto.
+- **Comunidade (F13.4 → ADR-012):** a partição `SHARE#{community}` restringe a visibilidade à comunidade do perfil, derivada no servidor. O antigo `crewCode`/`GLOBAL` foi removido.
 - GPS preciso nunca é gravado no modo `venue`.
 
 **Endpoints (protegidos por Cognito):**
@@ -1752,10 +1752,15 @@ DELETE /api/v1/account              → apaga conta (Cognito) + todos os itens (
 
 # Localização (Features 12–13) — todos exigem sharing ativo do requisitante
 POST   /api/v1/share                → iniciar/atualizar compartilhamento
-                                       body: { mode, venueId? | lat?,lng?, durationMin, crewCode? }
+                                       body: { mode, venueId? | lat?,lng?, durationMin }
                                        grava expiresAt = now + durationMin
 DELETE /api/v1/share                → parar de compartilhar (DeleteItem imediato)
-GET    /api/v1/share?crewCode=...   → lista de peers ativos (só se requisitante compartilha)
+GET    /api/v1/share                → lista de peers ativos da MESMA comunidade (escopo do perfil)
+
+# Voos (Feature 14 — ADR-012)
+GET    /api/v1/flights              → voos da minha comunidade
+POST   /api/v1/flights              → adicionar trecho (IATA, horários locais; máx. 12)
+DELETE /api/v1/flights/{id}         → remover trecho meu
 ```
 
 **Alternativas descartadas:**
@@ -1786,6 +1791,25 @@ GET    /api/v1/share?crewCode=...   → lista de peers ativos (só se requisitan
 **Consequência para o frontend:** novo composable `useAuth` (padrão `useI18n`/`useTheme`), store `location`/`share`, guard de rota `requiresAuth`, e componente de consentimento. Nenhuma dessas telas expõe localização de quem não optou.
 
 **Emenda (posterior — visualização não-recíproca):** por decisão de produto, a reciprocidade (item 2) foi **removida**: qualquer usuário **autenticado** pode listar quem está compartilhando, mesmo sem compartilhar. O `GET /share` não retorna mais `403` por não-compartilhamento. As demais garantias permanecem: aparecer na lista continua **opt-in** (ninguém é listado sem escolher compartilhar), então não há exposição de quem não consentiu; login continua obrigatório para a área. Adicionado também um **link para o Google Maps** na posição de peers que compartilham por GPS (`https://www.google.com/maps?q=lat,lng`, aberto com `rel="noopener noreferrer"`).
+
+---
+
+### ADR-012: Comunidade no Perfil e Voos da Comunidade (Feature 14)
+
+**Status:** Aceito
+
+**Contexto:** O `crewCode` era enviado pelo cliente em cada chamada e, quando vazio, caía num escopo `GLOBAL` visível a todos. Isso permitia a qualquer cliente consultar partições arbitrárias e dificultava restringir visibilidade. Surgiu também a necessidade de compartilhar voos para encontros em aeroportos.
+
+**Decisão:**
+
+1. `crewCode` é removido da API. O perfil passa a ter `community` (padrão `CommunityBR`). O escopo (`scope = community.upper()`) é **derivado no servidor** do perfil do chamador — o cliente não escolhe a partição. Elimina o escopo `GLOBAL`.
+2. Voos: item do dono `USER#{sub} / FLIGHT#{id}` (fonte da verdade, usado em exclusão/reindexação) + item de índice `FLIGHT#{scope} / {sub}#{id}` para listar a comunidade com 1 `Query` (sem GSI).
+3. TTL (`expiresAt`) = chegada + 72h; limite de 12 trechos por usuário.
+4. Trocar `community` no `PUT /profile` remove o share ativo do escopo antigo e reindexa os voos no novo.
+5. Endpoints: `GET/POST /api/v1/flights`, `DELETE /api/v1/flights/{id}`.
+6. A sugestão de encontros é calculada **no cliente** sobre os voos já visíveis (eventos por aeroporto, janela de 3h em horário local), sem novo endpoint.
+
+**Consequências:** itens `SHARE#GLOBAL` antigos expiram sozinhos via TTL. Nome/avatar nos índices de voo são um snapshot do cadastro do voo (aceito; evita N leituras de perfil). Sem GSI nem nova infraestrutura — `template.yaml` já roteia `/api/v1/{proxy+}`.
 
 ---
 

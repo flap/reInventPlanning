@@ -3,10 +3,15 @@ import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { useI18n } from '@/composables/useI18n'
 import { useLocationShare } from '@/composables/useLocationShare'
 import ConsentModal from '@/components/shared/ConsentModal.vue'
+import FlightsSection from '@/components/shared/FlightsSection.vue'
+import { useAuth } from '@/composables/useAuth'
+import { DEFAULT_COMMUNITY } from '@/types'
 import placesData from '@/data/reinvent-places.json'
 import type { ReinventPlace, ShareMode } from '@/types'
 
 const { t } = useI18n()
+const { user } = useAuth()
+const community = computed(() => user.value?.community || DEFAULT_COMMUNITY)
 const { status, peers, error, isSharing, secondsLeft, refreshStatus, start, stop, refreshPeers } =
   useLocationShare()
 
@@ -26,7 +31,6 @@ const showConsent = ref(false)
 const mode = ref<ShareMode>('venue')
 const venueId = ref<string>(places[0]?.id ?? '')
 const durationMin = ref(120)
-const crewCode = ref('')
 const statusText = ref('')
 const gpsError = ref<string | null>(null)
 
@@ -76,7 +80,6 @@ async function getGps(): Promise<{ lat: number; lng: number } | null> {
 
 async function doStart() {
   gpsError.value = null
-  const crew = crewCode.value.trim() || null
   if (mode.value === 'gps') {
     const coords = await getGps()
     if (!coords) {
@@ -88,7 +91,6 @@ async function doStart() {
       lat: coords.lat,
       lng: coords.lng,
       durationMin: durationMin.value,
-      crewCode: crew,
       statusText: statusText.value.trim() || null,
     })
   } else {
@@ -96,7 +98,6 @@ async function doStart() {
       mode: 'venue',
       venueId: venueId.value,
       durationMin: durationMin.value,
-      crewCode: crew,
       statusText: statusText.value.trim() || null,
     })
   }
@@ -104,7 +105,7 @@ async function doStart() {
 }
 
 async function doStop() {
-  await stop(crewCode.value.trim() || null)
+  await stop()
   // Keep the timer running: user can still view peers after stopping.
 }
 
@@ -132,11 +133,11 @@ function startTimer() {
     if (isSharing.value) {
       countdown.value = secondsLeft()
       if (countdown.value <= 0) {
-        await refreshStatus(crewCode.value.trim() || null)
+        await refreshStatus()
       }
     }
     // Always refresh the peer list (non-reciprocal: viewable without sharing).
-    await refreshPeers(crewCode.value.trim() || null)
+    await refreshPeers()
   }, 5000)
   countdown.value = secondsLeft()
 }
@@ -147,9 +148,9 @@ function stopTimer() {
 }
 
 onMounted(async () => {
-  await refreshStatus(crewCode.value.trim() || null)
+  await refreshStatus()
   // Non-reciprocal: load and poll peers even when not sharing.
-  await refreshPeers(crewCode.value.trim() || null)
+  await refreshPeers()
   startTimer()
 })
 
@@ -160,6 +161,13 @@ onUnmounted(stopTimer)
   <div class="max-w-2xl mx-auto px-4 py-8">
     <h1 class="text-2xl font-bold text-aws-dark dark:text-gray-100 mb-1">👥 {{ t('findpeople.title') }}</h1>
     <p class="text-gray-600 dark:text-gray-400 text-sm mb-6">{{ t('findpeople.subtitle') }}</p>
+
+    <!-- Community scope: only people in the same community are visible -->
+    <p class="mb-4 text-sm text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-2">
+      🏷 {{ t('findpeople.community') }}: <strong>{{ community }}</strong>
+      · <span class="text-gray-500 dark:text-gray-400">{{ t('findpeople.communityHint') }}</span>
+      <router-link to="/perfil" class="ml-1 text-aws-orange hover:underline">{{ t('findpeople.changeCommunity') }}</router-link>
+    </p>
 
     <!-- Persistent sharing indicator (F12.8) -->
     <div
@@ -233,18 +241,6 @@ onUnmounted(stopTimer)
         />
       </div>
 
-      <!-- crew code -->
-      <div class="mb-4">
-        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{{ t('findpeople.crewCode') }}</label>
-        <input
-          v-model="crewCode"
-          type="text"
-          maxlength="24"
-          class="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-aws-orange outline-none uppercase"
-        />
-        <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">{{ t('findpeople.crewHint') }}</p>
-      </div>
-
       <p v-if="gpsError" class="mb-3 text-sm text-red-600 dark:text-red-400">{{ gpsError }}</p>
 
       <button @click="requestStart" class="w-full py-2.5 bg-aws-orange text-white rounded-lg font-medium hover:bg-orange-600 transition-colors">
@@ -257,7 +253,7 @@ onUnmounted(stopTimer)
       <div class="flex items-center justify-between mb-4">
         <h2 class="font-semibold text-aws-dark dark:text-gray-100">👥 {{ t('findpeople.peersTitle') }}</h2>
         <button
-          @click="refreshPeers(crewCode.trim() || null)"
+          @click="refreshPeers()"
           class="text-sm text-aws-orange hover:underline"
         >
           🔄 {{ t('findpeople.refresh') }}
@@ -314,6 +310,8 @@ onUnmounted(stopTimer)
 
       <p v-if="error" class="mt-3 text-sm text-red-600 dark:text-red-400">{{ error }}</p>
     </div>
+
+    <FlightsSection />
 
     <ConsentModal :open="showConsent" @agree="grantConsent" @cancel="showConsent = false" />
   </div>

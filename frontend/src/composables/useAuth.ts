@@ -1,5 +1,6 @@
 import { computed, ref } from 'vue'
 import type { AuthUser } from '@/types'
+import { DEFAULT_COMMUNITY } from '@/types'
 import { api, getToken, setToken } from '@/services/api'
 import { cognito, cognitoEnabled } from '@/services/cognito'
 
@@ -50,6 +51,7 @@ async function hydrateFromCognito(): Promise<void> {
         email: tokens.email,
         displayName: tokens.email.split('@')[0] || 'peer',
         avatar: '🙂',
+        community: DEFAULT_COMMUNITY,
       }
       user.value = u
       persist(u)
@@ -83,11 +85,14 @@ async function login(email: string, passwordOrName = ''): Promise<AuthUser> {
       email: tokens.email,
       displayName: (profile as AuthUser).displayName || tokens.email.split('@')[0] || 'peer',
       avatar: (profile as AuthUser).avatar || '🙂',
+      community: (profile as AuthUser).community || DEFAULT_COMMUNITY,
     }
     user.value = u
     persist(u)
     // Ensure the backend profile row carries the email (needed for the isPepper
     // highlight) and the current display name/avatar. Idempotent, best-effort.
+    // `community` is deliberately omitted: the server keeps the stored one, so a
+    // failed profile read can never reset it to the default.
     api.putProfile({ displayName: u.displayName, avatar: u.avatar, locale: 'pt', email: u.email }).catch(
       (e) => console.warn('login: profile upsert failed (non-blocking)', e),
     )
@@ -107,11 +112,16 @@ function logout(): void {
   setToken(null)
 }
 
-async function updateProfile(displayName: string, avatar: string, locale: string): Promise<void> {
+async function updateProfile(
+  displayName: string,
+  avatar: string,
+  locale: string,
+  community: string = DEFAULT_COMMUNITY,
+): Promise<void> {
   const email = user.value?.email
-  await api.putProfile({ displayName, avatar, locale, email })
+  await api.putProfile({ displayName, avatar, locale, email, community })
   if (user.value) {
-    user.value = { ...user.value, displayName, avatar }
+    user.value = { ...user.value, displayName, avatar, community }
     persist(user.value)
   }
 }
