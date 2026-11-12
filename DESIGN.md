@@ -1696,6 +1696,8 @@ export function useTheme() {
 
 ---
 
+**Emenda (esqueci minha senha):** o fluxo padrão do Cognito (`ForgotPassword` + `ConfirmForgotPassword`, via `CognitoUser.forgotPassword`/`confirmPassword`) é feito inteiramente no navegador, em duas etapas na tela de login: e-mail → código por e-mail (mecanismo `verified_email` já configurado no pool) → código + nova senha. Nenhum endpoint próprio participa. A mensagem de envio é neutra ("se o e-mail estiver cadastrado…") para não revelar contas existentes. Erros (`CodeMismatch`, `ExpiredCode`, `InvalidPassword`, `LimitExceeded`) têm mensagens traduzidas.
+
 **Emenda (troca de senha):** a troca de senha pelo usuário logado usa a API nativa do Cognito (`CognitoUser.changePassword` do `amazon-cognito-identity-js`, requer sessão válida). A senha atual e a nova vão direto ao Cognito — nenhum endpoint do backend próprio as recebe. A política do pool (≥8, maiúscula, minúscula, número) é validada também no cliente para feedback imediato; o Cognito segue como fonte da verdade. Indisponível em modo demo (sem Cognito).
 
 ### ADR-009: API Serverless (API Gateway + Lambda/FastAPI+Mangum)

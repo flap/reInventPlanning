@@ -126,6 +126,16 @@ async function updateProfile(
   }
 }
 
+async function forgotPassword(email: string): Promise<void> {
+  if (!cognitoEnabled) throw new Error('Password reset requires Cognito')
+  await cognito.forgotPassword(email)
+}
+
+async function resetPassword(email: string, code: string, newPassword: string): Promise<void> {
+  if (!cognitoEnabled) throw new Error('Password reset requires Cognito')
+  await cognito.confirmPassword(email, code, newPassword)
+}
+
 async function changePassword(oldPassword: string, newPassword: string): Promise<void> {
   if (!cognitoEnabled) throw new Error('Password change requires Cognito')
   await cognito.changePassword(oldPassword, newPassword)
@@ -149,6 +159,8 @@ export function useAuth() {
     logout,
     updateProfile,
     changePassword,
+    forgotPassword,
+    resetPassword,
     deleteAccount,
   }
 }

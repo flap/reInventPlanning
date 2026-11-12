@@ -448,7 +448,7 @@ Cada feature é derivada do conteúdo existente nos guias do projeto, expandida 
 | F11.4 | Sincronização localStorage ↔ nuvem com resolução de conflito (last-write-wins por timestamp) | Alta |
 | F11.5 | Perfil do usuário (nome de exibição, avatar/emoji, idioma preferido) | Média |
 | F11.6 | Logout e sessão persistente (token JWT com expiração) | Alta |
-| F11.7 | Recuperação de senha (fluxo Cognito) | Média |
+| F11.7 | Recuperação de senha ("Esqueci minha senha") no fluxo padrão do Cognito: e-mail → código de verificação por e-mail → nova senha | Média |
 | F11.8 | Exclusão de conta e de todos os dados associados (LGPD/GDPR — direito ao esquecimento) | Alta |
 | F11.9 | Uso anônimo continua funcionando (login é opcional; sem login, dados só locais) | Alta |
 | F11.10 | Troca de senha pelo usuário logado no Perfil (senha atual + nova), via API nativa do Cognito `ChangePassword`; a senha nunca passa por backend próprio | Média |

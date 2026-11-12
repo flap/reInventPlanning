@@ -1,5 +1,24 @@
 [
   {
+    "version": "1.8.2",
+    "date": "2026-11-12",
+    "title": {
+      "pt": "Esqueci minha senha",
+      "en": "Forgot password",
+      "es": "Olvidé mi contraseña"
+    },
+    "items": [
+      {
+        "type": "feature",
+        "text": {
+          "pt": "Na tela de login, 'Esqueci minha senha' envia um código por e-mail (fluxo padrão do Amazon Cognito) para você criar uma nova senha.",
+          "en": "On the sign-in screen, 'Forgot my password' emails a code (standard Amazon Cognito flow) so you can create a new password.",
+          "es": "En la pantalla de inicio de sesión, 'Olvidé mi contraseña' envía un código por correo (flujo estándar de Amazon Cognito) para crear una nueva contraseña."
+        }
+      }
+    ]
+  },
+  {
     "version": "1.8.1",
     "date": "2026-11-12",
     "title": {

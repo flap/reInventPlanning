@@ -85,6 +85,30 @@ export const cognito = {
     })
   },
 
+  /** Standard Cognito "forgot password" step 1: emails a verification code. */
+  forgotPassword(email: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      const user = new CognitoUser({ Username: email, Pool: userPool() })
+      user.forgotPassword({
+        onSuccess: () => resolve(),
+        onFailure: (err) => reject(err),
+        // Called when Cognito has dispatched the code (the normal path).
+        inputVerificationCode: () => resolve(),
+      })
+    })
+  },
+
+  /** Step 2: confirms the emailed code and sets the new password. */
+  confirmPassword(email: string, code: string, newPassword: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      const user = new CognitoUser({ Username: email, Pool: userPool() })
+      user.confirmPassword(code, newPassword, {
+        onSuccess: () => resolve(),
+        onFailure: (err) => reject(err),
+      })
+    })
+  },
+
   /** Current session tokens if a valid session exists (refreshes if needed). */
   currentTokens(): Promise<CognitoTokens | null> {
     return new Promise((resolve) => {
