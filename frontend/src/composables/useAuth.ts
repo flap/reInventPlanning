@@ -126,6 +126,11 @@ async function updateProfile(
   }
 }
 
+async function changePassword(oldPassword: string, newPassword: string): Promise<void> {
+  if (!cognitoEnabled) throw new Error('Password change requires Cognito')
+  await cognito.changePassword(oldPassword, newPassword)
+}
+
 async function deleteAccount(): Promise<void> {
   await api.deleteAccount()
   logout()
@@ -143,6 +148,7 @@ export function useAuth() {
     login,
     logout,
     updateProfile,
+    changePassword,
     deleteAccount,
   }
 }

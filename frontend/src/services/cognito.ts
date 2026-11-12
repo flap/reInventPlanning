@@ -103,6 +103,27 @@ export const cognito = {
     })
   },
 
+  /**
+   * Native Cognito ChangePassword for the signed-in user. Needs a valid
+   * session (refreshed if necessary); the password goes straight to Cognito.
+   */
+  changePassword(oldPassword: string, newPassword: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      const user = userPool().getCurrentUser()
+      if (!user) {
+        reject(Object.assign(new Error('No active session'), { name: 'NotAuthorizedException' }))
+        return
+      }
+      user.getSession((err: Error | null, session: CognitoUserSession | null) => {
+        if (err || !session || !session.isValid()) {
+          reject(err ?? Object.assign(new Error('Invalid session'), { name: 'NotAuthorizedException' }))
+          return
+        }
+        user.changePassword(oldPassword, newPassword, (e) => (e ? reject(e) : resolve()))
+      })
+    })
+  },
+
   signOut(): void {
     const user = userPool().getCurrentUser()
     if (user) user.signOut()
