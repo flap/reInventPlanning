@@ -1,5 +1,24 @@
 [
   {
+    "version": "1.8.1",
+    "date": "2026-11-12",
+    "title": {
+      "pt": "Troca de senha no perfil",
+      "en": "Change password in profile",
+      "es": "Cambio de contraseña en el perfil"
+    },
+    "items": [
+      {
+        "type": "feature",
+        "text": {
+          "pt": "Agora você pode alterar sua senha em Meu Perfil, usando a integração nativa do Amazon Cognito (a senha nunca passa por servidor próprio).",
+          "en": "You can now change your password in My Profile using the native Amazon Cognito integration (the password never goes through our own server).",
+          "es": "Ahora puedes cambiar tu contraseña en Mi Perfil con la integración nativa de Amazon Cognito (la contraseña nunca pasa por un servidor propio)."
+        }
+      }
+    ]
+  },
+  {
     "version": "1.8.0",
     "date": "2026-11-12",
     "title": {

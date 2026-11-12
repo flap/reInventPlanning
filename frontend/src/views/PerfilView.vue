@@ -7,7 +7,7 @@ import { useCloudSync } from '@/composables/useCloudSync'
 import { DEFAULT_COMMUNITY } from '@/types'
 
 const { t, locale } = useI18n()
-const { user, logout, updateProfile, deleteAccount } = useAuth()
+const { user, logout, updateProfile, deleteAccount, changePassword, cognitoEnabled } = useAuth()
 const { pushAll } = useCloudSync()
 const router = useRouter()
 
@@ -45,6 +45,59 @@ async function handleSave() {
     profileMsg.value = { text: `${t('perfil.saveError')}: ${errText(e)}`, ok: false }
   } finally {
     saving.value = false
+  }
+}
+
+// ---- Change password (native Cognito) ----
+const oldPw = ref('')
+const newPw = ref('')
+const confirmPw = ref('')
+const pwMsg = ref<Feedback | null>(null)
+const changingPw = ref(false)
+
+function pwErrorText(e: unknown): string {
+  const name = (e as { name?: string })?.name
+  switch (name) {
+    case 'NotAuthorizedException':
+      return t('perfil.pwWrongCurrent')
+    case 'InvalidPasswordException':
+    case 'InvalidParameterException':
+      return t('perfil.pwPolicy')
+    case 'LimitExceededException':
+    case 'TooManyRequestsException':
+      return t('perfil.pwLimit')
+    default:
+      return `${t('perfil.pwError')}: ${errText(e)}`
+  }
+}
+
+async function handleChangePassword() {
+  pwMsg.value = null
+  if (!oldPw.value || !newPw.value) {
+    pwMsg.value = { text: t('perfil.pwRequired'), ok: false }
+    return
+  }
+  if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(newPw.value)) {
+    pwMsg.value = { text: t('perfil.pwPolicy'), ok: false }
+    return
+  }
+  if (newPw.value !== confirmPw.value) {
+    pwMsg.value = { text: t('perfil.pwMismatch'), ok: false }
+    return
+  }
+  if (newPw.value === oldPw.value) {
+    pwMsg.value = { text: t('perfil.pwSame'), ok: false }
+    return
+  }
+  changingPw.value = true
+  try {
+    await changePassword(oldPw.value, newPw.value)
+    pwMsg.value = { text: t('perfil.pwChanged'), ok: true }
+    oldPw.value = newPw.value = confirmPw.value = ''
+  } catch (e) {
+    pwMsg.value = { text: pwErrorText(e), ok: false }
+  } finally {
+    changingPw.value = false
   }
 }
 
@@ -164,6 +217,52 @@ function handleLogout() {
         {{ syncMsg.ok ? '✅' : '⚠️' }} {{ syncMsg.text }}
       </p>
     </div>
+
+    <!-- Change password (Cognito only; no passwords exist in demo mode) -->
+    <form
+      v-if="cognitoEnabled"
+      class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 mb-6"
+      @submit.prevent="handleChangePassword"
+    >
+      <h2 class="font-semibold text-aws-dark dark:text-gray-100 mb-3">🔑 {{ t('perfil.changePassword') }}</h2>
+      <div class="space-y-3">
+        <div>
+          <label for="pw-old" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{{ t('perfil.pwCurrent') }}</label>
+          <input id="pw-old" v-model="oldPw" type="password" autocomplete="current-password"
+            class="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-aws-orange outline-none" />
+        </div>
+        <div>
+          <label for="pw-new" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{{ t('perfil.pwNew') }}</label>
+          <input id="pw-new" v-model="newPw" type="password" autocomplete="new-password"
+            class="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-aws-orange outline-none" />
+          <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">{{ t('perfil.pwPolicy') }}</p>
+        </div>
+        <div>
+          <label for="pw-confirm" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{{ t('perfil.pwConfirm') }}</label>
+          <input id="pw-confirm" v-model="confirmPw" type="password" autocomplete="new-password"
+            class="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-aws-orange outline-none" />
+        </div>
+        <button
+          type="submit"
+          :disabled="changingPw"
+          class="px-4 py-2 bg-aws-orange text-white rounded-lg font-medium hover:bg-orange-600 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+        >
+          {{ changingPw ? t('perfil.pwChanging') : t('perfil.pwSubmit') }}
+        </button>
+        <p
+          v-if="pwMsg"
+          role="status"
+          :class="[
+            'text-sm rounded-lg p-3',
+            pwMsg.ok
+              ? 'text-green-700 dark:text-green-400 bg-green-50 dark:bg-green-900/20'
+              : 'text-red-700 dark:text-red-400 bg-red-50 dark:bg-red-900/20',
+          ]"
+        >
+          {{ pwMsg.ok ? '✅' : '⚠' }} {{ pwMsg.text }}
+        </p>
+      </div>
+    </form>
 
     <!-- Session -->
     <button @click="handleLogout" class="w-full mb-6 py-2.5 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">

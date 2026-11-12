@@ -451,6 +451,7 @@ Cada feature é derivada do conteúdo existente nos guias do projeto, expandida 
 | F11.7 | Recuperação de senha (fluxo Cognito) | Média |
 | F11.8 | Exclusão de conta e de todos os dados associados (LGPD/GDPR — direito ao esquecimento) | Alta |
 | F11.9 | Uso anônimo continua funcionando (login é opcional; sem login, dados só locais) | Alta |
+| F11.10 | Troca de senha pelo usuário logado no Perfil (senha atual + nova), via API nativa do Cognito `ChangePassword`; a senha nunca passa por backend próprio | Média |
 
 **Critérios de aceite:**
 
