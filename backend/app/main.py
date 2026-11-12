@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from mangum import Mangum
 
 from app.config import settings
-from app.routers import plan, share
+from app.routers import flights, plan, share
 
 app = FastAPI(
     title=settings.app_name,
@@ -22,6 +22,7 @@ app.add_middleware(
 
 app.include_router(plan.router, prefix="/api/v1", tags=["Plan"])
 app.include_router(share.router, prefix="/api/v1/share", tags=["Location Share"])
+app.include_router(flights.router, prefix="/api/v1/flights", tags=["Flights"])
 
 
 @app.get("/api/health")

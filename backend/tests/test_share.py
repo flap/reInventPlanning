@@ -100,28 +100,56 @@ def test_stop_share_revokes_immediately(client):
     assert all(p["sub"] != "b" for p in peers)
 
 
-def test_crew_scope_isolation(client):
-    # a shares in crew ABC, c shares in GLOBAL
-    client.post(
-        "/api/v1/share",
-        json={"mode": "venue", "venueId": "wynn-sessions", "durationMin": 60, "crewCode": "abc"},
-        headers=auth("a"),
-    )
-    client.post(
-        "/api/v1/share",
-        json={"mode": "venue", "venueId": "wynn-sessions", "durationMin": 60, "crewCode": "abc"},
-        headers=auth("b"),
-    )
-    client.post(
+def _set_community(client, sub, community=None):
+    body = {"displayName": sub, "avatar": "🙂", "locale": "pt"}
+    if community:
+        body["community"] = community
+    r = client.put("/api/v1/profile", json=body, headers=auth(sub))
+    assert r.status_code == 200
+    return r.json()
+
+
+def _share(client, sub):
+    return client.post(
         "/api/v1/share",
         json={"mode": "venue", "venueId": "wynn-sessions", "durationMin": 60},
-        headers=auth("c"),
+        headers=auth(sub),
     )
-    # a in crew ABC sees b (same crew) but not c (GLOBAL)
-    peers = client.get("/api/v1/share?crewCode=abc", headers=auth("a")).json()
-    subs = {p["sub"] for p in peers}
-    assert "b" in subs
-    assert "c" not in subs
+
+
+def test_community_scope_isolation(client):
+    _set_community(client, "a", "Alpha")
+    _set_community(client, "b", "alpha")  # case-insensitive: same community as a
+    _set_community(client, "c")  # default CommunityBR
+    for u in ("a", "b", "c"):
+        _share(client, u)
+    subs = {p["sub"] for p in client.get("/api/v1/share", headers=auth("a")).json()}
+    assert subs == {"b"}  # sees b (same community), never c (CommunityBR)
+
+
+def test_default_community_users_see_each_other(client):
+    # No profile at all -> everybody defaults to CommunityBR.
+    _share(client, "x")
+    _share(client, "y")
+    subs = {p["sub"] for p in client.get("/api/v1/share", headers=auth("x")).json()}
+    assert subs == {"y"}
+
+
+def test_client_cannot_choose_scope_via_query(client):
+    _set_community(client, "a", "Alpha")
+    _set_community(client, "b", "Beta")
+    _share(client, "b")
+    # a tries to peek at Beta through the legacy query param -> ignored.
+    r = client.get("/api/v1/share?crewCode=Beta", headers=auth("a"))
+    assert r.json() == []
+
+
+def test_changing_community_stops_sharing(client):
+    _set_community(client, "a", "Alpha")
+    _share(client, "a")
+    assert client.get("/api/v1/share/status", headers=auth("a")).json()["sharing"] is True
+    _set_community(client, "a", "Beta")
+    assert client.get("/api/v1/share/status", headers=auth("a")).json()["sharing"] is False
 
 
 def test_gps_duration_capped(client):

@@ -147,9 +147,9 @@ reInventPlanning/
 
 ### 🔐 Logged area / Área logada / Área con sesión
 
-- 🇧🇷 Crie uma conta para **salvar seu plano na nuvem** e usar o **findPeople** — encontre outros participantes que optaram por compartilhar sua localização (por local do re:Invent ou GPS), de forma recíproca e revogável. Uso anônimo continua 100% funcional.
-- 🇺🇸 Create an account to **save your plan to the cloud** and use **findPeople** — find other attendees who opted in to share their location (by re:Invent venue or GPS), reciprocally and revocably. Anonymous use still works 100%.
-- 🇪🇸 Crea una cuenta para **guardar tu plan en la nube** y usar **findPeople** — encuentra a otros participantes que optaron por compartir su ubicación (por lugar del re:Invent o GPS), de forma recíproca y revocable. El uso anónimo sigue funcionando al 100%.
+- 🇧🇷 Crie uma conta para **salvar seu plano na nuvem** e usar o **findPeople** — encontre outros participantes que optaram por compartilhar sua localização (por local do re:Invent ou GPS), de forma revogável, visível só para sua **comunidade** (padrão `CommunityBR`, definida no perfil). Cadastre também seus **voos e horários** para se encontrar com a comunidade em aeroportos (saída, conexão, chegada em Las Vegas). Uso anônimo continua 100% funcional.
+- 🇺🇸 Create an account to **save your plan to the cloud** and use **findPeople** — find other attendees who opted in to share their location (by re:Invent venue or GPS), revocably, visible only to your **community** (default `CommunityBR`, set in your profile). Also add your **flights and schedules** to meet your community at airports (departure, layover, arrival in Las Vegas). Anonymous use still works 100%.
+- 🇪🇸 Crea una cuenta para **guardar tu plan en la nube** y usar **findPeople** — encuentra a otros participantes que optaron por compartir su ubicación (por lugar del re:Invent o GPS), de forma revocable, visible solo para tu **comunidad** (predeterminada `CommunityBR`, definida en el perfil). Registra también tus **vuelos y horarios** para encontrarte con la comunidad en aeropuertos (salida, escala, llegada a Las Vegas). El uso anónimo sigue funcionando al 100%.
 
 ---
 

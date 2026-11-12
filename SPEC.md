@@ -519,7 +519,7 @@ Cada feature é derivada do conteúdo existente nos guias do projeto, expandida 
 | F13.1 | Lista/mapa de peers que estão compartilhando localização no momento | Alta |
 | F13.2 | Filtro por local (venue/sala do re:Invent) | Média |
 | F13.3 | Agrupamento por local ("5 pessoas no Expo Hall agora") | Média |
-| F13.4 | Códigos de "crew" opcionais: compartilhar um código com um grupo para se ver mutuamente | Média |
+| F13.4 | ~~Códigos de "crew" opcionais~~ → substituído pela **Comunidade** do perfil (Feature 14): só pessoas da mesma comunidade se veem | Alta |
 | F13.5 | Status/intenção opcional ("indo ao happy hour X", "na talk Y") — texto curto opt-in | Baixa |
 | F13.6 | Atualização quase em tempo real da lista (polling ou WebSocket) | Média |
 | F13.7 | Visualização não-recíproca (qualquer logado vê) + opt-in para quem é listado (Feature 12) | Alta |
@@ -530,10 +530,38 @@ Cada feature é derivada do conteúdo existente nos guias do projeto, expandida 
 - findPeople só é acessível na área logada.
 - Só aparecem peers que estão ativamente compartilhando; quem parou some da lista.
 - Qualquer usuário logado vê os peers, mesmo sem compartilhar a própria localização (não-recíproco).
-- Crew codes (quando usados) restringem a visibilidade ao grupo com o código, mantendo opt-in.
+- Só são listados peers da **mesma comunidade** do usuário (padrão `CommunityBR`), definida no perfil e aplicada no servidor (Feature 14).
 - Nenhum dado de localização de não-participantes é exibido em nenhuma circunstância.
 - Peers que compartilham por GPS exibem um link para o Google Maps com a posição.
 - O destaque 🌶️ é derivado **no servidor** (flag `isPepper`) comparando o email do perfil com o email-alvo configurado; o **email nunca é exposto** na listagem de peers (minimização de dados — ADR-011).
+
+---
+
+### Feature 14: Comunidade no Perfil + Voos e Horários no findPeople
+
+> Fonte: Solicitação de evolução — facilitar encontros em aeroportos (saída do Brasil, conexões, chegada em Las Vegas) e tornar a visibilidade mais segura. Depende das Features 11–13.
+
+**Objetivo:** (1) mover o antigo "código crew" para o **perfil** com o nome **Comunidade** (padrão `CommunityBR` para todos) e restringir toda visibilidade social (localização e voos) a quem está na **mesma comunidade**; (2) permitir que cada usuário cadastre trechos de voo (aeroporto de saída/chegada + data/hora local) para encontrar outros participantes na partida, em conexões ou na chegada em Las Vegas (LAS).
+
+| ID | Funcionalidade | Prioridade |
+|----|---------------|------------|
+| F14.1 | Campo **Comunidade** no perfil (3–24 caracteres: letras, números, `-`, `_`), padrão `CommunityBR` | Alta |
+| F14.2 | Escopo de visibilidade derivado **no servidor** a partir do perfil (cliente não escolhe a partição) | Alta |
+| F14.3 | findPeople (localização) lista apenas peers da mesma comunidade; remove o campo crew do formulário | Alta |
+| F14.4 | Seção "Voos e horários": adicionar/remover trechos (origem IATA, destino IATA, saída e chegada em horário local, nº do voo opcional) | Alta |
+| F14.5 | Lista de voos da comunidade, agrupada por aeroporto/dia, com destaque de LAS | Média |
+| F14.6 | Sugestão de encontros: outro membro no **mesmo aeroporto** com horário a ≤ 3h do meu (partida, conexão ou chegada) | Alta |
+| F14.7 | Voos expiram automaticamente (TTL = chegada + 72h) e são removidos na exclusão da conta | Alta |
+| F14.8 | Trocar de comunidade encerra o compartilhamento de localização ativo e reindexa os voos na nova comunidade | Média |
+
+**Critérios de aceite:**
+
+- Todo usuário tem comunidade; sem valor definido assume `CommunityBR`.
+- Usuários de comunidades diferentes **nunca** veem localização nem voos uns dos outros (teste automatizado).
+- Voos só são visíveis a usuários logados da mesma comunidade; e-mail nunca é exposto.
+- Máximo de 12 trechos por usuário; códigos IATA validados (3 letras).
+- Horários são "horário local do aeroporto"; a sugestão de encontro compara apenas eventos no mesmo aeroporto (mesmo fuso).
+- Textos nos 3 idiomas (PT/EN/ES).
 
 ---
 

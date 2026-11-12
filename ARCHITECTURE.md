@@ -138,15 +138,19 @@ backend/app/
 GET    /api/health                 Public health check (no auth)
 
 GET    /api/v1/profile             Get profile (email is never returned)
-PUT    /api/v1/profile             Upsert profile (displayName, avatar, locale, email)
+PUT    /api/v1/profile             Upsert profile (displayName, avatar, locale, email, community)
 GET    /api/v1/plan                Get cloud plan (checklist/budget/trip)
 PUT    /api/v1/plan/{kind}         Upsert a plan part (last-write-wins by updatedAt)
 DELETE /api/v1/account             Right to erasure: wipe all user data
 
-POST   /api/v1/share               Start/refresh sharing (venue | gps, duration, crew?)
+POST   /api/v1/share               Start/refresh sharing (venue | gps, duration)
 DELETE /api/v1/share               Stop sharing (immediate revoke)
 GET    /api/v1/share               List peers (any authenticated user; non-reciprocal)
 GET    /api/v1/share/status        My current sharing status
+
+GET    /api/v1/flights             Flights of MY community only (earliest departure first)
+POST   /api/v1/flights             Add a flight leg (IATA origin/dest, local times; max 12)
+DELETE /api/v1/flights/{id}        Remove one of my legs
 ```
 
 ---
@@ -158,13 +162,18 @@ enabled, **TTL on `expiresAt`**.
 
 | PK | SK | Item | TTL |
 |----|-----|------|-----|
-| `USER#{sub}` | `PROFILE` | displayName, avatar, locale, email*, updatedAt | — |
+| `USER#{sub}` | `PROFILE` | displayName, avatar, locale, **community** (default `CommunityBR`), email*, updatedAt | — |
 | `USER#{sub}` | `PLAN#checklist` | data, updatedAt | — |
 | `USER#{sub}` | `PLAN#budget` | data, updatedAt | — |
 | `USER#{sub}` | `PLAN#trip` | data, updatedAt | — |
 | `SHARE#{scope}` | `USER#{sub}` | mode, venueId?/lat?/lng?, displayName, avatar, isPepper, statusText?, sharedAt, **expiresAt** | ✅ |
+| `USER#{sub}` | `FLIGHT#{id}` | owner copy: origin/dest IATA, departAt/arriveAt (local), flightNumber?, note?, **expiresAt** | ✅ |
+| `FLIGHT#{scope}` | `{sub}#{id}` | community index copy of the leg (one `Query` lists a community) | ✅ |
 
-- `scope` is `GLOBAL` (open reciprocal pool) or a **crew code** (private group).
+- `scope` is the caller's **community** (`profile.community`, upper‑cased), **derived server‑side**
+  — the client never chooses the partition, so users cannot read other communities (ADR‑012).
+  Everyone defaults to `CommunityBR`. Changing community stops sharing and re‑indexes flights.
+- Flights expire 72 h after arrival (TTL) and are wiped on account deletion.
 - `*email` is stored **only** to derive the `isPepper` highlight server‑side; it is
   **never** returned in any peer listing (data minimization).
 - Location items exist **only while the user is actively sharing**; stopping sharing
@@ -221,7 +230,7 @@ and the Lambda function (`app.main.handler`).
 
 ### 7.3 Testing
 - Backend: **15 pytest tests** using `moto` to mock DynamoDB — covering reciprocity,
-  opt‑in default, revoke, venue‑vs‑gps, crew isolation, TTL caps, last‑write‑wins,
+  opt‑in default, revoke, venue‑vs‑gps, community isolation, TTL caps, last‑write‑wins,
   account deletion, and the email‑privacy / `isPepper` behaviour.
 - Frontend: `npm run build` runs `vue-tsc` type‑check + Vite build.
 

@@ -1,5 +1,40 @@
 [
   {
+    "version": "1.8.0",
+    "date": "2026-11-12",
+    "title": {
+      "pt": "Comunidade no perfil + voos e horários no findPeople",
+      "en": "Profile community + flights & schedules in findPeople",
+      "es": "Comunidad en el perfil + vuelos y horarios en findPeople"
+    },
+    "items": [
+      {
+        "type": "feature",
+        "text": {
+          "pt": "Novo campo Comunidade no perfil (padrão CommunityBR para todos) substitui o código crew. Só pessoas da mesma comunidade veem sua localização e seus voos — a regra é aplicada no servidor.",
+          "en": "New Community field in the profile (default CommunityBR for everyone) replaces the crew code. Only people in the same community see your location and flights — enforced on the server.",
+          "es": "Nuevo campo Comunidad en el perfil (predeterminada CommunityBR para todos) reemplaza el código crew. Solo las personas de la misma comunidad ven tu ubicación y tus vuelos — regla aplicada en el servidor."
+        }
+      },
+      {
+        "type": "feature",
+        "text": {
+          "pt": "findPeople ganhou a seção Voos e horários: cadastre trechos (aeroportos IATA, saída e chegada em horário local) e veja possíveis encontros na partida do Brasil, em conexões ou na chegada em Las Vegas.",
+          "en": "findPeople now has a Flights & schedules section: add legs (IATA airports, local departure and arrival) and see possible meetups when leaving Brazil, on layovers or arriving in Las Vegas.",
+          "es": "findPeople ahora tiene la sección Vuelos y horarios: registra tramos (aeropuertos IATA, salida y llegada en hora local) y ve posibles encuentros al salir de Brasil, en escalas o al llegar a Las Vegas."
+        }
+      },
+      {
+        "type": "fix",
+        "text": {
+          "pt": "Texto de consentimento do compartilhamento corrigido: não é mais recíproco; a visibilidade é por comunidade.",
+          "en": "Sharing consent text fixed: it is no longer reciprocal; visibility is per community.",
+          "es": "Texto de consentimiento corregido: ya no es recíproco; la visibilidad es por comunidad."
+        }
+      }
+    ]
+  },
+  {
     "version": "1.7.4",
     "date": "2026-09-30",
     "title": {
